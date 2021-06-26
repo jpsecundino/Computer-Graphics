@@ -40,7 +40,7 @@ namespace World_3D
 
             Gl = GL.GetApi(window);
            
-            Shader = new World_3D.Shader("C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Shaders\\shader.vert", "C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Shaders\\shader.frag");
+            Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
 
             RenderPipeline rp = new RenderPipeline();
 

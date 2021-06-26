@@ -11,6 +11,11 @@ namespace World_3D
         public float CameraYaw = -90f;
         public float CameraPitch = 0f;
 
+        public override void Start()
+        {
+            Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
+        }
+
         public override void Update(double deltaTime)
         {
             var moveSpeed = 10f * (float)deltaTime;
