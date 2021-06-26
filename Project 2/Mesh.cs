@@ -47,8 +47,9 @@ namespace World_3D
         public void Draw(Shader shader)
         {
             _texture.Bind();
-            
             VAO.Bind();
+            EBO.Bind();
+            VBO.Bind();
 
             unsafe
             {
