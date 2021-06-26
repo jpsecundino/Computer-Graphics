@@ -18,5 +18,14 @@ namespace World_3D.CameraView
             c.parent = this;
             components.Add(c);
         }
+
+        public void Update(double deltaTime)
+        {
+            foreach(Component c in components)
+            {
+                c.Update(deltaTime);
+            }
+        }
+
     }
 }

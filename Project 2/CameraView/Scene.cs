@@ -27,6 +27,14 @@ namespace World_3D.CameraView
         {
             renderPipeline.DrawRenderers();
         }
-        
+
+        public void UpdateScene(double deltaTime)
+        {
+            foreach(GameObject g in gameObjects)
+            {
+                g.Update(deltaTime);
+            }
+        }
+
     }
 }

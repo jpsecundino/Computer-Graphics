@@ -36,19 +36,19 @@ namespace World_3D.CameraView
             }
         }
 
-        public override void OnStart()
+        public override void Start()
         {
-            throw new NotImplementedException();
+            
         }
 
-        public override void OnUpdate()
+        public override void Update(double deltaTime)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public override void OnDestroy()
+        public override void Destroy()
         {
-            throw new NotImplementedException();
+           
         }
     }
 }
