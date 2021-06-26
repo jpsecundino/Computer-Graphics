@@ -1,4 +1,6 @@
+using System;
 using System.Numerics;
+using Tutorial;
 
 namespace World_3D
 {
@@ -25,16 +27,5 @@ namespace World_3D
         //Note: The order here does matter.
         public Matrix4x4 ModelMatrix => Matrix4x4.Identity * Matrix4x4.CreateFromQuaternion(Rotation) * Matrix4x4.CreateScale(Scale) * Matrix4x4.CreateTranslation(Position);
 
-        public void Rotate(float yaw = 0f, float pitch = 0f, float roll = 0f)
-        {
-            Rotation = Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll);
-            Forward = RotateVec3(Forward, Rotation);
-        }
-
-        private Vector3 RotateVec3(Vector3 v, Quaternion q)
-        {
-            Matrix4x4 rotMat = Matrix4x4.CreateFromQuaternion(q);
-            return Vector3.Transform(v, rotMat);
-        }
     }
 }
