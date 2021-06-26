@@ -12,30 +12,30 @@ namespace Tutorial
         private uint _handle;
         private GL _gl;
 
-        public unsafe Texture(GL gl, string path)
+        public unsafe Texture(string path)
         {
             Image<Rgba32> img = (Image<Rgba32>) Image.Load(path);
             img.Mutate(x => x.Flip(FlipMode.Vertical));
 
             fixed (void* data = &MemoryMarshal.GetReference(img.GetPixelRowSpan(0)))
             {
-                Load(gl, data, (uint) img.Width, (uint) img.Height);
+                Load(data, (uint) img.Width, (uint) img.Height);
             }
 
             img.Dispose();
         }
 
-        public unsafe Texture(GL gl, Span<byte> data, uint width, uint height)
+        public unsafe Texture(Span<byte> data, uint width, uint height)
         {
             fixed (void* d = &data[0])
             {
-                Load(gl, d, width, height);
+                Load(d, width, height);
             }
         }
 
-        private unsafe void Load(GL gl, void* data, uint width, uint height)
+        private unsafe void Load(void* data, uint width, uint height)
         {
-            _gl = gl;
+            _gl = Program.Gl;
 
             _handle = _gl.GenTexture();
             Bind();

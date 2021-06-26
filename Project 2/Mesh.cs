@@ -11,10 +11,10 @@ namespace World_3D
         private VertexArrayObject<float, uint> VAO;
         private BufferObject<float> VBO;
         private BufferObject<uint> EBO;
-        private Tutorial.Texture texture;
+        private Tutorial.Texture _texture;
         private VAObuffers buffers;
 
-        public Mesh(GL _gl, string meshFilePath, Tutorial.Texture _texture)
+        public Mesh(string meshFilePath, string textureFilePath)
         {
             WavefrontReader.WavefrontData data = WavefrontReader.ReadAll(meshFilePath);
             buffers = Mesh.CreateVAOBuffers(data);
@@ -34,25 +34,26 @@ namespace World_3D
                 }
             }
 
-            EBO = new BufferObject<uint>(_gl, buffers.indices, BufferTargetARB.ElementArrayBuffer);
-            VBO = new BufferObject<float>(_gl, vertices, BufferTargetARB.ArrayBuffer);
-            VAO = new VertexArrayObject<float, uint>(_gl, VBO, EBO);
-            texture = _texture;
+            EBO = new BufferObject<uint>(buffers.indices, BufferTargetARB.ElementArrayBuffer);
+            VBO = new BufferObject<float>(vertices, BufferTargetARB.ArrayBuffer);
+            VAO = new VertexArrayObject<float, uint>(VBO, EBO);
+            
+            _texture = new Tutorial.Texture(textureFilePath);
 
             VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 5, 0);
             VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 5, 3);
 
         }
 
-        public void Draw(GL _gl, Shader shader)
+        public void Draw(Shader shader)
         {
-            texture.Bind();
+            _texture.Bind();
             
             VAO.Bind();
 
             unsafe
             {
-                _gl.DrawElements(GLEnum.Triangles, (uint)buffers.indices.Length, GLEnum.UnsignedInt, (void*)0);
+                Tutorial.Program.Gl.DrawElements(GLEnum.Triangles, (uint)buffers.indices.Length, GLEnum.UnsignedInt, (void*)0);
             }
         }
 
@@ -110,7 +111,7 @@ namespace World_3D
             VBO.Dispose();
             EBO.Dispose();
             VAO.Dispose();
-            texture.Dispose();
+            _texture.Dispose();
         }
 
         public struct VAObuffers

@@ -7,22 +7,20 @@ using System.Linq;
 using System.Numerics;
 using Silk.NET.Maths;
 using World_3D;
+using World_3D.CameraView;
 
 namespace Tutorial
 {
     class Program
     {
         private static IWindow window;
-        private static GL Gl;
+        public static GL Gl;
         private static IKeyboard primaryKeyboard;
 
         private const int Width = 800;
         private const int Height = 700;
-        private const string modelFilepath = "C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Models\\bear.obj";
-        private const string textureFilepath = "C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Models\\textures\\wizardTowerDiff.png";
-        private static Texture texture;
         private static World_3D.Shader Shader;
-        private static Mesh mesh;
+        private static Scene activeScene;
 
         //Setup the camera's location, directions, and movement speed
         private static Vector3 CameraPosition = new Vector3(0.0f, 0.0f, 3.0f);
@@ -67,11 +65,20 @@ namespace Tutorial
             }
 
             Gl = GL.GetApi(window);
-            texture = new Texture(Gl, textureFilepath);
-            Shader = new World_3D.Shader(Gl, "C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Shaders\\shader.vert", "C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Shaders\\shader.frag");
+           
+            Shader = new World_3D.Shader("C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Shaders\\shader.vert", "C:\\Users\\pedro\\Documents\\Aulas\\cg\\T2\\Shaders\\shader.frag");
 
-            mesh = new(Gl, modelFilepath, texture);
+            RenderPipeline rp = new RenderPipeline();
 
+            Scene mainScene = new Scene(rp, Shader);
+
+            activeScene = mainScene;
+
+            World_3D.CameraView.GameObject bear = new();
+            MeshType[] meshes = { MeshType.Bear };
+            bear.AddComponent(new Renderer(meshes, Shader));
+            
+            mainScene.AddGameObject(bear);
 
         }
 
@@ -120,18 +127,17 @@ namespace Tutorial
             //Use elapsed time to convert to radians to allow our cube to rotate over time
             var difference = (float) (window.Time * 100);
 
-            var model = Matrix4x4.Identity;
             //var model = Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(difference)) * Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(difference));
             var view = Matrix4x4.CreateLookAt(CameraPosition, CameraPosition + CameraFront, CameraUp);
             var projection = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(CameraZoom), Width / Height, 0.1f, 100.0f);
 
-            Shader.SetUniform("uModel", model);
             Shader.SetUniform("uView", view);
             Shader.SetUniform("uProjection", projection);
 
             //We're drawing with just vertices and no indices, and it takes 36 vertices to have a six-sided textured cube
             //Gl.DrawElements(PrimitiveType.Triangles, IndicesCount, DrawElementsType.UnsignedInt, (void*)0);
-            mesh.Draw(Gl, Shader);
+            
+            activeScene.DrawObjects();
         }
 
         private static unsafe void OnMouseMove(IMouse mouse, Vector2 position)
@@ -166,7 +172,6 @@ namespace Tutorial
         private static void OnClose()
         {
             Shader.Dispose();
-            texture.Dispose();
         }
 
         private static void KeyDown(IKeyboard keyboard, Key key, int arg3)

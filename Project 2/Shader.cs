@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
+using Tutorial;
 
 //MAE: Esse aqui eh o que eu modifiquei
 
@@ -15,9 +16,9 @@ namespace World_3D
 
         private Dictionary<string, int> _uniforms = new Dictionary<string, int>();
 
-        public Shader(GL gl, string vertexPath, string fragmentPath)
+        public Shader(string vertexPath, string fragmentPath)
         {
-            _gl = gl;
+            _gl = Tutorial.Program.Gl;
 
             uint vertex = LoadShader(ShaderType.VertexShader, vertexPath);
             uint fragment = LoadShader(ShaderType.FragmentShader, fragmentPath);

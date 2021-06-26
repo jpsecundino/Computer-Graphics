@@ -10,9 +10,9 @@ namespace Tutorial
         private uint _handle;
         private GL _gl;
 
-        public VertexArrayObject(GL gl, BufferObject<TVertexType> vbo, BufferObject<TIndexType> ebo)
+        public VertexArrayObject( BufferObject<TVertexType> vbo, BufferObject<TIndexType> ebo)
         {
-            _gl = gl;
+            _gl = Program.Gl;
 
             _handle = _gl.GenVertexArray();
             Bind();
