@@ -10,9 +10,9 @@ namespace World_3D.CameraView
     {
         public GameObject parent;
 
-        public abstract void Start();
-        public abstract void Update(double deltaTime);
-        public abstract void Destroy();
+        public virtual void Start() { }
+        public virtual void Update(double deltaTime) { }
+        public virtual void Destroy() { }
 
     }
 }

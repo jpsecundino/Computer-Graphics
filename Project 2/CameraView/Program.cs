@@ -96,8 +96,8 @@ namespace Tutorial
             //Use elapsed time to convert to radians to allow our cube to rotate over time
             var difference = (float) (window.Time * 100);
 
-            Shader.SetUniform("uView", Camera.mainCamera.view );
-            Shader.SetUniform("uProjection", Camera.mainCamera.projection);
+            Shader.SetUniform("uView", Camera.mainCamera.View );
+            Shader.SetUniform("uProjection", Camera.mainCamera.Projection);
 
             //We're drawing with just vertices and no indices, and it takes 36 vertices to have a six-sided textured cube
             //Gl.DrawElements(PrimitiveType.Triangles, IndicesCount, DrawElementsType.UnsignedInt, (void*)0);

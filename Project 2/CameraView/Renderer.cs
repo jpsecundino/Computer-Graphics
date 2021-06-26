@@ -35,20 +35,5 @@ namespace World_3D.CameraView
                 m.Draw(shader);
             }
         }
-
-        public override void Start()
-        {
-            
-        }
-
-        public override void Update(double deltaTime)
-        {
-            
-        }
-
-        public override void Destroy()
-        {
-           
-        }
     }
 }

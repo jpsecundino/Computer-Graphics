@@ -23,13 +23,8 @@ namespace World_3D.CameraView
         public float CameraPitch = 0f;
         public float CameraZoom = 45f;
 
-        public Matrix4x4 view => Matrix4x4.CreateLookAt(parent.transform.Position, parent.transform.Position + CameraFront, CameraUp);
-        public Matrix4x4 projection => Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(CameraZoom), Tutorial.Program.Width / Tutorial.Program.Height, 0.1f, 100.0f);
-
-        public override void Start()
-        {
-            throw new NotImplementedException();
-        }
+        public Matrix4x4 View => Matrix4x4.CreateLookAt(parent.transform.Position, parent.transform.Position + CameraFront, CameraUp);
+        public Matrix4x4 Projection => Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(CameraZoom), Tutorial.Program.Width / Tutorial.Program.Height, 0.1f, 100.0f);
 
         public override void Update(double deltaTime)
         {
@@ -64,9 +59,6 @@ namespace World_3D.CameraView
                 Tutorial.Program.Gl.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
             }
         }
-        public override void Destroy()
-        {
-            throw new NotImplementedException();
-        }
+ 
     }
 }
