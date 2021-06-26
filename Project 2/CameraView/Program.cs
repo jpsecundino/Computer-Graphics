@@ -49,6 +49,7 @@ namespace World_3D
             Camera cameraComponent = new();
             World_3D.GameObject cameraObj = new();
             cameraObj.AddComponent(cameraComponent);
+            cameraObj.AddComponent(new CameraMovement());
             Camera.mainCamera = cameraComponent;
             mainScene.AddGameObject(cameraObj);
                
