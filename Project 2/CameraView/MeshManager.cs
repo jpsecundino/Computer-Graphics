@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tutorial;
 
-namespace World_3D.CameraView
+namespace World_3D
 {
 
     public struct MeshData
@@ -26,8 +22,6 @@ namespace World_3D.CameraView
         private static Dictionary<MeshType, MeshData> meshPaths = new() {
             { MeshType.Bear, new MeshData("..\\..\\..\\Models\\bear.obj", "..\\..\\..\\Models\\textures\\wizardTowerDiff.png") },
         };
-            
-
 
         public static Mesh GetMesh(MeshType meshType)
         {

@@ -18,7 +18,7 @@ namespace World_3D
 
         public Shader(string vertexPath, string fragmentPath)
         {
-            _gl = Tutorial.Program.Gl;
+            _gl = Program.Gl;
 
             uint vertex = LoadShader(ShaderType.VertexShader, vertexPath);
             uint fragment = LoadShader(ShaderType.FragmentShader, fragmentPath);

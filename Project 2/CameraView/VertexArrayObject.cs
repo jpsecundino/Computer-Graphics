@@ -1,7 +1,7 @@
 using Silk.NET.OpenGL;
 using System;
 
-namespace Tutorial
+namespace World_3D
 {
     public class VertexArrayObject<TVertexType, TIndexType> : IDisposable
         where TVertexType : unmanaged

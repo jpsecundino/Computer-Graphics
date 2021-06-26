@@ -5,7 +5,7 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.Runtime.InteropServices;
 
-namespace Tutorial
+namespace World_3D
 {
     public class Texture : IDisposable
     {

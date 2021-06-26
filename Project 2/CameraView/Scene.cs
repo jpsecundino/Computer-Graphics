@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace World_3D.CameraView
+namespace World_3D
 {
     public class Scene
     {
@@ -26,6 +22,14 @@ namespace World_3D.CameraView
         public void DrawObjects()
         {
             renderPipeline.DrawRenderers();
+        }
+
+        public void StartScene()
+        {
+            foreach (GameObject g in gameObjects)
+            {
+                g.Start();
+            }
         }
 
         public void UpdateScene(double deltaTime)

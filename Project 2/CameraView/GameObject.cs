@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tutorial;
 
-namespace World_3D.CameraView
+namespace World_3D
 {
     public class GameObject
     {
@@ -27,5 +24,12 @@ namespace World_3D.CameraView
             }
         }
 
+        internal void Start()
+        {
+            foreach (Component c in components)
+            {
+                c.Start();
+            }
+        }
     }
 }

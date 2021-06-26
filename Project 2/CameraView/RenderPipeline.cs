@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace World_3D.CameraView
+namespace World_3D
 {
     public class RenderPipeline
     {

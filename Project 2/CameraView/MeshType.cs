@@ -1,4 +1,4 @@
-﻿namespace World_3D.CameraView
+﻿namespace World_3D
 {
     public enum MeshType
     {

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Tutorial;
 
 namespace World_3D
 {
@@ -11,7 +10,7 @@ namespace World_3D
         private VertexArrayObject<float, uint> VAO;
         private BufferObject<float> VBO;
         private BufferObject<uint> EBO;
-        private Tutorial.Texture _texture;
+        private Texture _texture;
         private VAObuffers buffers;
 
         public Mesh(string meshFilePath, string textureFilePath)
@@ -38,7 +37,7 @@ namespace World_3D
             VBO = new BufferObject<float>(vertices, BufferTargetARB.ArrayBuffer);
             VAO = new VertexArrayObject<float, uint>(VBO, EBO);
             
-            _texture = new Tutorial.Texture(textureFilePath);
+            _texture = new Texture(textureFilePath);
 
             VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 5, 0);
             VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 5, 3);
@@ -53,7 +52,7 @@ namespace World_3D
 
             unsafe
             {
-                Tutorial.Program.Gl.DrawElements(GLEnum.Triangles, (uint)buffers.indices.Length, GLEnum.UnsignedInt, (void*)0);
+                Program.Gl.DrawElements(GLEnum.Triangles, (uint)buffers.indices.Length, GLEnum.UnsignedInt, (void*)0);
             }
         }
 

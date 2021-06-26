@@ -2,28 +2,22 @@ using Silk.NET.Input;
 using Silk.NET.OpenGL;
 using Silk.NET.Windowing;
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using Silk.NET.Maths;
-using World_3D;
-using World_3D.CameraView;
+using Tutorial;
 
-namespace Tutorial
+namespace World_3D
 {
     class Program
     {
         private static IWindow window;
         public static GL Gl;
-        public static IKeyboard primaryKeyboard;
 
         public const int Width = 800;
         public const int Height = 700;
-        private static World_3D.Shader Shader;
+        private static Shader Shader;
         private static Scene activeScene;
-
-        //Used to track change in mouse movement to allow for moving of the Camera
-        private static Vector2 LastMousePosition;
 
         private static void Main(string[] args)
         {
@@ -42,18 +36,7 @@ namespace Tutorial
 
         private static void OnLoad()
         {
-            IInputContext input = window.CreateInput();
-            primaryKeyboard = input.Keyboards.FirstOrDefault();
-            if (primaryKeyboard != null)
-            {
-                primaryKeyboard.KeyDown += KeyDown;
-            }
-            for (int i = 0; i < input.Mice.Count; i++)
-            {
-                input.Mice[i].Cursor.CursorMode = CursorMode.Raw;
-                input.Mice[i].MouseMove += OnMouseMove;
-                input.Mice[i].Scroll += OnMouseWheel;
-            }
+            Input.Initialize(window);          
 
             Gl = GL.GetApi(window);
            
@@ -64,24 +47,33 @@ namespace Tutorial
             Scene mainScene = new Scene(rp, Shader);
 
             Camera cameraComponent = new();
-            World_3D.CameraView.GameObject cameraObj = new();
+            World_3D.GameObject cameraObj = new();
             cameraObj.AddComponent(cameraComponent);
             Camera.mainCamera = cameraComponent;
             mainScene.AddGameObject(cameraObj);
                
-
-
-            World_3D.CameraView.GameObject bear = new();
+            GameObject bear = new();
             MeshType[] meshes = { MeshType.Bear };
             bear.AddComponent(new Renderer(meshes, Shader));
             
             mainScene.AddGameObject(bear);
 
             activeScene = mainScene;
+
+            activeScene.StartScene();
         }
 
         private static unsafe void OnUpdate(double deltaTime)
         {
+            if (Input.Keyboard.IsKeyPressed(Key.L))
+            {
+                Gl.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            }
+            if (Input.Keyboard.IsKeyPressed(Key.P))
+            {
+                Gl.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+            }
+
             activeScene.UpdateScene(deltaTime);
         }
 
@@ -103,29 +95,6 @@ namespace Tutorial
             //Gl.DrawElements(PrimitiveType.Triangles, IndicesCount, DrawElementsType.UnsignedInt, (void*)0);
             
             activeScene.DrawObjects();
-        }
-
-        private static unsafe void OnMouseMove(IMouse mouse, Vector2 position)
-        {
-            var lookSensitivity = 0.1f;
-            if (LastMousePosition == default) { LastMousePosition = position; }
-            else
-            {
-                var xOffset = (position.X - LastMousePosition.X) * lookSensitivity;
-                var yOffset = (position.Y - LastMousePosition.Y) * lookSensitivity;
-                LastMousePosition = position;
-
-                Camera.mainCamera.CameraYaw += xOffset;
-                Camera.mainCamera.CameraPitch -= yOffset;
-
-                //We don't want to be able to look behind us by going over our head or under our feet so make sure it stays within these bounds
-                Camera.mainCamera.CameraPitch = Math.Clamp(Camera.mainCamera.CameraPitch, -89.0f, 89.0f);
-
-                Camera.mainCamera.CameraDirection.X = MathF.Cos(MathHelper.DegreesToRadians(Camera.mainCamera.CameraYaw)) * MathF.Cos(MathHelper.DegreesToRadians(Camera.mainCamera.CameraPitch));
-                Camera.mainCamera.CameraDirection.Y = MathF.Sin(MathHelper.DegreesToRadians(Camera.mainCamera.CameraPitch));
-                Camera.mainCamera.CameraDirection.Z = MathF.Sin(MathHelper.DegreesToRadians(Camera.mainCamera.CameraYaw)) * MathF.Cos(MathHelper.DegreesToRadians(Camera.mainCamera.CameraPitch));
-                Camera.mainCamera.CameraFront = Vector3.Normalize(Camera.mainCamera.CameraDirection);
-            }
         }
 
         private static unsafe void OnMouseWheel(IMouse mouse, ScrollWheel scrollWheel)
