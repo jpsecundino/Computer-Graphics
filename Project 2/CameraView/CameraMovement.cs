@@ -21,9 +21,9 @@ namespace World_3D
             var moveSpeed = 10f * (float)deltaTime;
 
             MoveCamera(moveSpeed);
-            OnMouseMove();
+            RotateCamera();
         }
-        private unsafe void OnMouseMove()
+        private unsafe void RotateCamera()
         {
             var lookSensitivity = 0.1f;
 

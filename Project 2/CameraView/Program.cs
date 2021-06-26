@@ -16,14 +16,17 @@ namespace World_3D
 
         public const int Width = 800;
         public const int Height = 700;
+        
         private static Shader Shader;
         private static Scene activeScene;
+
+        private static bool isPolygonModeLine = false;
 
         private static void Main(string[] args)
         {
             var options = WindowOptions.Default;
-            options.Size = new Vector2D<int>(800, 600);
-            options.Title = "LearnOpenGL with Silk.NET";
+            options.Size = new Vector2D<int>(Width, Height);
+            options.Title = "World 3D";
             window = Window.Create(options);
 
             window.Load += OnLoad;
@@ -36,7 +39,8 @@ namespace World_3D
 
         private static void OnLoad()
         {
-            Input.Initialize(window);          
+            Input.Initialize(window);
+            Input.Keyboard.KeyDown += OnKeyDown;
 
             Gl = GL.GetApi(window);
            
@@ -46,8 +50,8 @@ namespace World_3D
 
             Scene mainScene = new Scene(rp, Shader);
 
+            GameObject cameraObj = new();
             Camera cameraComponent = new();
-            World_3D.GameObject cameraObj = new();
             cameraObj.AddComponent(cameraComponent);
             cameraObj.AddComponent(new CameraMovement());
             Camera.mainCamera = cameraComponent;
@@ -66,15 +70,6 @@ namespace World_3D
 
         private static unsafe void OnUpdate(double deltaTime)
         {
-            if (Input.Keyboard.IsKeyPressed(Key.L))
-            {
-                Gl.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
-            }
-            if (Input.Keyboard.IsKeyPressed(Key.P))
-            {
-                Gl.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
-            }
-
             activeScene.UpdateScene(deltaTime);
         }
 
@@ -91,9 +86,6 @@ namespace World_3D
 
             Shader.SetUniform("uView", Camera.mainCamera.View );
             Shader.SetUniform("uProjection", Camera.mainCamera.Projection);
-
-            //We're drawing with just vertices and no indices, and it takes 36 vertices to have a six-sided textured cube
-            //Gl.DrawElements(PrimitiveType.Triangles, IndicesCount, DrawElementsType.UnsignedInt, (void*)0);
             
             activeScene.DrawObjects();
         }
@@ -109,8 +101,13 @@ namespace World_3D
             Shader.Dispose();
         }
 
-        private static void KeyDown(IKeyboard keyboard, Key key, int arg3)
+        private static void OnKeyDown(IKeyboard keyboard, Key key, int arg3)
         {
+            if (key == Key.P)
+            {
+                Gl.PolygonMode(MaterialFace.FrontAndBack, isPolygonModeLine ? PolygonMode.Fill : PolygonMode.Line);
+                isPolygonModeLine = !isPolygonModeLine;
+            }
             if (key == Key.Escape)
             {
                 window.Close();
