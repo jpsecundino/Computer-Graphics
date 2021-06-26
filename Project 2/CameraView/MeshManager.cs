@@ -21,6 +21,7 @@ namespace World_3D
         private static Dictionary<MeshType, Mesh> loadedMeshes = new();
         private static Dictionary<MeshType, MeshData> meshPaths = new() {
             { MeshType.Bear, new MeshData("..\\..\\..\\Models\\bear.obj", "..\\..\\..\\Models\\textures\\wizardTowerDiff.png") },
+            { MeshType.Skybox, new MeshData("..\\..\\..\\Models\\skycube_blender.obj", "..\\..\\..\\Models\\textures\\skybox\\bluesunset_skybox.png") },
         };
 
         public static Mesh GetMesh(MeshType meshType)
@@ -32,11 +33,6 @@ namespace World_3D
                 returnMesh = CreateMesh(meshType);
 
                 loadedMeshes[meshType] = returnMesh;
-            }
-
-            if(returnMesh == null)
-            {
-            
             }
 
             return returnMesh;

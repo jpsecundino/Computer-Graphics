@@ -2,10 +2,8 @@ using Silk.NET.Input;
 using Silk.NET.OpenGL;
 using Silk.NET.Windowing;
 using System;
-using System.Linq;
 using System.Numerics;
 using Silk.NET.Maths;
-using Tutorial;
 
 namespace World_3D
 {
@@ -43,7 +41,7 @@ namespace World_3D
             Input.Keyboard.KeyDown += OnKeyDown;
 
             Gl = GL.GetApi(window);
-           
+
             Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
 
             RenderPipeline rp = new RenderPipeline();
@@ -56,12 +54,21 @@ namespace World_3D
             cameraObj.AddComponent(new CameraMovement());
             Camera.mainCamera = cameraComponent;
             mainScene.AddGameObject(cameraObj);
-               
+            
             GameObject bear = new();
             MeshType[] meshes = { MeshType.Bear };
             bear.AddComponent(new Renderer(meshes, Shader));
-            
             mainScene.AddGameObject(bear);
+
+            GameObject bear2 = new();
+            MeshType[] meshes2 = { MeshType.Bear };
+            bear2.AddComponent(new Renderer(meshes2, Shader));
+            bear2.transform.Position += Vector3.UnitX * 3f;
+            bear2.transform.Rotate(MathF.PI / 2, Vector3.UnitY);
+            mainScene.AddGameObject(bear2);
+
+            var skybox = GameObjectFactory.CreateSkyBox(Shader);
+            mainScene.AddGameObject(skybox);
 
             activeScene = mainScene;
 
@@ -77,13 +84,10 @@ namespace World_3D
         {
             Gl.Enable(EnableCap.DepthTest);
             Gl.Clear((uint) (ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
+            Gl.ClearColor(System.Drawing.Color.Beige);
 
             Shader.Use();
             Shader.SetUniform("uTexture0", 0);
-
-            //Use elapsed time to convert to radians to allow our cube to rotate over time
-            var difference = (float) (window.Time * 100);
-
             Shader.SetUniform("uView", Camera.mainCamera.View );
             Shader.SetUniform("uProjection", Camera.mainCamera.Projection);
             
