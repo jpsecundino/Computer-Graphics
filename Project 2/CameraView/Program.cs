@@ -60,12 +60,10 @@ namespace World_3D
             bear.AddComponent(new Renderer(meshes, Shader));
             mainScene.AddGameObject(bear);
 
-            GameObject bear2 = new();
-            MeshType[] meshes2 = { MeshType.Bear };
-            bear2.AddComponent(new Renderer(meshes2, Shader));
-            bear2.transform.Position += Vector3.UnitX * 3f;
-            bear2.transform.Rotate(MathF.PI / 2, Vector3.UnitY);
-            mainScene.AddGameObject(bear2);
+            GameObject griffin = new();
+            griffin.AddComponent(new Renderer(new MeshType[] { MeshType.Griffin }, Shader));
+            griffin.transform.Position += Vector3.UnitX * 3f;
+            mainScene.AddGameObject(griffin);
 
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
             mainScene.AddGameObject(skybox);

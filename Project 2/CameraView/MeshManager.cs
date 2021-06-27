@@ -22,6 +22,7 @@ namespace World_3D
         private static Dictionary<MeshType, MeshData> meshPaths = new() {
             { MeshType.Bear, new MeshData("..\\..\\..\\Models\\bear.obj", "..\\..\\..\\Models\\textures\\wizardTowerDiff.png") },
             { MeshType.Skybox, new MeshData("..\\..\\..\\Models\\skycube_blender.obj", "..\\..\\..\\Models\\textures\\skybox\\bluesunset_skybox.png") },
+            { MeshType.Griffin, new MeshData("..\\..\\..\\Models\\griffin_animated.obj", "..\\..\\..\\Models\\textures\\griffon_Diff.png") },
         };
 
         public static Mesh GetMesh(MeshType meshType)

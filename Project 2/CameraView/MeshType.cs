@@ -3,6 +3,7 @@
     public enum MeshType
     {
         Bear,
-        Skybox
+        Skybox,
+        Griffin,
     }
 }
