@@ -17,10 +17,10 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       working-directory: ./project-2
-      run: dotnet restore
+      run: dotnet restore UltimaTentativa.sln
     - name: Build
       working-directory: ./project-2
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore UltimaTentativa.sln
     - name: Test
       working-directory: ./project-2
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal UltimaTentativa.sln
