@@ -2,14 +2,12 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, actions ]
   pull_request:
     branches: [ master ]
 
 jobs:
   build:
-
-    working-directory: ./project-2
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -18,8 +16,11 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
+      working-directory: ./project-2
       run: dotnet restore
     - name: Build
+      working-directory: ./project-2
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ./project-2
       run: dotnet test --no-build --verbosity normal
