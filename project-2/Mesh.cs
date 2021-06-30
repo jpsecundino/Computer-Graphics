@@ -49,7 +49,6 @@ namespace World_3D
             _texture.Bind();
             VAO.Bind();
             EBO.Bind();
-            VBO.Bind();
 
             unsafe
             {
