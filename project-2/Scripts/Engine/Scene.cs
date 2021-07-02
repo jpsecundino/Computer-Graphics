@@ -4,14 +4,12 @@ namespace World_3D
 {
     public class Scene
     {
-        private List<GameObject> gameObjects = new();
-        private RenderPipeline renderPipeline;
-        private Shader shader;
+        private readonly List<GameObject> gameObjects = new();
+        private readonly RenderPipeline renderPipeline;
 
-        public Scene(RenderPipeline _renderPipeline, Shader _shader)
+        public Scene(RenderPipeline _renderPipeline)
         {
             renderPipeline = _renderPipeline;
-            shader = _shader;
         }
 
         public void AddGameObject(GameObject gameObject)

@@ -29,7 +29,7 @@ namespace World_3D
 
             foreach(Mesh m in meshes)
             {
-                m.Draw(shader);
+                m.Draw();
             }
         }
     }

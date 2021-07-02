@@ -7,11 +7,11 @@ namespace World_3D
 {
     public class Mesh : IDisposable
     {
-        private VertexArrayObject<float, uint> VAO;
-        private BufferObject<float> VBO;
-        private BufferObject<uint> EBO;
-        private Texture _texture;
-        private VAObuffers buffers;
+        private readonly VertexArrayObject<float, uint> VAO;
+        private readonly BufferObject<float> VBO;
+        private readonly BufferObject<uint> EBO;
+        private readonly Texture _texture;
+        private readonly VAObuffers buffers;
 
         public Mesh(string meshFilePath, string textureFilePath)
         {
@@ -44,7 +44,7 @@ namespace World_3D
 
         }
 
-        public void Draw(Shader shader)
+        public void Draw()
         {
             _texture.Bind();
             VAO.Bind();

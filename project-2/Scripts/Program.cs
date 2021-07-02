@@ -47,7 +47,7 @@ namespace World_3D
 
             RenderPipeline rp = new();
 
-            Scene mainScene = new(rp, Shader);
+            Scene mainScene = new(rp);
 
             GameObject cameraObj = new();
             Camera cameraComponent = new();
