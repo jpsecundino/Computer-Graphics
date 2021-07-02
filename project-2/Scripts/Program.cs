@@ -54,6 +54,8 @@ namespace World_3D
             cameraObj.AddComponent(cameraComponent);
             cameraObj.AddComponent(new CameraMovement());
             Camera.mainCamera = cameraComponent;
+            
+            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(20, 20, 20)));
             mainScene.AddGameObject(cameraObj);
             
             GameObject bear = new();
