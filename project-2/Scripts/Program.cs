@@ -53,10 +53,10 @@ namespace World_3D
             Camera cameraComponent = new();
             cameraObj.AddComponent(cameraComponent);
             cameraObj.AddComponent(new CameraMovement());
-            Camera.mainCamera = cameraComponent;
-            
             cameraObj.AddComponent(new BlockMovementVolume(new Vector3(20, 20, 20)));
             mainScene.AddGameObject(cameraObj);
+            
+            Camera.SwitchMainCamera(cameraComponent);
             
             GameObject bear = new();
             MeshType[] meshes = { MeshType.Bear };
@@ -89,8 +89,8 @@ namespace World_3D
 
             Shader.Use();
             Shader.SetUniform("uTexture0", 0);
-            Shader.SetUniform("uView", Camera.mainCamera.View );
-            Shader.SetUniform("uProjection", Camera.mainCamera.Projection);
+            Shader.SetUniform("uView", Camera.MainCamera.View );
+            Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
             
             activeScene.DrawObjects();
         }
@@ -98,7 +98,7 @@ namespace World_3D
         private static unsafe void OnMouseWheel(IMouse mouse, ScrollWheel scrollWheel)
         {
             //We don't want to be able to zoom in too close or too far away so clamp to these values
-            Camera.mainCamera.CameraZoom = Math.Clamp(Camera.mainCamera.CameraZoom - scrollWheel.Y, 1.0f, 45f);
+            Camera.MainCamera.CameraZoom = Math.Clamp(Camera.MainCamera.CameraZoom - scrollWheel.Y, 1.0f, 45f);
         }
 
         private static void OnClose()
