@@ -7,16 +7,17 @@ using Silk.NET.Maths;
 
 namespace World_3D
 {
-    class Program
+    static class Program
     {
         private static IWindow window;
-        public static GL Gl;
+        public static GL Gl { get => gl; private set => gl = value; }
 
         public const int Width = 800;
         public const int Height = 700;
         
         private static Shader Shader;
         private static Scene activeScene;
+        private static GL gl;
 
         private static bool isPolygonModeLine = false;
 
@@ -44,9 +45,9 @@ namespace World_3D
 
             Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
 
-            RenderPipeline rp = new RenderPipeline();
+            RenderPipeline rp = new();
 
-            Scene mainScene = new Scene(rp, Shader);
+            Scene mainScene = new(rp, Shader);
 
             GameObject cameraObj = new();
             Camera cameraComponent = new();
@@ -62,7 +63,7 @@ namespace World_3D
 
             GameObject griffin = new();
             griffin.AddComponent(new Renderer(new MeshType[] { MeshType.Griffin }, Shader));
-            griffin.transform.Position += Vector3.UnitX * 3f;
+            griffin.Transform.Position += Vector3.UnitX * 3f;
             mainScene.AddGameObject(griffin);
 
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
@@ -81,7 +82,7 @@ namespace World_3D
         private static unsafe void OnRender(double deltaTime)
         {
             Gl.Enable(EnableCap.DepthTest);
-            Gl.Clear((uint) (ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
+            Gl.Clear((uint)(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
             Gl.ClearColor(System.Drawing.Color.Beige);
 
             Shader.Use();

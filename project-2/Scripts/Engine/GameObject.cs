@@ -6,9 +6,11 @@ namespace World_3D
 {
     public class GameObject
     {
-        public Transform transform = new();
-        
-        private List<Component> components = new();
+        public Transform Transform { get => transform; set => transform = value; }
+        private Transform transform = new();
+
+        private readonly List<Component> components = new();
+
 
         public void AddComponent(Component c)
         {

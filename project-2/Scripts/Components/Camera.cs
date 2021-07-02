@@ -13,7 +13,8 @@ namespace World_3D
         //Setup the camera's location, directions, and movement speed
         public float CameraZoom = 45f;
 
-        public Matrix4x4 View => Matrix4x4.CreateLookAt(parent.transform.Position, parent.transform.Position + parent.transform.Forward, parent.transform.Up);
+        public Matrix4x4 View => Matrix4x4.CreateLookAt(parent.Transform.Position, parent.Transform.Position
+                                                                                   + parent.Transform.Forward, parent.Transform.Up);
         public Matrix4x4 Projection => Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(CameraZoom), Program.Width / Program.Height, NearPlaneDistance, FarPlaneDistance);
     }
 }

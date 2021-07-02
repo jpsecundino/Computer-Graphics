@@ -6,8 +6,8 @@ namespace World_3D
 
     public struct MeshData
     {
-        public string modelPath;
-        public string texturePath;
+        public readonly string modelPath;
+        public readonly string texturePath;
 
         public MeshData(string modelPath, string texturePath)
         {
@@ -27,10 +27,8 @@ namespace World_3D
 
         public static Mesh GetMesh(MeshType meshType)
         {
-
-            Mesh returnMesh;
-            
-            if(! loadedMeshes.TryGetValue(meshType, out returnMesh)) {
+            if (!loadedMeshes.TryGetValue(meshType, out Mesh returnMesh))
+            {
                 returnMesh = CreateMesh(meshType);
 
                 loadedMeshes[meshType] = returnMesh;
@@ -42,16 +40,15 @@ namespace World_3D
 
         private static Mesh CreateMesh(MeshType meshType)
         {
-            MeshData md;
             Mesh newMesh;
-            
-            if(meshPaths.TryGetValue(meshType, out md))
+
+            if (meshPaths.TryGetValue(meshType, out MeshData md))
             {
                 newMesh = new Mesh(md.modelPath, md.texturePath);
             }
             else
             {
-                throw new Exception($"Model {meshType} not found");
+                throw new ArgumentException($"Model {meshType} not found");
             }
 
             return newMesh;

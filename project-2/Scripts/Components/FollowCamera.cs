@@ -4,8 +4,8 @@
     {
         public override void Update(double deltaTime)
         {
-            parent.transform.Position = Camera.mainCamera.parent.transform.Position;
-            parent.transform.Rotation = Camera.mainCamera.parent.transform.Rotation;
+            parent.Transform.Position = Camera.mainCamera.parent.Transform.Position;
+            parent.Transform.Rotation = Camera.mainCamera.parent.Transform.Rotation;
         }
     }
 }

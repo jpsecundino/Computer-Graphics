@@ -14,9 +14,9 @@ namespace World_3D
         public override void Update(double deltaTime)
         {
             if(Input.Keyboard.IsKeyPressed(Silk.NET.Input.Key.Left))
-                parent.transform.Rotate(_speed * (float) deltaTime, Vector3.UnitY);
+                parent.Transform.Rotate(_speed * (float) deltaTime, Vector3.UnitY);
             if(Input.Keyboard.IsKeyPressed(Silk.NET.Input.Key.Right))
-                parent.transform.Rotate(-_speed * (float) deltaTime, Vector3.UnitY);
+                parent.Transform.Rotate(-_speed * (float) deltaTime, Vector3.UnitY);
         }
     }
 }

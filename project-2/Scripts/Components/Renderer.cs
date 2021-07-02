@@ -25,7 +25,7 @@ namespace World_3D
 
         public void Draw()
         {
-            shader.SetUniform("uModel", parent.transform.ModelMatrix);
+            shader.SetUniform("uModel", parent.Transform.ModelMatrix);
 
             foreach(Mesh m in meshes)
             {
