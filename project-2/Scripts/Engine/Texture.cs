@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace World_3D
 {
-    public class Texture : IDisposable
+    public sealed class Texture : IDisposable
     {
         private uint _handle;
         private GL _gl;

@@ -6,12 +6,12 @@ using System.Numerics;
 
 namespace World_3D
 {
-    public class Shader : IDisposable
+    public sealed class Shader : IDisposable
     {
-        private uint _handle;
-        private GL _gl;
+        private readonly uint _handle;
+        private readonly GL _gl;
 
-        private Dictionary<string, int> _uniforms = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _uniforms = new Dictionary<string, int>();
 
         public Shader(string vertexPath, string fragmentPath)
         {
@@ -26,7 +26,7 @@ namespace World_3D
             _gl.GetProgram(_handle, GLEnum.LinkStatus, out int status);
             if (status == 0)
             {
-                throw new Exception($"Program failed to link with error: {_gl.GetProgramInfoLog(_handle)}");
+                throw new ArgumentException($"Program failed to link with error: {_gl.GetProgramInfoLog(_handle)}");
             }
             _gl.DetachShader(_handle, vertex);
             _gl.DetachShader(_handle, fragment);
@@ -77,7 +77,7 @@ namespace World_3D
             string infoLog = _gl.GetShaderInfoLog(handle);
             if (!string.IsNullOrWhiteSpace(infoLog))
             {
-                throw new Exception($"Error compiling shader of type {type}, failed with error {infoLog}");
+                throw new ArgumentException($"Error compiling shader of type {type}, failed with error {infoLog}");
             }
 
             return handle;
@@ -94,7 +94,7 @@ namespace World_3D
 
             if (location == -1)
             {
-                throw new Exception($"{name} uniform not found on shader.");
+                throw new ArgumentException($"{name} uniform not found on shader.");
             }
 
             return location;
