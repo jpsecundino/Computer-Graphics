@@ -1,7 +1,6 @@
 using Silk.NET.Input;
 using Silk.NET.OpenGL;
 using Silk.NET.Windowing;
-using System;
 using System.Numerics;
 using Silk.NET.Maths;
 
@@ -53,7 +52,8 @@ namespace World_3D
             Camera cameraComponent = new();
             cameraObj.AddComponent(cameraComponent);
             cameraObj.AddComponent(new CameraMovement());
-            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(20, 20, 20)));
+            cameraObj.AddComponent(new CameraZoom(cameraComponent));
+            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(25, 25, 25)));
             mainScene.AddGameObject(cameraObj);
             
             Camera.SwitchMainCamera(cameraComponent);
@@ -93,12 +93,6 @@ namespace World_3D
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
             
             activeScene.DrawObjects();
-        }
-
-        private static unsafe void OnMouseWheel(IMouse mouse, ScrollWheel scrollWheel)
-        {
-            //We don't want to be able to zoom in too close or too far away so clamp to these values
-            Camera.MainCamera.CameraZoom = Math.Clamp(Camera.MainCamera.CameraZoom - scrollWheel.Y, 1.0f, 45f);
         }
 
         private static void OnClose()

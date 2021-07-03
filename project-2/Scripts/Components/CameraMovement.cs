@@ -7,9 +7,10 @@ namespace World_3D
 {
     class CameraMovement: Component
     {
-        private Vector2 LastMousePosition;
         public float CameraYaw = -90f;
         public float CameraPitch = 0f;
+        
+        private Vector2 LastMousePosition;
 
         public override void Start()
         {
@@ -20,8 +21,8 @@ namespace World_3D
         {
             var moveSpeed = 10f * (float)deltaTime;
 
-            MoveCamera(moveSpeed);
             RotateCamera();
+            MoveCamera(moveSpeed);
         }
         private unsafe void RotateCamera()
         {
@@ -83,6 +84,5 @@ namespace World_3D
                 parent.Transform.Position += Vector3.Normalize(Vector3.Cross(parent.Transform.Forward, parent.Transform.Up)) * moveSpeed;
             }
         }
-
     }
 }
