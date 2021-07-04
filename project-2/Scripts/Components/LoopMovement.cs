@@ -6,7 +6,7 @@ namespace World_3D
     {
         private readonly float _speed;
         private readonly float _radius;
-        private float angle;
+        private float angle = 0f;
 
         public LoopMovement(float speed = 5f, float radius = 3f)
         {
