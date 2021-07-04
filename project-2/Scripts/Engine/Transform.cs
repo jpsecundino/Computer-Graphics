@@ -8,7 +8,7 @@ namespace World_3D
         public Quaternion Rotation { get; set; } = Quaternion.Identity;
         public float Scale { get; set; } = 1f;
 
-        public Vector3 Forward { get; set; }
+        public Vector3 Forward { get; set; } = Vector3.UnitZ;
         public Vector3 Up { get; set; } = Vector3.UnitY;
 
         //Note: The order here does matter.

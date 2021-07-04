@@ -50,7 +50,7 @@ namespace World_3D
             }
         }
 
-        public void Rotate(float yaw = 0f, float pitch = 0f, float roll = 0f)
+        public void Rotate(float yaw = 0f, float pitch = 0f)
         {
             Vector3 dir = new();
 
