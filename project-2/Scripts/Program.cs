@@ -65,6 +65,7 @@ namespace World_3D
 
             GameObject griffin = new();
             griffin.AddComponent(new Renderer(new MeshType[] { MeshType.Griffin }, Shader));
+            griffin.AddComponent(new LoopMovement());
             griffin.Transform.Position += Vector3.UnitX * 3f;
             mainScene.AddGameObject(griffin);
 
