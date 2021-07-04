@@ -55,18 +55,15 @@ namespace World_3D
             cameraObj.AddComponent(new CameraZoom(cameraComponent));
             cameraObj.AddComponent(new BlockMovementVolume(new Vector3(25, 25, 25)));
             mainScene.AddGameObject(cameraObj);
-            
+
             Camera.SwitchMainCamera(cameraComponent);
-            
+
             GameObject bear = new();
             MeshType[] meshes = { MeshType.Bear };
             bear.AddComponent(new Renderer(meshes, Shader));
             mainScene.AddGameObject(bear);
-
-            GameObject griffin = new();
-            griffin.AddComponent(new Renderer(new MeshType[] { MeshType.Griffin }, Shader));
-            griffin.AddComponent(new LoopMovement());
-            griffin.Transform.Position += Vector3.UnitX * 3f;
+            
+            var griffin = GameObjectFactory.CreateGriffin(Shader);
             mainScene.AddGameObject(griffin);
 
             var skybox = GameObjectFactory.CreateSkyBox(Shader);

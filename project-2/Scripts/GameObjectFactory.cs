@@ -1,4 +1,6 @@
-﻿namespace World_3D
+﻿using System.Numerics;
+
+namespace World_3D
 {
     public static class GameObjectFactory
     {
@@ -11,6 +13,16 @@
             skybox.AddComponent(new FollowCamera());
 
             return skybox;
+        }
+
+        public static GameObject CreateGriffin(Shader shader)
+        {
+            GameObject griffin = new();
+            griffin.AddComponent(new Renderer(new MeshType[] { MeshType.Griffin }, shader));
+            griffin.AddComponent(new LoopMovement());
+            griffin.Transform.Position += Vector3.UnitX * 3f;
+
+            return griffin;
         }
     }
 }
