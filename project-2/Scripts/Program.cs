@@ -68,6 +68,20 @@ namespace World_3D
             griffin.Transform.Position += Vector3.UnitX * 3f;
             mainScene.AddGameObject(griffin);
 
+            GameObject terrain = new();
+            terrain.AddComponent(new Renderer(new MeshType[] { MeshType.Terrain }, Shader));
+            mainScene.AddGameObject(terrain);
+            terrain.Transform.Scale = 1f;
+            
+            GameObject ship = new();
+            ship.AddComponent(new Renderer(new MeshType[] { MeshType.Ship }, Shader));
+            mainScene.AddGameObject(ship);
+            
+            GameObject house = new();
+            house.AddComponent(new Renderer(new MeshType[] { MeshType.House }, Shader));
+            mainScene.AddGameObject(house);
+
+
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
             mainScene.AddGameObject(skybox);
 

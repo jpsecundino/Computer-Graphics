@@ -23,6 +23,9 @@ namespace World_3D
             { MeshType.Bear, new MeshData("..\\..\\..\\Models\\bear.obj", "..\\..\\..\\Models\\textures\\wizardTowerDiff.png") },
             { MeshType.Skybox, new MeshData("..\\..\\..\\Models\\skycube_blender.obj", "..\\..\\..\\Models\\textures\\skybox\\bluesunset_skybox.png") },
             { MeshType.Griffin, new MeshData("..\\..\\..\\Models\\griffin_animated.obj", "..\\..\\..\\Models\\textures\\griffon_Diff.png") },
+            { MeshType.Terrain, new MeshData("..\\..\\..\\Models\\terrain.obj", "..\\..\\..\\Models\\textures\\terrain.png") },
+            { MeshType.Ship, new MeshData("..\\..\\..\\Models\\ship.obj", "..\\..\\..\\Models\\textures\\ship.png") },
+            { MeshType.House, new MeshData("..\\..\\..\\Models\\house.obj", "..\\..\\..\\Models\\textures\\house.png") },
         };
 
         public static Mesh GetMesh(MeshType meshType)

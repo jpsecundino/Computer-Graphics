@@ -5,5 +5,8 @@
         Bear,
         Skybox,
         Griffin,
+        Terrain,
+        Ship,
+        House
     }
 }
