@@ -62,9 +62,13 @@ namespace World_3D
             ModelType[] models = { ModelType.FishermanHouse };
             fishermanHouse.AddComponent(new Renderer(models, Shader));
             mainScene.AddGameObject(fishermanHouse);
-            
-            // var griffin = GameObjectFactory.CreateGriffin(Shader);
-            // mainScene.AddGameObject(griffin);
+
+            GameObject bear = new();
+            bear.AddComponent(new Renderer(new ModelType[] { ModelType.Bear }, Shader));
+            mainScene.AddGameObject(bear);
+
+            var griffin = GameObjectFactory.CreateGriffin(Shader);
+            mainScene.AddGameObject(griffin);
             //
             // GameObject terrain = new();
             // terrain.AddComponent(new Renderer(new ModelType[] { ModelType.Terrain }, Shader));
@@ -79,8 +83,8 @@ namespace World_3D
             // house.AddComponent(new Renderer(new ModelType[] { ModelType.House }, Shader));
             // mainScene.AddGameObject(house);
             //
-            // var skybox = GameObjectFactory.CreateSkyBox(Shader);
-            // mainScene.AddGameObject(skybox);
+            var skybox = GameObjectFactory.CreateSkyBox(Shader);
+            mainScene.AddGameObject(skybox);
 
             activeScene = mainScene;
 

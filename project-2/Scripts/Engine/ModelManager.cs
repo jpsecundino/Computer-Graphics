@@ -25,8 +25,8 @@ namespace World_3D
         private static Dictionary<ModelType, Mesh> loadedMeshes = new();
         private static Dictionary<ModelType, ModelPaths> meshPaths = new() {
             { ModelType.Bear, new ModelPaths("bear") },
-            { ModelType.Skybox, new ModelPaths("skycube_blender") },
-            { ModelType.Griffin, new ModelPaths("griffin_animated") },
+            { ModelType.Skybox, new ModelPaths("skycube") },
+            { ModelType.Griffin, new ModelPaths("griffin") },
             { ModelType.Terrain, new ModelPaths("terrain") },
             { ModelType.Ship, new ModelPaths("ship") },
             { ModelType.House, new ModelPaths("house") },
