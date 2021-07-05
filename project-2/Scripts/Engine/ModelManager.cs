@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace World_3D
 {
 
     public struct ModelPaths
     {
+        private const string baseFolder = "..\\..\\..\\Models";
         public readonly string modelPath;
-        public readonly string textureFolderPath;
         public readonly string mtlPath;
+        public readonly string textureFolderPath;
 
-        public ModelPaths(string modelPath, string textureFolderPath, string mtlPath)
+        public ModelPaths(string modelName)
         {
-            this.modelPath = modelPath;
-            this.textureFolderPath = textureFolderPath;
-            this.mtlPath = mtlPath;
+            this.modelPath = Path.Combine(baseFolder,modelName,modelName + ".obj");
+            this.mtlPath = Path.Combine(baseFolder,modelName, modelName + ".mtl");
+            this.textureFolderPath = Path.Combine(baseFolder, modelName, "textures");
         }
     }
 
@@ -22,13 +24,13 @@ namespace World_3D
     {
         private static Dictionary<ModelType, Mesh> loadedMeshes = new();
         private static Dictionary<ModelType, ModelPaths> meshPaths = new() {
-            { ModelType.Bear, new ModelPaths("..\\..\\..\\Models\\bear.obj", "..\\..\\..\\Models\\textures\\wizardTowerDiff.png","..\\..\\..\\Models\\textures" ) },
-            { ModelType.Skybox, new ModelPaths("..\\..\\..\\Models\\skycube_blender.obj", "..\\..\\..\\Models\\textures\\skybox\\bluesunset_skybox.png", "..\\..\\..\\Models\\textures") },
-            { ModelType.Griffin, new ModelPaths("..\\..\\..\\Models\\griffin_animated.obj", "..\\..\\..\\Models\\textures\\griffon_Diff.png", "..\\..\\..\\Models\\textures") },
-            { ModelType.Terrain, new ModelPaths("..\\..\\..\\Models\\terrain.obj", "..\\..\\..\\Models\\textures\\terrain.png", "..\\..\\..\\Models\\textures") },
-            { ModelType.Ship, new ModelPaths("..\\..\\..\\Models\\ship.obj", "..\\..\\..\\Models\\textures\\ship.png", "..\\..\\..\\Models\\textures") },
-            { ModelType.House, new ModelPaths("..\\..\\..\\Models\\house.obj", "..\\..\\..\\Models\\textures\\house.png", "..\\..\\..\\Models\\textures") },
-            { ModelType.FishermanHouse, new ModelPaths("..\\..\\..\\Models\\fisherman.obj", "..\\..\\..\\Models\\textures\\fisherman", "..\\..\\..\\Models\\fisherman.mtl") },
+            { ModelType.Bear, new ModelPaths("bear") },
+            { ModelType.Skybox, new ModelPaths("skycube_blender") },
+            { ModelType.Griffin, new ModelPaths("griffin_animated") },
+            { ModelType.Terrain, new ModelPaths("terrain") },
+            { ModelType.Ship, new ModelPaths("ship") },
+            { ModelType.House, new ModelPaths("house") },
+            { ModelType.FishermanHouse, new ModelPaths("fisherman") },
         };
 
         public static Mesh GetModel(ModelType modelType)

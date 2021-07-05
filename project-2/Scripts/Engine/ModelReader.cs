@@ -18,8 +18,9 @@ namespace World_3D
             public Texture texture;
         }
 
-        public static List<MeshObjectData> ReadAll(string filepath, string mtlFile, string texturesFolder)
+        public static List<MeshObjectData> ReadAll(string filepath, string mtlFile = null, string texturesFolder = null)
         {
+
             Dictionary<string, Texture> textures = ReadTextures(mtlFile, texturesFolder);
 
             using (StreamReader file = File.OpenText(filepath))
@@ -122,7 +123,7 @@ namespace World_3D
                             textureName = line.Split(' ')[1];
                         }
                     }
-                    
+
                     meshes.Add(new MeshObjectData()
                     {
                         vertices = vertices.ToArray(),
