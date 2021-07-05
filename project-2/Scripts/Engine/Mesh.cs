@@ -46,7 +46,6 @@ namespace World_3D
         
         public Mesh(List<ModelReader.MeshObjectData> meshObjects)
         {
-    
             MeshBuffers meshBuffers =  ConcatenateBuffers(meshObjects);
             
             buffers = Mesh.CreateVAOBuffers(meshBuffers);
@@ -72,6 +71,7 @@ namespace World_3D
 
             VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 5, 0);
             VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 5, 3);
+            
         }
 
         public void Draw()
