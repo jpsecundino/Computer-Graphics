@@ -7,7 +7,7 @@ using System.Runtime.Remoting;
 
 namespace World_3D
 {
-    public class Mesh : IDisposable
+    public sealed class Mesh : IDisposable
     {
         private struct MeshBuffers
         {
@@ -40,7 +40,6 @@ namespace World_3D
         private readonly VertexArrayObject<float, uint> VAO;
         private readonly BufferObject<float> VBO;
         private readonly BufferObject<uint> EBO;
-        private readonly Texture _texture;
         private readonly VAObuffers buffers;
         private readonly List<TextureInfo> _textures = new();
         
@@ -128,23 +127,21 @@ namespace World_3D
         private MeshBuffers ConcatenateBuffers(List<ModelReader.MeshObjectData> meshObjects)
         {
             
-            int[] vertexIndices = new int[]{};
-            int[] uvIndices = new int[]{};
-            Vector3[] vertices = new Vector3[]{};
-            Vector2[] uvs = new Vector2[]{};
+            int[] vertexIndices = Array.Empty<int>();
+            int[] uvIndices = Array.Empty<int>();
+            Vector3[] vertices = Array.Empty<Vector3>();
+            Vector2[] uvs = Array.Empty<Vector2>();
 
-            int count = 0;
             foreach (var obj in meshObjects)
             {
                 _textures.Add(new TextureInfo(obj.texture, obj.vertexIndices.Length));
-                count += obj.vertexIndices.Length;
+
                 vertexIndices = vertexIndices.Concat(obj.vertexIndices).ToArray();
                 uvIndices = uvIndices.Concat(obj.uvIndices).ToArray();
                 vertices = vertices.Concat(obj.vertices).ToArray();
                 uvs = uvs.Concat(obj.uvs).ToArray();
             }
 
-            Console.WriteLine(count);
             MeshBuffers meshBuffers = new(vertexIndices, uvIndices, vertices, uvs);
 
             return meshBuffers;
@@ -170,7 +167,11 @@ namespace World_3D
             VBO.Dispose();
             EBO.Dispose();
             VAO.Dispose();
-            _texture.Dispose();
+
+            foreach(TextureInfo textureInfo in _textures)
+            {
+                textureInfo.texture.Dispose();
+            }
         }
 
         public struct VAObuffers
