@@ -17,6 +17,7 @@
     <PackageReference Include="Silk.NET.Input" Version="2.5.0" />
     <PackageReference Include="Silk.NET.Input.Glfw" Version="2.5.0" />
     <PackageReference Include="Silk.NET.OpenGL" Version="2.5.0" />
+    <PackageReference Include="Silk.NET.OpenGL.Extensions.ImGui" Version="2.5.0" />
     <PackageReference Include="Silk.NET.Windowing.Glfw" Version="2.5.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
   </ItemGroup>

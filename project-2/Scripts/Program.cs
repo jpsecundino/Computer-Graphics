@@ -48,21 +48,16 @@ namespace World_3D
 
             Scene mainScene = new(rp);
 
-            GameObject cameraObj = new();
-            Camera cameraComponent = new();
-            cameraObj.AddComponent(cameraComponent);
-            cameraObj.AddComponent(new CameraMovement());
-            cameraObj.AddComponent(new CameraZoom(cameraComponent));
-            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(25, 25, 25)));
-            mainScene.AddGameObject(cameraObj);
-
+            var cameraObj = GameObjectFactory.CreateCamera(out Camera cameraComponent);
             Camera.SwitchMainCamera(cameraComponent);
+            mainScene.AddGameObject(cameraObj);
+            
 
             GameObject bear = new();
             MeshType[] meshes = { MeshType.Bear };
             bear.AddComponent(new Renderer(meshes, Shader));
             mainScene.AddGameObject(bear);
-            
+
             var griffin = GameObjectFactory.CreateGriffin(Shader);
             mainScene.AddGameObject(griffin);
 
@@ -70,11 +65,11 @@ namespace World_3D
             terrain.AddComponent(new Renderer(new MeshType[] { MeshType.Terrain }, Shader));
             mainScene.AddGameObject(terrain);
             terrain.Transform.Scale = 1f;
-            
+
             GameObject ship = new();
             ship.AddComponent(new Renderer(new MeshType[] { MeshType.Ship }, Shader));
             mainScene.AddGameObject(ship);
-            
+
             GameObject house = new();
             house.AddComponent(new Renderer(new MeshType[] { MeshType.House }, Shader));
             mainScene.AddGameObject(house);

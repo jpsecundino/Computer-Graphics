@@ -24,5 +24,16 @@ namespace World_3D
 
             return griffin;
         }
+
+        public static GameObject CreateCamera(out Camera cameraComponent)
+        {
+            GameObject cameraObj = new();
+            cameraComponent = new();
+            cameraObj.AddComponent(cameraComponent);
+            cameraObj.AddComponent(new CameraMovement());
+            cameraObj.AddComponent(new CameraZoom(cameraComponent));
+            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(50, 10, 50)));
+            return cameraObj;
+        }
     }
 }
