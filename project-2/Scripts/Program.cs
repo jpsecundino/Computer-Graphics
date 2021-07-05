@@ -59,24 +59,23 @@ namespace World_3D
             Camera.SwitchMainCamera(cameraComponent);
 
             GameObject fishermanHouse = new();
-            ModelType[] models = { ModelType.FishermanHouse };
-            fishermanHouse.AddComponent(new Renderer(models, Shader));
+            fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
             mainScene.AddGameObject(fishermanHouse);
 
             GameObject bear = new();
-            bear.AddComponent(new Renderer(new ModelType[] { ModelType.Bear }, Shader));
+            bear.AddComponent(new Renderer(ModelType.Bear, Shader));
             mainScene.AddGameObject(bear);
 
-            var griffin = GameObjectFactory.CreateGriffin(Shader);
+            GameObject griffin = GameObjectFactory.CreateGriffin(Shader);
             mainScene.AddGameObject(griffin);
             
             GameObject terrain = new();
-            terrain.AddComponent(new Renderer(new ModelType[] { ModelType.Terrain }, Shader));
+            terrain.AddComponent(new Renderer(ModelType.Terrain, Shader));
             mainScene.AddGameObject(terrain);
             terrain.Transform.Scale = 1f;
             
             GameObject ship = new();
-            ship.AddComponent(new Renderer(new ModelType[] { ModelType.Ship }, Shader));
+            ship.AddComponent(new Renderer(ModelType.Ship, Shader));
             mainScene.AddGameObject(ship);
             
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
