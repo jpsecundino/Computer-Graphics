@@ -69,20 +69,16 @@ namespace World_3D
 
             var griffin = GameObjectFactory.CreateGriffin(Shader);
             mainScene.AddGameObject(griffin);
-            //
-            // GameObject terrain = new();
-            // terrain.AddComponent(new Renderer(new ModelType[] { ModelType.Terrain }, Shader));
-            // mainScene.AddGameObject(terrain);
-            // terrain.Transform.Scale = 1f;
-            //
-            // GameObject ship = new();
-            // ship.AddComponent(new Renderer(new ModelType[] { ModelType.Ship }, Shader));
-            // mainScene.AddGameObject(ship);
-            //
-            // GameObject house = new();
-            // house.AddComponent(new Renderer(new ModelType[] { ModelType.House }, Shader));
-            // mainScene.AddGameObject(house);
-            //
+            
+            GameObject terrain = new();
+            terrain.AddComponent(new Renderer(new ModelType[] { ModelType.Terrain }, Shader));
+            mainScene.AddGameObject(terrain);
+            terrain.Transform.Scale = 1f;
+            
+            GameObject ship = new();
+            ship.AddComponent(new Renderer(new ModelType[] { ModelType.Ship }, Shader));
+            mainScene.AddGameObject(ship);
+            
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
             mainScene.AddGameObject(skybox);
 

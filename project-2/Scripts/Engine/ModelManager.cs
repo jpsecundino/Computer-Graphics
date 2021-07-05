@@ -29,7 +29,6 @@ namespace World_3D
             { ModelType.Griffin, new ModelPaths("griffin") },
             { ModelType.Terrain, new ModelPaths("terrain") },
             { ModelType.Ship, new ModelPaths("ship") },
-            { ModelType.House, new ModelPaths("house") },
             { ModelType.FishermanHouse, new ModelPaths("fisherman") },
         };
 
