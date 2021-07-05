@@ -1,6 +1,7 @@
-# Blender v2.83.16 OBJ File: 'skybox.blend'
+# Blender v2.83.16 OBJ File: ''
 # www.blender.org
-o Cube.001
+mtllib skycube.mtl
+o cube_Cube.001
 v -1.000000 1.000000 -1.000000
 v 1.000000 1.000000 1.000000
 v 1.000000 1.000000 -1.000000
@@ -25,6 +26,7 @@ vt 0.500000 1.000340
 vt 0.250000 -0.000006
 vt 0.000002 0.666670
 vt 0.250000 0.666601
+usemtl Default_OBJ
 s off
 f 1/1 2/2 3/3
 f 2/4 4/5 5/6

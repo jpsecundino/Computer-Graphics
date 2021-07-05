@@ -7,18 +7,14 @@ namespace World_3D
     {
         public static Action<Renderer> OnCreation;
         
-        public List<Mesh> meshes = new();
-        
-        Shader shader;
+        private readonly Mesh model;
+        private readonly Shader shader;
 
-        public Renderer(MeshType[] meshTypes, Shader s)
+        public Renderer(ModelType modelType, Shader s)
         {
             shader = s;
 
-            foreach(MeshType m in meshTypes)
-            {
-                meshes.Add(MeshManager.GetMesh(m));
-            }
+            model = ModelManager.GetModel(modelType);
 
             OnCreation(this);
         }
@@ -26,11 +22,7 @@ namespace World_3D
         public void Draw()
         {
             shader.SetUniform("uModel", parent.Transform.ModelMatrix);
-
-            foreach(Mesh m in meshes)
-            {
-                m.Draw();
-            }
+            model.Draw();
         }
     }
 }

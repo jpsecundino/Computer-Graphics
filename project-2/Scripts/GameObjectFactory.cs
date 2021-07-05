@@ -9,7 +9,7 @@ namespace World_3D
             GameObject skybox = new();
             skybox.Transform.Scale = Camera.MainCamera.FarPlaneDistance / 2f;
 
-            skybox.AddComponent(new Renderer(new MeshType[] { MeshType.Skybox }, defaultShader));
+            skybox.AddComponent(new Renderer(ModelType.Skybox, defaultShader));
             skybox.AddComponent(new FollowCamera());
 
             return skybox;
@@ -18,7 +18,7 @@ namespace World_3D
         public static GameObject CreateGriffin(Shader shader)
         {
             GameObject griffin = new();
-            griffin.AddComponent(new Renderer(new MeshType[] { MeshType.Griffin }, shader));
+            griffin.AddComponent(new Renderer(ModelType.Griffin, shader));
             griffin.AddComponent(new LoopMovement());
             griffin.Transform.Position += Vector3.UnitX * 3f;
 

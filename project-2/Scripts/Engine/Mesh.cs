@@ -1,22 +1,54 @@
 ﻿using Silk.NET.OpenGL;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
+using System.Runtime.Remoting;
 
 namespace World_3D
 {
     public class Mesh : IDisposable
     {
+        private struct MeshBuffers
+        {
+            public int[] vertexIndices;
+            public int[] uvIndices;
+            public Vector3[] vertices;
+            public Vector2[] uvs;
+
+            public MeshBuffers(int[] vertexIndices, int[] uvIndices, Vector3[] vertices, Vector2[] uvs)
+            {
+                this.vertexIndices = vertexIndices;
+                this.uvIndices = uvIndices;
+                this.vertices = vertices;
+                this.uvs = uvs;
+            }
+        }
+
+        private struct TextureInfo
+        {
+            public Texture texture;
+            public int idxCount;
+
+            public TextureInfo(Texture texture, int idxCount)
+            {
+                this.texture = texture;
+                this.idxCount = idxCount;
+            }
+        }
+        
         private readonly VertexArrayObject<float, uint> VAO;
         private readonly BufferObject<float> VBO;
         private readonly BufferObject<uint> EBO;
         private readonly Texture _texture;
         private readonly VAObuffers buffers;
-
-        public Mesh(string meshFilePath, string textureFilePath)
+        private readonly List<TextureInfo> _textures = new();
+        
+        public Mesh(List<ModelReader.MeshObjectData> meshObjects)
         {
-            WavefrontReader.WavefrontData data = WavefrontReader.ReadAll(meshFilePath);
-            buffers = Mesh.CreateVAOBuffers(data);
+            MeshBuffers meshBuffers =  ConcatenateBuffers(meshObjects);
+            
+            buffers = Mesh.CreateVAOBuffers(meshBuffers);
 
             float[] vertices = new float[buffers.vertices.Length * 5];
 
@@ -36,45 +68,48 @@ namespace World_3D
             EBO = new BufferObject<uint>(buffers.indices, BufferTargetARB.ElementArrayBuffer);
             VBO = new BufferObject<float>(vertices, BufferTargetARB.ArrayBuffer);
             VAO = new VertexArrayObject<float, uint>(VBO, EBO);
-            
-            _texture = new Texture(textureFilePath);
 
             VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 5, 0);
             VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 5, 3);
-
+            
         }
 
         public void Draw()
         {
-            _texture.Bind();
             VAO.Bind();
             EBO.Bind();
 
             unsafe
             {
-                Program.Gl.DrawElements(GLEnum.Triangles, (uint)buffers.indices.Length, GLEnum.UnsignedInt, (void*)0);
+                int offset = 0;
+                foreach (TextureInfo textureInfo in _textures)
+                {
+                    textureInfo.texture.Bind();
+                    Program.Gl.DrawElements(GLEnum.Triangles, (uint) textureInfo.idxCount, GLEnum.UnsignedInt, (void*) (offset * sizeof(uint)));
+                    offset += textureInfo.idxCount;
+                }
+                
             }
         }
-
         
-        public static VAObuffers CreateVAOBuffers(WavefrontReader.WavefrontData data)
+        private static VAObuffers CreateVAOBuffers(MeshBuffers meshBuffers)
         {
             List<VertexObject> vertices = new();
             List<uint> indices = new();
 
-            Dictionary<KeyValuePair<int, int>, uint> indexBufferSet = new(data.vertexIndices.Length);
+            Dictionary<KeyValuePair<int, int>, uint> indexBufferSet = new(meshBuffers.vertexIndices.Length);
 
-            for (int i = 0; i < data.vertexIndices.Length; i++)
+            for (int i = 0; i < meshBuffers.vertexIndices.Length; i++)
             {
-                var pair = KeyValuePair.Create(data.vertexIndices[i], data.uvIndices[i]);
+                var pair = KeyValuePair.Create(meshBuffers.vertexIndices[i], meshBuffers.uvIndices[i]);
 
                 if (!indexBufferSet.ContainsKey(pair))
                 {
                     var vertex = new VertexObject
                     {
                         // Wavefront indexing is 1 based
-                        position = data.vertices[pair.Key - 1],
-                        uv = data.uvs[pair.Value - 1]
+                        position = meshBuffers.vertices[pair.Key - 1],
+                        uv = meshBuffers.uvs[pair.Value - 1]
                     };
                     vertices.Add(vertex);
                     indexBufferSet.Add(pair, (uint)(vertices.Count - 1));
@@ -82,12 +117,37 @@ namespace World_3D
 
                 indices.Add(indexBufferSet[pair]);
             }
-
+            
             return new VAObuffers
             {
                 vertices = vertices.ToArray(),
                 indices = indices.ToArray()
             };
+        }
+
+        private MeshBuffers ConcatenateBuffers(List<ModelReader.MeshObjectData> meshObjects)
+        {
+            
+            int[] vertexIndices = new int[]{};
+            int[] uvIndices = new int[]{};
+            Vector3[] vertices = new Vector3[]{};
+            Vector2[] uvs = new Vector2[]{};
+
+            int count = 0;
+            foreach (var obj in meshObjects)
+            {
+                _textures.Add(new TextureInfo(obj.texture, obj.vertexIndices.Length));
+                count += obj.vertexIndices.Length;
+                vertexIndices = vertexIndices.Concat(obj.vertexIndices).ToArray();
+                uvIndices = uvIndices.Concat(obj.uvIndices).ToArray();
+                vertices = vertices.Concat(obj.vertices).ToArray();
+                uvs = uvs.Concat(obj.uvs).ToArray();
+            }
+
+            Console.WriteLine(count);
+            MeshBuffers meshBuffers = new(vertexIndices, uvIndices, vertices, uvs);
+
+            return meshBuffers;
         }
 
         public void PrintInfo()
