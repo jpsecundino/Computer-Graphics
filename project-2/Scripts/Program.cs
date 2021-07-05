@@ -58,28 +58,27 @@ namespace World_3D
 
             Camera.SwitchMainCamera(cameraComponent);
 
-            GameObject bear = new();
-            MeshType[] meshes = { MeshType.Bear };
-            bear.AddComponent(new Renderer(meshes, Shader));
-            mainScene.AddGameObject(bear);
+            GameObject fishermanHouse = new();
+            ModelType[] models = { ModelType.FishermanHouse };
+            fishermanHouse.AddComponent(new Renderer(models, Shader));
+            mainScene.AddGameObject(fishermanHouse);
             
-            var griffin = GameObjectFactory.CreateGriffin(Shader);
-            mainScene.AddGameObject(griffin);
-
-            GameObject terrain = new();
-            terrain.AddComponent(new Renderer(new MeshType[] { MeshType.Terrain }, Shader));
-            mainScene.AddGameObject(terrain);
-            terrain.Transform.Scale = 1f;
+            // var griffin = GameObjectFactory.CreateGriffin(Shader);
+            // mainScene.AddGameObject(griffin);
+            //
+            // GameObject terrain = new();
+            // terrain.AddComponent(new Renderer(new ModelType[] { ModelType.Terrain }, Shader));
+            // mainScene.AddGameObject(terrain);
+            // terrain.Transform.Scale = 1f;
+            //
+            // GameObject ship = new();
+            // ship.AddComponent(new Renderer(new ModelType[] { ModelType.Ship }, Shader));
+            // mainScene.AddGameObject(ship);
             
-            GameObject ship = new();
-            ship.AddComponent(new Renderer(new MeshType[] { MeshType.Ship }, Shader));
-            mainScene.AddGameObject(ship);
+            // GameObject house = new();
+            // house.AddComponent(new Renderer(new ModelType[] { ModelType.House }, Shader));
+            // mainScene.AddGameObject(house);
             
-            GameObject house = new();
-            house.AddComponent(new Renderer(new MeshType[] { MeshType.House }, Shader));
-            mainScene.AddGameObject(house);
-
-
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
             mainScene.AddGameObject(skybox);
 

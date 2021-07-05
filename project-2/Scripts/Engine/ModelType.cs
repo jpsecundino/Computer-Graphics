@@ -1,12 +1,13 @@
 ﻿namespace World_3D
 {
-    public enum MeshType
+    public enum ModelType
     {
         Bear,
         Skybox,
         Griffin,
         Terrain,
         Ship,
-        House
+        House,
+        FishermanHouse
     }
 }

@@ -13,10 +13,9 @@ namespace World_3D
         private readonly Texture _texture;
         private readonly VAObuffers buffers;
 
-        public Mesh(string meshFilePath, string textureFilePath)
+        public Mesh(ModelReader.MeshData meshData)
         {
-            WavefrontReader.WavefrontData data = WavefrontReader.ReadAll(meshFilePath);
-            buffers = Mesh.CreateVAOBuffers(data);
+            buffers = Mesh.CreateVAOBuffers(meshData);
 
             float[] vertices = new float[buffers.vertices.Length * 5];
 
@@ -37,11 +36,10 @@ namespace World_3D
             VBO = new BufferObject<float>(vertices, BufferTargetARB.ArrayBuffer);
             VAO = new VertexArrayObject<float, uint>(VBO, EBO);
             
-            _texture = new Texture(textureFilePath);
+            _texture = meshData.texture;
 
             VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 5, 0);
             VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 5, 3);
-
         }
 
         public void Draw()
@@ -57,7 +55,7 @@ namespace World_3D
         }
 
         
-        public static VAObuffers CreateVAOBuffers(WavefrontReader.WavefrontData data)
+        public static VAObuffers CreateVAOBuffers(ModelReader.MeshData data)
         {
             List<VertexObject> vertices = new();
             List<uint> indices = new();
