@@ -7,7 +7,7 @@ namespace World_3D
     {
         public static Action<Renderer> OnCreation;
         
-        public List<Model3D> models = new();
+        public List<Mesh> models = new();
         
         Shader shader;
 
@@ -27,7 +27,7 @@ namespace World_3D
         {
             shader.SetUniform("uModel", parent.Transform.ModelMatrix);
 
-            foreach(Model3D m in models)
+            foreach(Mesh m in models)
             {
                 m.Draw();
             }

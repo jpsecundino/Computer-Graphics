@@ -79,8 +79,8 @@ namespace World_3D
             // house.AddComponent(new Renderer(new ModelType[] { ModelType.House }, Shader));
             // mainScene.AddGameObject(house);
             
-            var skybox = GameObjectFactory.CreateSkyBox(Shader);
-            mainScene.AddGameObject(skybox);
+            // var skybox = GameObjectFactory.CreateSkyBox(Shader);
+            // mainScene.AddGameObject(skybox);
 
             activeScene = mainScene;
 

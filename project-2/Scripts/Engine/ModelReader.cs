@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 
 namespace World_3D
 {
     public static class ModelReader
     {
-        public struct MeshData
+        public struct MeshObjectData
         {
             public Vector3[] vertices;
             public Vector2[] uvs;
@@ -17,13 +18,13 @@ namespace World_3D
             public Texture texture;
         }
 
-        public static List<MeshData> ReadAll(string filepath, string mtlFile, string texturesFolder)
+        public static List<MeshObjectData> ReadAll(string filepath, string mtlFile, string texturesFolder)
         {
             Dictionary<string, Texture> textures = ReadTextures(mtlFile, texturesFolder);
 
             using (StreamReader file = File.OpenText(filepath))
             {
-                List<MeshData> meshes = new();
+                List<MeshObjectData> meshes = new();
 
                 while (!file.EndOfStream)
                 {
@@ -50,7 +51,7 @@ namespace World_3D
                         {
                             if (meshNotEmpty == true) //if we have info to fill the mesh
                             {
-                                meshes.Add(new MeshData()
+                                meshes.Add(new MeshObjectData()
                                 {
                                     vertices = vertices.ToArray(),
                                     uvs = uvs.ToArray(),
@@ -122,7 +123,7 @@ namespace World_3D
                         }
                     }
                     
-                    meshes.Add(new MeshData()
+                    meshes.Add(new MeshObjectData()
                     {
                         vertices = vertices.ToArray(),
                         uvs = uvs.ToArray(),
@@ -161,7 +162,8 @@ namespace World_3D
                     }
                     else if (line.StartsWith("map_Kd "))
                     {
-                        txtImgName = line.Split("\\")[2];
+                        
+                        txtImgName = line.Split("\\").Last();
 
                         string path = Path.Join(texturesFolder, txtImgName);
                         Texture newTxt = new Texture(path);
