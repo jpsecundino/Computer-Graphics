@@ -19,10 +19,20 @@ namespace World_3D
         {
             GameObject griffin = new();
             griffin.AddComponent(new Renderer(ModelType.Griffin, shader));
-            griffin.AddComponent(new LoopMovement());
+            griffin.AddComponent(new LoopMovement(type: LoopMovement.LoopType.YZ));
             griffin.Transform.Position += Vector3.UnitX * 3f;
 
             return griffin;
+        }
+
+        public static GameObject CreateShip(Shader shader)
+        {
+            GameObject ship = new();
+            ship.AddComponent(new Renderer(ModelType.Ship, shader));
+            //ship.AddComponent(new LoopMovement(speed: 1f, radius: 0.02f, type: LoopMovement.LoopType.XZ));
+            ship.Transform.Position = new Vector3(0f, 0f, 25f);
+
+            return ship;
         }
 
         public static GameObject CreateCamera(out Camera cameraComponent)
@@ -32,7 +42,7 @@ namespace World_3D
             cameraObj.AddComponent(cameraComponent);
             cameraObj.AddComponent(new CameraMovement());
             cameraObj.AddComponent(new CameraZoom(cameraComponent));
-            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(50, 10, 50)));
+            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(50, 25, 50)));
             return cameraObj;
         }
     }

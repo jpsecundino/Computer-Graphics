@@ -69,8 +69,7 @@ namespace World_3D
             mainScene.AddGameObject(terrain);
             terrain.Transform.Scale = 1f;
 
-            GameObject ship = new();
-            ship.AddComponent(new Renderer(ModelType.Ship, Shader));
+            GameObject ship = GameObjectFactory.CreateShip(Shader);
             mainScene.AddGameObject(ship);
             
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
