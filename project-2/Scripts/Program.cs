@@ -1,8 +1,9 @@
 using Silk.NET.Input;
 using Silk.NET.OpenGL;
 using Silk.NET.Windowing;
-using System.Numerics;
+using ImGuiNET;
 using Silk.NET.Maths;
+using Silk.NET.OpenGL.Extensions.ImGui;
 
 namespace World_3D
 {
@@ -17,6 +18,7 @@ namespace World_3D
         private static Shader Shader;
         private static Scene activeScene;
         private static GL gl;
+        private static ImGuiController imGui;
 
         private static bool isPolygonModeLine = false;
 
@@ -41,6 +43,8 @@ namespace World_3D
             Input.Keyboard.KeyDown += OnKeyDown;
 
             Gl = GL.GetApi(window);
+
+            imGui = new ImGuiController(gl, window, Input.InputContext);
 
             Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
 
@@ -82,6 +86,8 @@ namespace World_3D
 
         private static unsafe void OnUpdate(double deltaTime)
         {
+            imGui.Update((float) deltaTime);
+            
             activeScene.UpdateScene(deltaTime);
         }
 
@@ -97,11 +103,15 @@ namespace World_3D
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
             
             activeScene.DrawObjects();
+
+            ImGui.ShowDemoWindow();
+            imGui.Render();
         }
 
         private static void OnClose()
         {
             Shader.Dispose();
+            imGui.Dispose();
         }
 
         private static void OnKeyDown(IKeyboard keyboard, Key key, int arg3)

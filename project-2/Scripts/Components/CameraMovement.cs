@@ -14,7 +14,7 @@ namespace World_3D
 
         public override void Start()
         {
-            Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
+            //Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
         }
 
         public override void Update(double deltaTime)
