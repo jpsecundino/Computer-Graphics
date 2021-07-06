@@ -4,7 +4,6 @@ using Silk.NET.Windowing;
 using ImGuiNET;
 using Silk.NET.Maths;
 using Silk.NET.OpenGL.Extensions.ImGui;
-using System;
 using System.Numerics;
 
 namespace World_3D
@@ -14,8 +13,8 @@ namespace World_3D
         private static IWindow window;
         public static GL Gl { get => gl; private set => gl = value; }
 
-        public const int Width = 800;
-        public const int Height = 700;
+        public const int Width = 1080;
+        public const int Height = 1080;
         
         private static Shader Shader;
         private static Scene activeScene;
@@ -36,8 +35,35 @@ namespace World_3D
             window.Render += OnRender;
             window.Closing += OnClose;
 
+            window.Load += OnLoadUI;
+            window.Update += OnUpdateUI;
+            window.Render += OnRenderUI;
+            window.Closing += OnCloseUI;
+
             window.Run();
         }
+
+        private static void OnCloseUI()
+        {
+            imGui.Dispose();
+        }
+
+        private static void OnRenderUI(double deltaTime)
+        {
+            ImGuiTransformWindow();
+            imGui.Render();
+        }
+
+        private static void OnUpdateUI(double deltaTime)
+        {
+            imGui.Update((float)deltaTime);
+        }
+
+        private static void OnLoadUI()
+        {
+            imGui = new ImGuiController(gl, window, Input.InputContext);
+        }
+
         static GameObject ship;
         private static void OnLoad()
         {
@@ -45,8 +71,6 @@ namespace World_3D
             Input.Keyboard.KeyDown += OnKeyDown;
 
             Gl = GL.GetApi(window);
-
-            imGui = new ImGuiController(gl, window, Input.InputContext);
 
             Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
 
@@ -87,9 +111,7 @@ namespace World_3D
         }
 
         private static unsafe void OnUpdate(double deltaTime)
-        {
-            imGui.Update((float) deltaTime);
-            
+        {   
             activeScene.UpdateScene(deltaTime);
         }
 
@@ -105,9 +127,6 @@ namespace World_3D
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
             
             activeScene.DrawObjects();
-
-            ImGuiTransformWindow();
-            imGui.Render();
         }
 
         private static void ImGuiTransformWindow()
@@ -124,7 +143,6 @@ namespace World_3D
         private static void OnClose()
         {
             Shader.Dispose();
-            imGui.Dispose();
         }
 
         private static void OnKeyDown(IKeyboard keyboard, Key key, int arg3)
