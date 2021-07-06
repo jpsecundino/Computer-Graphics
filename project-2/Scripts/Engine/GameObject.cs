@@ -6,11 +6,15 @@ namespace World_3D
 {
     public class GameObject
     {
-        public Transform Transform { get => transform; set => transform = value; }
-        private Transform transform = new();
+        public readonly string Name = "";
+        public Transform Transform { get; set; } = new();
 
         private readonly List<Component> components = new();
 
+        public GameObject(string name)
+        {
+            this.Name = name;
+        }
 
         public void AddComponent(Component c)
         {

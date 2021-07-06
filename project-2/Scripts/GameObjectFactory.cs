@@ -6,7 +6,7 @@ namespace World_3D
     {
         public static GameObject CreateSkyBox(Shader defaultShader)
         {
-            GameObject skybox = new();
+            GameObject skybox = new("skybox");
             skybox.Transform.Scale = Camera.MainCamera.FarPlaneDistance / 2f;
 
             skybox.AddComponent(new Renderer(ModelType.Skybox, defaultShader));
@@ -17,7 +17,7 @@ namespace World_3D
 
         public static GameObject CreateGriffin(Shader shader)
         {
-            GameObject griffin = new();
+            GameObject griffin = new("griffin");
             griffin.AddComponent(new Renderer(ModelType.Griffin, shader));
             griffin.AddComponent(new LoopMovement(type: LoopMovement.LoopType.YZ));
             griffin.Transform.Position += Vector3.UnitX * 3f;
@@ -27,17 +27,19 @@ namespace World_3D
 
         public static GameObject CreateShip(Shader shader)
         {
-            GameObject ship = new();
+            GameObject ship = new("ship");
             ship.AddComponent(new Renderer(ModelType.Ship, shader));
-            ship.Transform.Position = new Vector3(7f, -2f, 20f);
-            ship.AddComponent(new LoopMovement(speed: 3f, radius: 2f, type: LoopMovement.LoopType.XZ));
+            ship.AddComponent(new ImguiTransform());
+            ship.Transform.Position = new Vector3(11f, -2.5f, 16f);
+            
+            // ship.AddComponent(new LoopMovement(speed: 3f, radius: 2f, type: LoopMovement.LoopType.XZ));
 
             return ship;
         }
 
         public static GameObject CreateCamera(out Camera cameraComponent)
         {
-            GameObject cameraObj = new();
+            GameObject cameraObj = new("camera");
             cameraComponent = new();
             cameraObj.AddComponent(cameraComponent);
             cameraObj.AddComponent(new CameraMovement());

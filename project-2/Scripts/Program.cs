@@ -10,7 +10,7 @@ namespace World_3D
 {
     static class Program
     {
-        private static IWindow window;
+        private static IWindow mainWindow;
         public static GL Gl { get => gl; private set => gl = value; }
 
         public const int Width = 1080;
@@ -28,19 +28,19 @@ namespace World_3D
             var options = WindowOptions.Default;
             options.Size = new Vector2D<int>(Width, Height);
             options.Title = "World 3D";
-            window = Window.Create(options);
+            mainWindow = Window.Create(options);
 
-            window.Load += OnLoad;
-            window.Update += OnUpdate;
-            window.Render += OnRender;
-            window.Closing += OnClose;
+            mainWindow.Load += OnLoad;
+            // mainWindow.Update += OnUpdateUI;
+            mainWindow.Update += OnUpdate;
+            mainWindow.Render += OnRender;
+            mainWindow.Closing += OnClose;
 
-            window.Load += OnLoadUI;
-            window.Update += OnUpdateUI;
-            window.Render += OnRenderUI;
-            window.Closing += OnCloseUI;
+            mainWindow.Load += OnLoadUI;
+            mainWindow.Render += OnRenderUI;
+            mainWindow.Closing += OnCloseUI;
 
-            window.Run();
+            mainWindow.Run();
         }
 
         private static void OnCloseUI()
@@ -50,7 +50,6 @@ namespace World_3D
 
         private static void OnRenderUI(double deltaTime)
         {
-            ImGuiTransformWindow();
             imGui.Render();
         }
 
@@ -61,16 +60,16 @@ namespace World_3D
 
         private static void OnLoadUI()
         {
-            imGui = new ImGuiController(gl, window, Input.InputContext);
+            imGui = new ImGuiController(gl, mainWindow, Input.InputContext);
         }
 
         static GameObject ship;
         private static void OnLoad()
         {
-            Input.Initialize(window);
+            Input.Initialize(mainWindow);
             Input.Keyboard.KeyDown += OnKeyDown;
 
-            Gl = GL.GetApi(window);
+            Gl = GL.GetApi(mainWindow);
 
             Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
 
@@ -83,18 +82,20 @@ namespace World_3D
             mainScene.AddGameObject(cameraObj);
             
 
-            GameObject fishermanHouse = new();
+            GameObject fishermanHouse = new("house");
             fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
+            fishermanHouse.AddComponent(new ImguiTransform());
+            fishermanHouse.Transform.Position = new Vector3(26f, -0.5f, 12f);
             mainScene.AddGameObject(fishermanHouse);
 
-            GameObject bear = new();
+            GameObject bear = new("bear");
             bear.AddComponent(new Renderer(ModelType.Bear, Shader));
             mainScene.AddGameObject(bear);
 
             GameObject griffin = GameObjectFactory.CreateGriffin(Shader);
             mainScene.AddGameObject(griffin);
             
-            GameObject terrain = new();
+            GameObject terrain = new("terrain");
             terrain.AddComponent(new Renderer(ModelType.Terrain, Shader));
             mainScene.AddGameObject(terrain);
             terrain.Transform.Scale = 1f;
@@ -112,6 +113,7 @@ namespace World_3D
 
         private static unsafe void OnUpdate(double deltaTime)
         {   
+            imGui.Update((float) deltaTime);
             activeScene.UpdateScene(deltaTime);
         }
 
@@ -129,17 +131,6 @@ namespace World_3D
             activeScene.DrawObjects();
         }
 
-        private static void ImGuiTransformWindow()
-        {
-            ImGui.Begin("Transforms");
-
-            Vector3 v = ship.Transform.Position;
-            ImGui.DragFloat3("transform", ref v);
-            ship.Transform.Position = v;
-
-            ImGui.End();   
-        }
-
         private static void OnClose()
         {
             Shader.Dispose();
@@ -154,7 +145,7 @@ namespace World_3D
             }
             if (key == Key.Escape)
             {
-                window.Close();
+                mainWindow.Close();
             }
         }
     }

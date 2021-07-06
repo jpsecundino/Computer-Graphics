@@ -9,36 +9,56 @@ namespace World_3D
     {
         public float CameraYaw = -90f;
         public float CameraPitch = 0f;
-        
-        private Vector2 LastMousePosition;
+
+        private bool _mouseLock = false;
+        private Vector2 _lastMousePosition;
 
         public override void Start()
         {
-            //Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
+            Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
+
+            Input.Mouse.Click += MouseControl;
+
+        }
+
+        private void MouseControl(IMouse mouseIdx, MouseButton mouseButton, Vector2 position)
+        {
+            if (mouseButton != MouseButton.Right) return;
+
+            _mouseLock = !_mouseLock;
+                
+            Input.Mouse.Cursor.CursorMode = _mouseLock ? CursorMode.Normal : CursorMode.Disabled;
+            _lastMousePosition = Input.Mouse.Position;
+
         }
 
         public override void Update(double deltaTime)
         {
             var moveSpeed = 10f * (float)deltaTime;
 
-            RotateCamera();
-            MoveCamera(moveSpeed);
+            if (!_mouseLock)
+            {
+                RotateCamera();
+                MoveCamera(moveSpeed);
+            }
+
         }
+
         private unsafe void RotateCamera()
         {
             var lookSensitivity = 0.1f;
 
             Vector2 mousePos = Input.Mouse.Position;
 
-            if (LastMousePosition == default)
+            if (_lastMousePosition == default)
             {
-                LastMousePosition = mousePos;
+                _lastMousePosition = mousePos;
             }
             else
             {
-                var xOffset = (mousePos.X - LastMousePosition.X) * lookSensitivity;
-                var yOffset = (mousePos.Y - LastMousePosition.Y) * lookSensitivity;
-                LastMousePosition = mousePos;
+                var xOffset = (mousePos.X - _lastMousePosition.X) * lookSensitivity;
+                var yOffset = (mousePos.Y - _lastMousePosition.Y) * lookSensitivity;
+                _lastMousePosition = mousePos;
 
                 CameraYaw += xOffset;
                 CameraPitch -= yOffset;
@@ -82,6 +102,16 @@ namespace World_3D
             {
                 //Move right
                 parent.Transform.Position += Vector3.Normalize(Vector3.Cross(parent.Transform.Forward, parent.Transform.Up)) * moveSpeed;
+            }
+            if (Input.Keyboard.IsKeyPressed(Key.ShiftLeft))
+            {
+                //Move up
+                parent.Transform.Position += parent.Transform.Up * moveSpeed;
+            }
+            if (Input.Keyboard.IsKeyPressed(Key.ControlLeft))
+            {
+                //Move down
+                parent.Transform.Position -= parent.Transform.Up * moveSpeed;
             }
         }
     }
