@@ -61,6 +61,8 @@ namespace World_3D
         private static void OnLoadUI()
         {
             imGui = new ImGuiController(gl, mainWindow, Input.InputContext);
+            
+            ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
         }
 
         static GameObject ship;
