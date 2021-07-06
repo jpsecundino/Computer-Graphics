@@ -53,11 +53,6 @@ namespace World_3D
             imGui.Render();
         }
 
-        private static void OnUpdateUI(double deltaTime)
-        {
-            imGui.Update((float)deltaTime);
-        }
-
         private static void OnLoadUI()
         {
             imGui = new ImGuiController(gl, mainWindow, Input.InputContext);

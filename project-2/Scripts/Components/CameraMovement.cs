@@ -1,7 +1,6 @@
 ﻿using Silk.NET.Input;
 using System;
 using System.Numerics;
-using Tutorial;
 
 namespace World_3D
 {
@@ -74,9 +73,9 @@ namespace World_3D
         {
             Vector3 dir = new();
 
-            dir.X = MathF.Cos(MathHelper.DegreesToRadians(yaw)) * MathF.Cos(MathHelper.DegreesToRadians(pitch));
-            dir.Y = MathF.Sin(MathHelper.DegreesToRadians(pitch));
-            dir.Z = MathF.Sin(MathHelper.DegreesToRadians(yaw)) * MathF.Cos(MathHelper.DegreesToRadians(pitch));
+            dir.X = MathF.Cos(MathHelper.DegreesToRadians * yaw) * MathF.Cos(MathHelper.DegreesToRadians * pitch);
+            dir.Y = MathF.Sin(MathHelper.DegreesToRadians * pitch);
+            dir.Z = MathF.Sin(MathHelper.DegreesToRadians * yaw) * MathF.Cos(MathHelper.DegreesToRadians * pitch);
 
             parent.Transform.Forward = Vector3.Normalize(dir);
         }

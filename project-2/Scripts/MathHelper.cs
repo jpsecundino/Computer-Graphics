@@ -1,14 +1,12 @@
 using System;
 using System.Numerics;
 
-namespace Tutorial
+namespace World_3D
 {
     public static class MathHelper
     {
-        public static float DegreesToRadians(float degrees)
-        {
-            return MathF.PI / 180f * degrees;
-        }
+        public static float DegreesToRadians => MathF.PI / 180f;
+        public static float RadiansToDegrees => 180f / MathF.PI;
 
         public static Vector3 Multiply(Quaternion rotation, Vector3 point)
         {

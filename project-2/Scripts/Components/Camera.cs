@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using Tutorial;
 
 namespace World_3D
 {
@@ -14,7 +13,7 @@ namespace World_3D
 
         public Matrix4x4 View => Matrix4x4.CreateLookAt(parent.Transform.Position, parent.Transform.Position
                                                                                    + parent.Transform.Forward, parent.Transform.Up);
-        public Matrix4x4 Projection => Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(CameraZoom), Program.Width / Program.Height, NearPlaneDistance, FarPlaneDistance);
+        public Matrix4x4 Projection => Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians * CameraZoom, Program.Width / Program.Height, NearPlaneDistance, FarPlaneDistance);
 
 
         public static void SwitchMainCamera(Camera camera)
