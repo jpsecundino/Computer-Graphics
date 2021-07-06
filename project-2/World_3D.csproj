@@ -22,4 +22,7 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
     <PackageReference Include="Ultz.SilkExtensions.ImGui" Version="1.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\pirate" />
+  </ItemGroup>
 </Project>

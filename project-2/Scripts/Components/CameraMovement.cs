@@ -34,7 +34,7 @@ namespace World_3D
 
         public override void Update(double deltaTime)
         {
-            var moveSpeed = 10f * (float)deltaTime;
+            var moveSpeed = 5f * (float)deltaTime;
 
             if (!_mouseLock)
             {

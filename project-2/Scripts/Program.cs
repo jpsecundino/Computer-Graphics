@@ -87,7 +87,8 @@ namespace World_3D
             GameObject fishermanHouse = new("house");
             fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
             fishermanHouse.AddComponent(new ImguiTransform());
-            fishermanHouse.Transform.Position = new Vector3(26f, -0.5f, 12f);
+            fishermanHouse.Transform.Position = new Vector3(25f, -0.7f, 11f);
+            fishermanHouse.Transform.Rotation = new Vector3(3.5f, 0f, -0.1f);
             mainScene.AddGameObject(fishermanHouse);
 
             GameObject bear = new("bear");

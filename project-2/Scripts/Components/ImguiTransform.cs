@@ -12,13 +12,13 @@ namespace World_3D
             ImGui.Begin("Transform of " + parent.Name );
 
             Vector3 position = parent.Transform.Position;
-            // float scale = parent.Transform.Scale;
+            Vector3 rotation = parent.Transform.Rotation;
             
             ImGui.DragFloat3("Position", ref position);
-            // ImGui.DragFloat("transform", ref scale);
+            ImGui.DragFloat3("Rotation", ref rotation);
 
             parent.Transform.Position = position;
-            // parent.Transform.Scale = scale;
+            parent.Transform.Rotation = rotation;
             
             ImGui.End();
         }
