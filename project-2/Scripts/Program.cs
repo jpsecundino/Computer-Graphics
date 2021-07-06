@@ -4,6 +4,8 @@ using Silk.NET.Windowing;
 using ImGuiNET;
 using Silk.NET.Maths;
 using Silk.NET.OpenGL.Extensions.ImGui;
+using System;
+using System.Numerics;
 
 namespace World_3D
 {
@@ -36,7 +38,7 @@ namespace World_3D
 
             window.Run();
         }
-
+        static GameObject ship;
         private static void OnLoad()
         {
             Input.Initialize(window);
@@ -73,7 +75,7 @@ namespace World_3D
             mainScene.AddGameObject(terrain);
             terrain.Transform.Scale = 1f;
 
-            GameObject ship = GameObjectFactory.CreateShip(Shader);
+            ship = GameObjectFactory.CreateShip(Shader);
             mainScene.AddGameObject(ship);
             
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
@@ -104,8 +106,19 @@ namespace World_3D
             
             activeScene.DrawObjects();
 
-            ImGui.ShowDemoWindow();
+            ImGuiTransformWindow();
             imGui.Render();
+        }
+
+        private static void ImGuiTransformWindow()
+        {
+            ImGui.Begin("Transforms");
+
+            Vector3 v = ship.Transform.Position;
+            ImGui.DragFloat3("transform", ref v);
+            ship.Transform.Position = v;
+
+            ImGui.End();   
         }
 
         private static void OnClose()

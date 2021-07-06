@@ -29,8 +29,8 @@ namespace World_3D
         {
             GameObject ship = new();
             ship.AddComponent(new Renderer(ModelType.Ship, shader));
-            //ship.AddComponent(new LoopMovement(speed: 1f, radius: 0.02f, type: LoopMovement.LoopType.XZ));
-            ship.Transform.Position = new Vector3(0f, 0f, 25f);
+            ship.Transform.Position = new Vector3(7f, -2f, 20f);
+            ship.AddComponent(new LoopMovement(speed: 3f, radius: 2f, type: LoopMovement.LoopType.XZ));
 
             return ship;
         }
