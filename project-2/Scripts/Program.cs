@@ -71,41 +71,40 @@ namespace World_3D
 
             RenderPipeline rp = new();
 
-            Scene mainScene = new(rp);
+            activeScene = new(rp);
 
             var cameraObj = GameObjectFactory.CreateCamera(out Camera cameraComponent);
             Camera.SwitchMainCamera(cameraComponent);
-            mainScene.AddGameObject(cameraObj);
+            activeScene.AddGameObject(cameraObj);
 
             GameObject fishermanHouse = new("house");
             fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
             fishermanHouse.Transform.Position = new Vector3(25f, -0.7f, 11f);
             fishermanHouse.Transform.Rotation = new Vector3(3.5f, 0f, -0.1f);
-            mainScene.AddGameObject(fishermanHouse);
+            activeScene.AddGameObject(fishermanHouse);
 
             GameObject bear = new("bear");
             bear.AddComponent(new Renderer(ModelType.Bear, Shader));
-            mainScene.AddGameObject(bear);
+            activeScene.AddGameObject(bear);
             
             GameObject pirate = new("pirate");
             pirate.AddComponent(new Renderer(ModelType.Pirate, Shader));
-            mainScene.AddGameObject(pirate);
+            activeScene.AddGameObject(pirate);
 
             GameObject griffin = GameObjectFactory.CreateGriffin(Shader);
-            mainScene.AddGameObject(griffin);
+            activeScene.AddGameObject(griffin);
             
             GameObject terrain = new("terrain");
             terrain.AddComponent(new Renderer(ModelType.Terrain, Shader));
-            mainScene.AddGameObject(terrain);
+            activeScene.AddGameObject(terrain);
             terrain.Transform.Scale = Vector3.One;
 
             GameObject ship = GameObjectFactory.CreateShip(Shader);
-            mainScene.AddGameObject(ship);
+            activeScene.AddGameObject(ship);
             
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
-            mainScene.AddGameObject(skybox);
+            activeScene.AddGameObject(skybox);
 
-            activeScene = mainScene;
 
             activeScene.StartScene();
         }
