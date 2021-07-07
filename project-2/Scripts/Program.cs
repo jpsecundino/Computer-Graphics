@@ -112,6 +112,7 @@ namespace World_3D
         private static unsafe void OnUpdate(double deltaTime)
         {   
             imGui.Update((float) deltaTime);
+            activeScene.DrawHierarchy();
             activeScene.UpdateScene(deltaTime);
         }
 

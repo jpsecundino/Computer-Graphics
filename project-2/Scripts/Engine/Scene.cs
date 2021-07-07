@@ -30,6 +30,16 @@ namespace World_3D
             }
         }
 
+        public void DrawHierarchy()
+        {
+            ImGuiNET.ImGui.Begin("Hierarchy");
+            foreach (GameObject g in gameObjects)
+            {
+                g.DrawInspector();
+            }
+            ImGuiNET.ImGui.End();
+        }
+
         public void UpdateScene(double deltaTime)
         {
             foreach(GameObject g in gameObjects)

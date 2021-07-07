@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ImGuiNET;
 using System.Collections.Generic;
-using Tutorial;
+using System.Numerics;
 
 namespace World_3D
 {
@@ -27,6 +27,22 @@ namespace World_3D
             foreach(Component c in components)
             {
                 c.Update(deltaTime);
+            }
+        }
+
+        public void DrawInspector()
+        {
+            if(ImGui.CollapsingHeader(Name))
+            {
+                ImGui.Text(nameof(Transform));
+                Vector3 position = Transform.Position;
+                Vector3 rotation = Transform.Rotation * MathHelper.RadiansToDegrees;
+
+                ImGui.DragFloat3("Position", ref position);
+                ImGui.DragFloat3("Rotation", ref rotation);
+
+                Transform.Position = position;
+                Transform.Rotation = rotation * MathHelper.DegreesToRadians;
             }
         }
 
