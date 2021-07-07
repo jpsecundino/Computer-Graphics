@@ -27,7 +27,7 @@ namespace AllianceEngine
         {
             var options = WindowOptions.Default;
             options.Size = new Vector2D<int>(Width, Height);
-            options.Title = "World 3D";
+            options.Title = "Alliance Engine";
             mainWindow = Window.Create(options);
 
             mainWindow.Load += OnLoad;
@@ -47,6 +47,7 @@ namespace AllianceEngine
             imGui = new ImGuiController(gl, mainWindow, Input.InputContext);
             ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
         }
+        
         private static void OnRenderUI(double deltaTime)
         {
             imGui.Render();

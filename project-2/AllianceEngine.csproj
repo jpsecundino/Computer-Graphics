@@ -5,6 +5,7 @@
     <FileUpgradeFlags>40</FileUpgradeFlags>
     <UpgradeBackupLocation>C:\Users\pedro\Documents\Aulas\cg\T2\Backup\</UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
+    <RootNamespace>World_3D</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
