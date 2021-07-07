@@ -18,9 +18,9 @@ namespace World_3D
         public static GameObject CreateGriffin(Shader shader)
         {
             GameObject griffin = new("griffin");
+            griffin.Transform.Position = new Vector3(11f, 1.5f, 16f);
             griffin.AddComponent(new Renderer(ModelType.Griffin, shader));
-            griffin.AddComponent(new LoopMovement(type: LoopMovement.LoopType.YZ));
-            griffin.Transform.Position += Vector3.UnitX * 3f;
+            griffin.AddComponent(new LoopMovement(type: LoopMovement.LoopType.XZ, speed: 3f, radius: 5f));
 
             return griffin;
         }

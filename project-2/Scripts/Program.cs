@@ -84,6 +84,9 @@ namespace World_3D
             activeScene.AddGameObject(fishermanHouse);
 
             GameObject bear = new("bear");
+            bear.Transform.Position = new Vector3(11f, -0.7f, 18f);
+            bear.Transform.Rotation = new Vector3(-15f, 0f, 0f);
+            bear.Transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
             bear.AddComponent(new Renderer(ModelType.Bear, Shader));
             activeScene.AddGameObject(bear);
             

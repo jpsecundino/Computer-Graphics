@@ -62,7 +62,7 @@ namespace World_3D
             pos.X = _initialPos.X + MathF.Cos(_angle) * _radius;
             parent.Transform.Position = pos;
 
-            parent.Transform.Rotate(scaledSpeed, Vector3.UnitY);
+            parent.Transform.Rotate(scaledSpeed, -Vector3.UnitX);
         }
     }
 }
