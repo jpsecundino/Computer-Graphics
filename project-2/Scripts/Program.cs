@@ -89,7 +89,32 @@ namespace World_3D
             
             GameObject pirate = new("pirate");
             pirate.AddComponent(new Renderer(ModelType.Pirate, Shader));
+            
+            pirate.Transform.Position = new Vector3(24f, -0.5f, 11.5f);
+            pirate.Transform.Rotation = new Vector3(-83f, 0f, 0f);
+            pirate.Transform.Scale = new Vector3(0.45f, 0.45f, 0.45f);
             activeScene.AddGameObject(pirate);
+            
+            GameObject campfire = new("campfire");
+            campfire.AddComponent(new Renderer(ModelType.Campfire, Shader));
+            campfire.Transform.Position = new Vector3(25f, -0.27f, 11f);
+            campfire.Transform.Rotation = new Vector3(0f, 0f, -6f);
+            campfire.Transform.Scale = new Vector3(10f, 10f, 10f);
+            activeScene.AddGameObject(campfire);
+            
+            GameObject pirateSword = new("pirateSword");
+            pirateSword.AddComponent(new Renderer(ModelType.PirateSword, Shader));
+            pirateSword.Transform.Position = new Vector3(25.4f, -0.18f, 11f);
+            pirateSword.Transform.Rotation = new Vector3(0f, 0f, -6f);
+            pirateSword.Transform.Scale = new Vector3(0.2f, 0.2f, 0.2f);
+            activeScene.AddGameObject(pirateSword);
+            
+            GameObject spyglass = new("spyglass");
+            spyglass.AddComponent(new Renderer(ModelType.Spyglass, Shader));
+            spyglass.Transform.Position = new Vector3(25.1f, -0.25f, 10.6f);
+            spyglass.Transform.Rotation = new Vector3(11f, 0.2f, -2f);
+            spyglass.Transform.Scale = new Vector3(0.1f, 0.1f, 0.1f);
+            activeScene.AddGameObject(spyglass);
 
             GameObject griffin = GameObjectFactory.CreateGriffin(Shader);
             activeScene.AddGameObject(griffin);

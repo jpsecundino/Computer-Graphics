@@ -31,6 +31,9 @@ namespace World_3D
             { ModelType.Ship, new ModelPaths("ship") },
             { ModelType.FishermanHouse, new ModelPaths("fisherman") },
             { ModelType.Pirate, new ModelPaths("pirate") },
+            { ModelType.Campfire, new ModelPaths("campfire") },
+            { ModelType.PirateSword, new ModelPaths("piratesword") },
+            { ModelType.Spyglass, new ModelPaths("spyglass") }
         };
 
         public static Mesh GetModel(ModelType modelType)

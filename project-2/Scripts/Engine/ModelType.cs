@@ -8,6 +8,9 @@
         Terrain,
         Ship,
         FishermanHouse,
-        Pirate
+        Pirate,
+        Campfire,
+        PirateSword,
+        Spyglass
     }
 }

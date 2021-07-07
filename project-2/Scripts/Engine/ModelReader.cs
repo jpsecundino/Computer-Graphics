@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -164,8 +165,15 @@ namespace World_3D
                     else if (line.StartsWith("map_Kd "))
                     {
                         
-                        txtImgName = line.Split("\\").Last();
+                        txtImgName = line.Split(" ").Last();
 
+                        if (txtImgName.Contains("\\"))
+                        {
+                            txtImgName = line.Split("\\").Last();    
+                        }
+                        
+                        Console.WriteLine(mtlName);
+                            
                         string path = Path.Join(texturesFolder, txtImgName);
                         Texture newTxt = new Texture(path);
 
