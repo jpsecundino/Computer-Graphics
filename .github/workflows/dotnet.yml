@@ -16,8 +16,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      working-directory: ./project-2
+      working-directory: ./AllianceEngine
       run: dotnet restore AllianceEngine.sln
     - name: Build
-      working-directory: ./project-2
+      working-directory: ./AllianceEngine
       run: dotnet build --no-restore AllianceEngine.sln
