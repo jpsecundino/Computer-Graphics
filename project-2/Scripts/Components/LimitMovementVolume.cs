@@ -3,25 +3,25 @@ using System.Numerics;
 
 namespace World_3D
 {
-    public class BlockMovementVolume : Component
+    public class LimitMovementVolume : Component
     {
         private readonly Vector3 center = Vector3.Zero;
         private readonly Vector3 dimensions = Vector3.One;
         
 
-        public BlockMovementVolume(Vector3 center, float halfWidth, float halfHeight, float halfDepth)
+        public LimitMovementVolume(Vector3 center, float halfWidth, float halfHeight, float halfDepth)
         {
             this.center = center;
             dimensions = new Vector3(halfWidth, halfHeight, halfDepth);
         }
 
-        public BlockMovementVolume(Vector3 center, Vector3 halfDimensions)
+        public LimitMovementVolume(Vector3 center, Vector3 halfDimensions)
         {
             this.center = center;
             this.dimensions = halfDimensions;
         }
 
-        public BlockMovementVolume(Vector3 halfDimensions)
+        public LimitMovementVolume(Vector3 halfDimensions)
         {
             this.dimensions = halfDimensions;
         }

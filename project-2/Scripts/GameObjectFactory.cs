@@ -58,16 +58,7 @@ namespace World_3D
             
             return pirate;
         }
-
-        public static GameObject CreateFishermanHouse(Shader shader)
-        {
-            GameObject fishermanHouse = new("house");
-            fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, shader));
-            fishermanHouse.Transform.Position = new Vector3(25f, -0.7f, 11f);
-            fishermanHouse.Transform.Rotation = new Vector3(3.5f, 0f, -0.1f);
-            return fishermanHouse;
-        }
-
+        
         public static GameObject CreateCamera(out Camera cameraComponent)
         {
             GameObject cameraObj = new("camera");
@@ -75,7 +66,7 @@ namespace World_3D
             cameraObj.AddComponent(cameraComponent);
             cameraObj.AddComponent(new CameraMovement());
             cameraObj.AddComponent(new CameraZoom(cameraComponent));
-            cameraObj.AddComponent(new BlockMovementVolume(new Vector3(50, 25, 50)));
+            cameraObj.AddComponent(new LimitMovementVolume(new Vector3(11f, 12.5f, 16f), new Vector3(25, 12.5f, 25)));
             return cameraObj;
         }
 
