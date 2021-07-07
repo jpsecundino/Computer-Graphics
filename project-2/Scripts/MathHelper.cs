@@ -1,6 +1,6 @@
 using System;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public static class MathHelper
     {

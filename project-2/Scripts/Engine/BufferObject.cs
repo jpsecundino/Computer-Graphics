@@ -1,7 +1,7 @@
 using Silk.NET.OpenGL;
 using System;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public sealed class BufferObject<TDataType> : IDisposable
         where TDataType : unmanaged

@@ -1,4 +1,4 @@
-﻿namespace World_3D
+﻿namespace AllianceEngine
 {
     public abstract class Component
     {

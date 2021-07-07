@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public class GameObject
     {

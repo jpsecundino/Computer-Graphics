@@ -1,7 +1,7 @@
 ﻿using Silk.NET.Input;
 using Silk.NET.Windowing;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public static class Input
     {

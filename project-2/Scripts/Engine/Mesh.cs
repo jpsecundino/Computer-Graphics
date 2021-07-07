@@ -5,7 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime.Remoting;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public sealed class Mesh : IDisposable
     {

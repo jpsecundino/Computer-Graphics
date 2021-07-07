@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public class Renderer : Component
     {

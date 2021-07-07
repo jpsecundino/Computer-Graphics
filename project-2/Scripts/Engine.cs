@@ -6,7 +6,7 @@ using Silk.NET.Maths;
 using Silk.NET.OpenGL.Extensions.ImGui;
 using System.Numerics;
 
-namespace World_3D
+namespace AllianceEngine
 {
     static class Program
     {
@@ -116,7 +116,6 @@ namespace World_3D
             activeScene.AddGameObject( GameObjectFactory.CreatePirateSword(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateSpyGlass(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateTent(Shader));
-            
 
             Camera.SwitchMainCamera(cameraComponent);
         }

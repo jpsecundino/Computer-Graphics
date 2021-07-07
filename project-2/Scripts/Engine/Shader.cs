@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public sealed class Shader : IDisposable
     {

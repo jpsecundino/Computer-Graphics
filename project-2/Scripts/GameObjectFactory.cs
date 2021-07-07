@@ -2,7 +2,7 @@
 using System.Numerics;
 using SixLabors.ImageSharp.Processing.Processors.Filters;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public static class GameObjectFactory
     {

@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public static class ModelReader
     {

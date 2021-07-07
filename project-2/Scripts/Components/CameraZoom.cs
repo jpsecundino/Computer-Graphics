@@ -1,7 +1,7 @@
 ﻿using Silk.NET.Input;
 using System;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public class CameraZoom : Component
     {

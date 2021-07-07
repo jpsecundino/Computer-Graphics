@@ -5,7 +5,7 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.Runtime.InteropServices;
 
-namespace World_3D
+namespace AllianceEngine
 {
     public sealed class Texture : IDisposable
     {
