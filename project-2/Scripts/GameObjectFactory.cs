@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace World_3D
 {
@@ -7,10 +8,8 @@ namespace World_3D
         public static GameObject CreateSkyBox(Shader defaultShader)
         {
             GameObject skybox = new("skybox");
-            skybox.Transform.Scale = new Vector3(Camera.MainCamera.FarPlaneDistance / 2f);
-
             skybox.AddComponent(new Renderer(ModelType.Skybox, defaultShader));
-            skybox.AddComponent(new FollowCamera());
+            skybox.AddComponent(new Skybox());
 
             return skybox;
         }
@@ -20,7 +19,6 @@ namespace World_3D
             GameObject griffin = new("griffin");
             griffin.AddComponent(new Renderer(ModelType.Griffin, shader));
             griffin.AddComponent(new LoopMovement(type: LoopMovement.LoopType.YZ));
-            griffin.Transform.Position += Vector3.UnitX * 3f;
 
             return griffin;
         }
@@ -33,6 +31,30 @@ namespace World_3D
 
             return ship;
         }
+        
+        public static GameObject CreateBear(Shader shader)
+        {
+            GameObject bear = new("bear");
+            bear.AddComponent(new Renderer(ModelType.Bear, shader));
+
+            return bear;
+        }
+        public static GameObject CreatePirate(Shader shader)
+        {
+            GameObject pirate = new("pirate");
+            pirate.AddComponent(new Renderer(ModelType.Pirate, shader));
+            
+            return pirate;
+        }
+
+        public static GameObject CreateFishermanHouse(Shader shader)
+        {
+            GameObject fishermanHouse = new("house");
+            fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, shader));
+            fishermanHouse.Transform.Position = new Vector3(25f, -0.7f, 11f);
+            fishermanHouse.Transform.Rotation = new Vector3(3.5f, 0f, -0.1f);
+            return fishermanHouse;
+        }
 
         public static GameObject CreateCamera(out Camera cameraComponent)
         {
@@ -43,6 +65,14 @@ namespace World_3D
             cameraObj.AddComponent(new CameraZoom(cameraComponent));
             cameraObj.AddComponent(new BlockMovementVolume(new Vector3(50, 25, 50)));
             return cameraObj;
+        }
+
+        public static GameObject CreateTerrain(Shader shader)
+        {
+            GameObject terrain = new("terrain");
+            terrain.AddComponent(new Renderer(ModelType.Terrain, shader));
+
+            return terrain;
         }
     }
 }

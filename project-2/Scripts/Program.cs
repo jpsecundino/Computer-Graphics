@@ -31,7 +31,6 @@ namespace World_3D
             mainWindow = Window.Create(options);
 
             mainWindow.Load += OnLoad;
-            // mainWindow.Update += OnUpdateUI;
             mainWindow.Update += OnUpdate;
             mainWindow.Render += OnRender;
             mainWindow.Closing += OnClose;
@@ -43,75 +42,43 @@ namespace World_3D
             mainWindow.Run();
         }
 
-        private static void OnCloseUI()
+        private static void OnLoadUI()
         {
-            imGui.Dispose();
+            imGui = new ImGuiController(gl, mainWindow, Input.InputContext);
+            ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
         }
-
         private static void OnRenderUI(double deltaTime)
         {
             imGui.Render();
         }
 
-        private static void OnLoadUI()
+        private static void OnCloseUI()
         {
-            imGui = new ImGuiController(gl, mainWindow, Input.InputContext);
-            
-            ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
+            imGui.Dispose();
         }
 
         private static void OnLoad()
         {
+            // Prepare Input
             Input.Initialize(mainWindow);
             Input.Keyboard.KeyDown += OnKeyDown;
 
+            // Get OpenGL API (context)
             Gl = GL.GetApi(mainWindow);
 
+            // Initialize Default Shader
             Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
 
-            RenderPipeline rp = new();
-
-            activeScene = new(rp);
-
-            var cameraObj = GameObjectFactory.CreateCamera(out Camera cameraComponent);
-            Camera.SwitchMainCamera(cameraComponent);
-            activeScene.AddGameObject(cameraObj);
-
-            GameObject fishermanHouse = new("house");
-            fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
-            fishermanHouse.Transform.Position = new Vector3(25f, -0.7f, 11f);
-            fishermanHouse.Transform.Rotation = new Vector3(3.5f, 0f, -0.1f);
-            activeScene.AddGameObject(fishermanHouse);
-
-            GameObject bear = new("bear");
-            bear.AddComponent(new Renderer(ModelType.Bear, Shader));
-            activeScene.AddGameObject(bear);
-            
-            GameObject pirate = new("pirate");
-            pirate.AddComponent(new Renderer(ModelType.Pirate, Shader));
-            activeScene.AddGameObject(pirate);
-
-            GameObject griffin = GameObjectFactory.CreateGriffin(Shader);
-            activeScene.AddGameObject(griffin);
-            
-            GameObject terrain = new("terrain");
-            terrain.AddComponent(new Renderer(ModelType.Terrain, Shader));
-            activeScene.AddGameObject(terrain);
-            terrain.Transform.Scale = Vector3.One;
-
-            GameObject ship = GameObjectFactory.CreateShip(Shader);
-            activeScene.AddGameObject(ship);
-            
-            var skybox = GameObjectFactory.CreateSkyBox(Shader);
-            activeScene.AddGameObject(skybox);
-
+            // Create RenderPipeline and Main Scene
+            activeScene = new Scene(new RenderPipeline());
+            PopulateScene();
 
             activeScene.StartScene();
         }
 
         private static unsafe void OnUpdate(double deltaTime)
-        {   
-            imGui.Update((float) deltaTime);
+        {
+            imGui.Update((float)deltaTime);
             activeScene.DrawHierarchy();
             activeScene.UpdateScene(deltaTime);
         }
@@ -124,9 +91,9 @@ namespace World_3D
 
             Shader.Use();
             Shader.SetUniform("uTexture0", 0);
-            Shader.SetUniform("uView", Camera.MainCamera.View );
+            Shader.SetUniform("uView", Camera.MainCamera.View);
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
-            
+
             activeScene.DrawObjects();
         }
 
@@ -135,13 +102,30 @@ namespace World_3D
             Shader.Dispose();
         }
 
+        private static void PopulateScene()
+        {
+            activeScene.AddGameObject( GameObjectFactory.CreateCamera(out Camera cameraComponent));
+            activeScene.AddGameObject( GameObjectFactory.CreateTerrain(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreatePirate(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateBear(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateFishermanHouse(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateGriffin(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateShip(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateSkyBox(Shader));
+            
+            Camera.SwitchMainCamera(cameraComponent);
+        }
+
         private static void OnKeyDown(IKeyboard keyboard, Key key, int arg3)
         {
+            // Toggle Polygon Mode
             if (key == Key.P)
             {
                 Gl.PolygonMode(MaterialFace.FrontAndBack, isPolygonModeLine ? PolygonMode.Fill : PolygonMode.Line);
                 isPolygonModeLine = !isPolygonModeLine;
             }
+
+            // Close window on Escape
             if (key == Key.Escape)
             {
                 mainWindow.Close();
