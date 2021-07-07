@@ -34,7 +34,7 @@ namespace World_3D
                     List<int> vertexIndices = new();
                     List<int> uvIndices = new();
                     string textureName = "";
-                    bool meshNotEmpty = false;
+                    bool meshEmpty = true;
 
                     string line = file.ReadLine();
 
@@ -50,7 +50,7 @@ namespace World_3D
 
                         if (line.StartsWith("o "))
                         {
-                            if (meshNotEmpty == true && textureName != "") //if we have info to fill the mesh
+                            if (meshEmpty == false && textureName != "") //if we have info to fill the mesh
                             {
                                 meshes.Add(new MeshObjectData()
                                 {
@@ -61,7 +61,7 @@ namespace World_3D
                                     texture = textures[textureName]
                                 });
 
-                                meshNotEmpty = false;
+                                meshEmpty = true;
                                 vertices = new();
                                 uvs = new();
                                 vertexIndices = new();
@@ -86,7 +86,7 @@ namespace World_3D
 
                             vertices.Add(newVertex);
 
-                            meshNotEmpty = true;
+                            meshEmpty = false;
                         }
                         else if (line.StartsWith("vt "))
                         {
@@ -101,7 +101,7 @@ namespace World_3D
 
                             uvs.Add(newUv);
 
-                            meshNotEmpty = true;
+                            meshEmpty = false;
                         }
                         else if (line.StartsWith("f "))
                         {
@@ -116,7 +116,7 @@ namespace World_3D
                                     uvIndices.Add(uvIndex);
                             }
 
-                            meshNotEmpty = true;
+                            meshEmpty = false;
                         }
                         else if (line.StartsWith("usemtl "))
                         {

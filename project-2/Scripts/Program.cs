@@ -105,7 +105,7 @@ namespace World_3D
             GameObject terrain = new("terrain");
             terrain.AddComponent(new Renderer(ModelType.Terrain, Shader));
             mainScene.AddGameObject(terrain);
-            terrain.Transform.Scale = 1f;
+            terrain.Transform.Scale = Vector3.One;
 
             ship = GameObjectFactory.CreateShip(Shader);
             mainScene.AddGameObject(ship);
