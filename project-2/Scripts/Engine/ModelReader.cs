@@ -171,9 +171,7 @@ namespace World_3D
                         {
                             txtImgName = line.Split("\\").Last();    
                         }
-                        
-                        Console.WriteLine(mtlName);
-                            
+
                         string path = Path.Join(texturesFolder, txtImgName);
                         Texture newTxt = new Texture(path);
 
