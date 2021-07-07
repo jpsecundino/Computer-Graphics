@@ -32,7 +32,12 @@ namespace World_3D
 
         public void DrawHierarchy()
         {
-            ImGuiNET.ImGui.Begin("Hierarchy");
+            if (!ImGuiNET.ImGui.Begin("Hierarchy"))
+            {
+                ImGuiNET.ImGui.End();
+                return;
+            }
+
             foreach (GameObject g in gameObjects)
             {
                 g.DrawInspector();

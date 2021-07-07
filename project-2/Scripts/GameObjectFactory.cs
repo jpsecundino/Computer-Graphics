@@ -7,7 +7,7 @@ namespace World_3D
         public static GameObject CreateSkyBox(Shader defaultShader)
         {
             GameObject skybox = new("skybox");
-            skybox.Transform.Scale = Camera.MainCamera.FarPlaneDistance / 2f;
+            skybox.Transform.Scale = new Vector3(Camera.MainCamera.FarPlaneDistance / 2f);
 
             skybox.AddComponent(new Renderer(ModelType.Skybox, defaultShader));
             skybox.AddComponent(new FollowCamera());
@@ -29,10 +29,7 @@ namespace World_3D
         {
             GameObject ship = new("ship");
             ship.AddComponent(new Renderer(ModelType.Ship, shader));
-            ship.AddComponent(new ImguiTransform());
             ship.Transform.Position = new Vector3(11f, -2.5f, 16f);
-            
-            // ship.AddComponent(new LoopMovement(speed: 3f, radius: 2f, type: LoopMovement.LoopType.XZ));
 
             return ship;
         }

@@ -35,14 +35,18 @@ namespace World_3D
             if(ImGui.CollapsingHeader(Name))
             {
                 ImGui.Text(nameof(Transform));
+                ImGui.Separator();
                 Vector3 position = Transform.Position;
                 Vector3 rotation = Transform.Rotation * MathHelper.RadiansToDegrees;
+                Vector3 scale = Transform.Scale;
 
                 ImGui.DragFloat3("Position", ref position);
                 ImGui.DragFloat3("Rotation", ref rotation);
+                ImGui.DragFloat3("Scale", ref scale);
 
                 Transform.Position = position;
                 Transform.Rotation = rotation * MathHelper.DegreesToRadians;
+                Transform.Scale = scale;
             }
         }
 

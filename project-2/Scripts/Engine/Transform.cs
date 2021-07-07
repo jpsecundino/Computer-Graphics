@@ -8,7 +8,7 @@ namespace World_3D
     {
         public Vector3 Position { get; set; } = new Vector3(0, 0, 0);
         public Vector3 Rotation { get; set; } = Vector3.Zero;
-        public float Scale { get; set; } = 1f;
+        public Vector3 Scale { get; set; } = Vector3.One;
 
         public Vector3 Forward { get; set; } = Vector3.UnitZ;
         public Vector3 Up { get; set; } = Vector3.UnitY;

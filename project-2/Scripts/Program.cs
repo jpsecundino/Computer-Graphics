@@ -60,7 +60,6 @@ namespace World_3D
             ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
         }
 
-        static GameObject ship;
         private static void OnLoad()
         {
             Input.Initialize(mainWindow);
@@ -77,11 +76,9 @@ namespace World_3D
             var cameraObj = GameObjectFactory.CreateCamera(out Camera cameraComponent);
             Camera.SwitchMainCamera(cameraComponent);
             mainScene.AddGameObject(cameraObj);
-            
 
             GameObject fishermanHouse = new("house");
             fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
-            fishermanHouse.AddComponent(new ImguiTransform());
             fishermanHouse.Transform.Position = new Vector3(25f, -0.7f, 11f);
             fishermanHouse.Transform.Rotation = new Vector3(3.5f, 0f, -0.1f);
             mainScene.AddGameObject(fishermanHouse);
@@ -89,6 +86,10 @@ namespace World_3D
             GameObject bear = new("bear");
             bear.AddComponent(new Renderer(ModelType.Bear, Shader));
             mainScene.AddGameObject(bear);
+            
+            GameObject pirate = new("pirate");
+            pirate.AddComponent(new Renderer(ModelType.Pirate, Shader));
+            mainScene.AddGameObject(pirate);
 
             GameObject griffin = GameObjectFactory.CreateGriffin(Shader);
             mainScene.AddGameObject(griffin);
@@ -96,9 +97,9 @@ namespace World_3D
             GameObject terrain = new("terrain");
             terrain.AddComponent(new Renderer(ModelType.Terrain, Shader));
             mainScene.AddGameObject(terrain);
-            terrain.Transform.Scale = 1f;
+            terrain.Transform.Scale = Vector3.One;
 
-            ship = GameObjectFactory.CreateShip(Shader);
+            GameObject ship = GameObjectFactory.CreateShip(Shader);
             mainScene.AddGameObject(ship);
             
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
