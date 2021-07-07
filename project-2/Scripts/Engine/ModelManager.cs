@@ -43,7 +43,16 @@ namespace World_3D
             }
 
             return returnMesh;
+        }
 
+        public static void DisposeAllMeshes()
+        {
+            foreach(var mesh in loadedMeshes.Values)
+            {
+                mesh.Dispose();
+            }
+
+            loadedMeshes.Clear();
         }
 
         private static Mesh CreateModel(ModelType modelType)
@@ -61,5 +70,6 @@ namespace World_3D
 
             return newModel;
         }
+    
     }
 }

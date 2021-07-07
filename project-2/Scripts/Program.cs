@@ -100,6 +100,7 @@ namespace World_3D
         private static void OnClose()
         {
             Shader.Dispose();
+            ModelManager.DisposeAllMeshes();
         }
 
         private static void PopulateScene()
