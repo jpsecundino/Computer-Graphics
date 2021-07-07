@@ -6,8 +6,6 @@ namespace World_3D
     {
         List<Renderer> renderers = new();
 
-
-
         public RenderPipeline()
         {
             Renderer.OnCreation += AddRenderer;

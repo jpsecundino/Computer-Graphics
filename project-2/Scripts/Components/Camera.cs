@@ -7,8 +7,8 @@ namespace World_3D
         public static Camera MainCamera { get => mainCamera; }
         private static Camera mainCamera = null;
         
-        public float FarPlaneDistance { get; private set; } = 100.0f;
-        public float NearPlaneDistance { get; private set; } = 0.1f;
+        public float FarPlaneDistance { get; set; } = 100.0f;
+        public float NearPlaneDistance { get; set; } = 0.1f;
         public float CameraZoom { get; set; } = 45f;
 
         public Matrix4x4 View => Matrix4x4.CreateLookAt(parent.Transform.Position, parent.Transform.Position
