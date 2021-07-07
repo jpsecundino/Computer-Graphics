@@ -77,12 +77,6 @@ namespace World_3D
             Camera.SwitchMainCamera(cameraComponent);
             activeScene.AddGameObject(cameraObj);
 
-            GameObject fishermanHouse = new("house");
-            fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
-            fishermanHouse.Transform.Position = new Vector3(25f, -0.7f, 11f);
-            fishermanHouse.Transform.Rotation = new Vector3(3.5f, 0f, -0.1f);
-            activeScene.AddGameObject(fishermanHouse);
-
             GameObject bear = new("bear");
             bear.Transform.Position = new Vector3(11f, -0.7f, 18f);
             bear.Transform.Rotation = new Vector3(-15f, 0f, 0f);
@@ -92,10 +86,9 @@ namespace World_3D
             
             GameObject pirate = new("pirate");
             pirate.AddComponent(new Renderer(ModelType.Pirate, Shader));
-            
-            pirate.Transform.Position = new Vector3(24f, -0.5f, 11.5f);
-            pirate.Transform.Rotation = new Vector3(-83f, 0f, 0f);
-            pirate.Transform.Scale = new Vector3(0.45f, 0.45f, 0.45f);
+            pirate.Transform.Position = new Vector3(24f, -0.5f, 11.3f);
+            pirate.Transform.Rotation = new Vector3(-78f, 0f, 0f) * MathHelper.DegreesToRadians;
+            pirate.Transform.Scale = new Vector3(0.3f, 0.3f, 0.3f);
             activeScene.AddGameObject(pirate);
             
             GameObject campfire = new("campfire");
@@ -127,12 +120,18 @@ namespace World_3D
             activeScene.AddGameObject(terrain);
             terrain.Transform.Scale = Vector3.One;
 
+            GameObject tent = new("tent");
+            tent.AddComponent(new Renderer(ModelType.Tent, Shader));
+            tent.Transform.Position = new Vector3(24f,-0.7f,11.2f);
+            tent.Transform.Rotation = new Vector3(-73.0f,0f,0f) * MathHelper.DegreesToRadians;
+            tent.Transform.Scale = new Vector3(1.5f,1.5f,1.5f);
+            activeScene.AddGameObject(tent);
+
             GameObject ship = GameObjectFactory.CreateShip(Shader);
             activeScene.AddGameObject(ship);
             
             var skybox = GameObjectFactory.CreateSkyBox(Shader);
             activeScene.AddGameObject(skybox);
-
 
             activeScene.StartScene();
         }

@@ -11,6 +11,7 @@
         Pirate,
         Campfire,
         PirateSword,
-        Spyglass
+        Spyglass,
+        Tent
     }
 }
