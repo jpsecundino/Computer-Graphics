@@ -82,7 +82,6 @@ namespace World_3D
             var cameraObj = GameObjectFactory.CreateCamera(out Camera cameraComponent);
             Camera.SwitchMainCamera(cameraComponent);
             mainScene.AddGameObject(cameraObj);
-            
 
             GameObject fishermanHouse = new("house");
             fishermanHouse.AddComponent(new Renderer(ModelType.FishermanHouse, Shader));
@@ -94,6 +93,11 @@ namespace World_3D
             GameObject bear = new("bear");
             bear.AddComponent(new Renderer(ModelType.Bear, Shader));
             mainScene.AddGameObject(bear);
+            
+            GameObject pirate = new("pirate");
+            pirate.AddComponent(new Renderer(ModelType.Pirate, Shader));
+            pirate.AddComponent(new ImguiTransform());
+            mainScene.AddGameObject(pirate);
 
             GameObject griffin = GameObjectFactory.CreateGriffin(Shader);
             mainScene.AddGameObject(griffin);

@@ -7,6 +7,7 @@
         Griffin,
         Terrain,
         Ship,
-        FishermanHouse
+        FishermanHouse,
+        Pirate
     }
 }

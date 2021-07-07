@@ -50,7 +50,7 @@ namespace World_3D
 
                         if (line.StartsWith("o "))
                         {
-                            if (meshNotEmpty == true) //if we have info to fill the mesh
+                            if (meshNotEmpty == true && textureName != "") //if we have info to fill the mesh
                             {
                                 meshes.Add(new MeshObjectData()
                                 {
@@ -120,7 +120,7 @@ namespace World_3D
                         }
                         else if (line.StartsWith("usemtl "))
                         {
-                            textureName = line.Split(' ')[1];
+                            textureName = line.Split(' ').Last();
                         }
                     }
 
@@ -168,6 +168,7 @@ namespace World_3D
 
                         string path = Path.Join(texturesFolder, txtImgName);
                         Texture newTxt = new Texture(path);
+
                         textures.Add(mtlName, newTxt);
                     }
                 }

@@ -30,6 +30,7 @@ namespace World_3D
             { ModelType.Terrain, new ModelPaths("terrain") },
             { ModelType.Ship, new ModelPaths("ship") },
             { ModelType.FishermanHouse, new ModelPaths("fisherman") },
+            { ModelType.Pirate, new ModelPaths("pirate") },
         };
 
         public static Mesh GetModel(ModelType modelType)
