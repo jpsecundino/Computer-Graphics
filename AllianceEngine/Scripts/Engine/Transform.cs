@@ -19,6 +19,9 @@ namespace AllianceEngine
         public void Rotate(float angle, Vector3 axis)
         {
             Rotation += axis * angle;
+            
+            // Clamp to -360 to 360 degrees
+            Rotation = new Vector3(Rotation.X % (2 * MathF.PI), Rotation.Y % (2 * MathF.PI), Rotation.Z % (2 * MathF.PI));
         }
         
     }

@@ -35,7 +35,7 @@ namespace AllianceEngine
 
         public void DrawInspector()
         {
-            if(ImGui.CollapsingHeader(Name))
+            if(ImGui.CollapsingHeader(Name.ToCapital()))
             {
                 ImGui.PushID(_guid.ToString());
 

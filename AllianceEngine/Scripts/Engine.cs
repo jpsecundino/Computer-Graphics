@@ -29,7 +29,7 @@ namespace AllianceEngine
             options.Size = new Vector2D<int>(Width, Height);
             options.Title = "Alliance Engine";
             mainWindow = Window.Create(options);
-
+            
             mainWindow.Load += OnLoad;
             mainWindow.Update += OnUpdate;
             mainWindow.Render += OnRender;
