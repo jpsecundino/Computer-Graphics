@@ -10,7 +10,7 @@ namespace AllianceEngine
         public static void Initialize()
         {
             Input.Mouse.Click += MouseControl;    
-            Input.Mouse.Cursor.CursorMode = CursorMode.Disabled;
+            Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
         }
         
         private static void MouseControl(IMouse mouseIdx, MouseButton mouseButton, Vector2 position)
@@ -19,7 +19,7 @@ namespace AllianceEngine
 
             IsUIOpen = !IsUIOpen;
                 
-            Input.Mouse.Cursor.CursorMode = IsUIOpen ? CursorMode.Normal : CursorMode.Disabled;
+            Input.Mouse.Cursor.CursorMode = IsUIOpen ? CursorMode.Normal : CursorMode.Raw;
 
         }
     }

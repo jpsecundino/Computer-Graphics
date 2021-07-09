@@ -9,8 +9,6 @@ namespace AllianceEngine
         public Vector3 Position { get; set; } = new Vector3(0, 0, 0);
         public Vector3 Rotation { get; set; } = Vector3.Zero;
         public Vector3 Scale { get; set; } = Vector3.One;
-
-        //public Vector3 Forward { get; set; } = Vector3.UnitZ;
         public Vector3 Forward => Vector3.Transform(Vector3.UnitZ, Quaternion.CreateFromYawPitchRoll(Rotation.X, Rotation.Y, Rotation.Z));
 
         public Vector3 Up { get; set; } = Vector3.UnitY;

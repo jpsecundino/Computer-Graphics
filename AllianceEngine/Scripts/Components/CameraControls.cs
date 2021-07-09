@@ -48,37 +48,19 @@ namespace AllianceEngine
             }
             else
             {
-                var xOffset = (mousePos.X - _lastMousePosition.X) * lookSensitivity;
-                var yOffset = (mousePos.Y - _lastMousePosition.Y) * lookSensitivity;
+                Vector2 offset = (mousePos - _lastMousePosition) * lookSensitivity;
                 _lastMousePosition = mousePos;
 
-                CameraYaw += xOffset;
-                CameraPitch -= yOffset;
-
-                //We don't want to be able to look behind us by going over our head or under our feet so make sure it stays within these bounds
-
-                //Rotate(CameraYaw, CameraPitch);
-                parent.Transform.Rotate(MathHelper.DegreesToRadians * -xOffset, Vector3.UnitX);
-                parent.Transform.Rotate(MathHelper.DegreesToRadians * (yOffset), Vector3.UnitY);
+                parent.Transform.Rotate(MathHelper.DegreesToRadians * -offset.X, Vector3.UnitX);
+                parent.Transform.Rotate(MathHelper.DegreesToRadians * (offset.Y), Vector3.UnitY);
                 
-                // Clamp Y rotation
+                //We don't want to be able to look behind us by going over our head or under our feet so make sure it stays within these bounds
+                const float YAngleCap = (MathF.PI / 2.1f);
+                
                 Vector3 v = parent.Transform.Rotation;
-                const float YAngleCap = (MathF.PI / 2f) - 0.0000001f;
                 v.Y = Math.Clamp(parent.Transform.Rotation.Y, -YAngleCap, YAngleCap);
                 parent.Transform.Rotation = v;
             }
-        }
-
-        public void Rotate(float yaw = 0f, float pitch = 0f)
-        {
-            Vector3 dir = new();
-
-
-            dir.X = MathF.Cos(MathHelper.DegreesToRadians * yaw) * MathF.Cos(MathHelper.DegreesToRadians * pitch);
-            dir.Y = MathF.Sin(MathHelper.DegreesToRadians * pitch);
-            dir.Z = MathF.Sin(MathHelper.DegreesToRadians * yaw) * MathF.Cos(MathHelper.DegreesToRadians * pitch);
-
-            //parent.Transform.Forward = Vector3.Normalize(dir);
         }
 
         private void MoveCamera(float moveSpeed)
