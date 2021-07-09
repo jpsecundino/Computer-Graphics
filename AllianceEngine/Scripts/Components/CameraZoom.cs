@@ -3,7 +3,7 @@ using System;
 
 namespace AllianceEngine
 {
-    public class CameraZoom : Component
+    public class CameraZoom
     {
         private const float maxZoom = 45f;
         private const float minZoom = 1.0f;
@@ -15,15 +15,11 @@ namespace AllianceEngine
             this.camera = camera;
         }
 
-        private void ZoomControl(ScrollWheel scrollWheel)
+        public void ZoomControl(ScrollWheel scrollWheel)
         {
             //Clamp zoom
             camera.CameraZoom = Math.Clamp(camera.CameraZoom - scrollWheel.Y, minZoom, maxZoom);
         }
-
-        public override void Update(double deltaTime)
-        {
-            ZoomControl(Input.Mouse.ScrollWheels[0]);
-        }
+        
     }
 }

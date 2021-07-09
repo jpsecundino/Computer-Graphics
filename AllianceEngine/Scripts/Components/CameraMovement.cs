@@ -11,7 +11,13 @@ namespace AllianceEngine
 
         private bool _mouseLock = false;
         private Vector2 _lastMousePosition;
+        private CameraZoom _cameraZoom;
 
+        public CameraMovement(Camera camera)
+        {
+            _cameraZoom = new CameraZoom(camera);
+        }
+        
         public override void Start()
         {
             Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
@@ -37,6 +43,7 @@ namespace AllianceEngine
 
             if (!_mouseLock)
             {
+                _cameraZoom.ZoomControl(Input.Mouse.ScrollWheels[0]);
                 RotateCamera();
                 MoveCamera(moveSpeed);
             }
