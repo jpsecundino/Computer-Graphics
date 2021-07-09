@@ -1,4 +1,5 @@
-﻿using ImGuiNET;
+﻿using System;
+using ImGuiNET;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -7,6 +8,7 @@ namespace AllianceEngine
     public class GameObject
     {
         public readonly string Name = "";
+        private readonly Guid _guid;
         public Transform Transform { get; set; } = new();
 
         private readonly List<Component> components = new();
@@ -14,6 +16,7 @@ namespace AllianceEngine
         public GameObject(string name)
         {
             this.Name = name;
+            this._guid = Guid.NewGuid();
         }
 
         public void AddComponent(Component c)
@@ -34,6 +37,8 @@ namespace AllianceEngine
         {
             if(ImGui.CollapsingHeader(Name))
             {
+                ImGui.PushID(_guid.ToString());
+
                 ImGui.Text(nameof(Transform));
                 ImGui.Separator();
                 Vector3 position = Transform.Position;
@@ -48,6 +53,8 @@ namespace AllianceEngine
                 Transform.Rotation = rotation;
                 Transform.Scale = scale;
                 Transform.Rotation = rotation * MathHelper.DegreesToRadians;
+                
+                ImGui.PopID();
             }
         }
 
