@@ -46,6 +46,7 @@ namespace AllianceEngine
         {
             imGui = new ImGuiController(gl, mainWindow, Input.InputContext);
             ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
+            UI.Initialize();
         }
         
         private static void OnRenderUI(double deltaTime)

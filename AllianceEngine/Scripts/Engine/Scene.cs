@@ -32,6 +32,8 @@ namespace AllianceEngine
 
         public void DrawHierarchy()
         {
+            if (!UI.IsUIOpen) return;
+            
             if (!ImGuiNET.ImGui.Begin("Hierarchy"))
             {
                 ImGuiNET.ImGui.End();

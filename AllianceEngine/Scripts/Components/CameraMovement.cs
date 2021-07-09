@@ -8,8 +8,7 @@ namespace AllianceEngine
     {
         public float CameraYaw = -90f;
         public float CameraPitch = 0f;
-
-        private bool _mouseLock = false;
+        
         private Vector2 _lastMousePosition;
         private CameraZoom _cameraZoom;
 
@@ -17,35 +16,20 @@ namespace AllianceEngine
         {
             _cameraZoom = new CameraZoom(camera);
         }
-        
-        public override void Start()
-        {
-            Input.Mouse.Cursor.CursorMode = CursorMode.Raw;
-
-            Input.Mouse.Click += MouseControl;
-
-        }
-
-        private void MouseControl(IMouse mouseIdx, MouseButton mouseButton, Vector2 position)
-        {
-            if (mouseButton != MouseButton.Right) return;
-
-            _mouseLock = !_mouseLock;
-                
-            Input.Mouse.Cursor.CursorMode = _mouseLock ? CursorMode.Normal : CursorMode.Disabled;
-            _lastMousePosition = Input.Mouse.Position;
-
-        }
 
         public override void Update(double deltaTime)
         {
             var moveSpeed = 5f * (float)deltaTime;
-
-            if (!_mouseLock)
+            
+            if (!UI.IsUIOpen)
             {
                 _cameraZoom.ZoomControl(Input.Mouse.ScrollWheels[0]);
                 RotateCamera();
                 MoveCamera(moveSpeed);
+            }
+            else
+            {
+                _lastMousePosition = Input.Mouse.Position;
             }
 
         }
