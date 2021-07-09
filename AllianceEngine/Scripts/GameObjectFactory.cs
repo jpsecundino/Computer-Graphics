@@ -64,8 +64,9 @@ namespace AllianceEngine
             GameObject cameraObj = new("camera");
             cameraComponent = new();
             cameraObj.AddComponent(cameraComponent);
-            cameraObj.AddComponent(new CameraMovement(cameraComponent));
+            cameraObj.AddComponent(new CameraControls(cameraComponent));
             cameraObj.AddComponent(new LimitMovementVolume(new Vector3(11f, 12.5f, 16f), new Vector3(25, 12.5f, 25)));
+            cameraObj.Transform.Position = new Vector3(35.876f, 4.425f, 12.543f);
             return cameraObj;
         }
 

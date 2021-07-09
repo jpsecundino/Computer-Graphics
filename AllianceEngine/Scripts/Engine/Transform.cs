@@ -10,7 +10,9 @@ namespace AllianceEngine
         public Vector3 Rotation { get; set; } = Vector3.Zero;
         public Vector3 Scale { get; set; } = Vector3.One;
 
-        public Vector3 Forward { get; set; } = Vector3.UnitZ;
+        //public Vector3 Forward { get; set; } = Vector3.UnitZ;
+        public Vector3 Forward => Vector3.Transform(Vector3.UnitZ, Quaternion.CreateFromYawPitchRoll(Rotation.X, Rotation.Y, Rotation.Z));
+
         public Vector3 Up { get; set; } = Vector3.UnitY;
 
         //Note: The order here does matter.
@@ -18,7 +20,8 @@ namespace AllianceEngine
 
         public void Rotate(float angle, Vector3 axis)
         {
-            Rotation += axis * angle;
+            Vector3 offset = axis * angle;
+            Rotation += offset;
             
             // Clamp to -360 to 360 degrees
             Rotation = new Vector3(Rotation.X % (2 * MathF.PI), Rotation.Y % (2 * MathF.PI), Rotation.Z % (2 * MathF.PI));

@@ -4,17 +4,19 @@ using System.Numerics;
 
 namespace AllianceEngine
 {
-    class CameraMovement: Component
+    class CameraControls: Component
     {
         public float CameraYaw = -90f;
         public float CameraPitch = 0f;
+        private const float _maxZoom = 45f;
+        private const float _minZoom = 1.0f;
         
         private Vector2 _lastMousePosition;
-        private CameraZoom _cameraZoom;
+        private Camera _camera;
 
-        public CameraMovement(Camera camera)
+        public CameraControls(Camera camera)
         {
-            _cameraZoom = new CameraZoom(camera);
+            _camera = camera;
         }
 
         public override void Update(double deltaTime)
@@ -23,7 +25,7 @@ namespace AllianceEngine
             
             if (!UI.IsUIOpen)
             {
-                _cameraZoom.ZoomControl(Input.Mouse.ScrollWheels[0]);
+                ZoomCamera(Input.Mouse.ScrollWheels[0]);
                 RotateCamera();
                 MoveCamera(moveSpeed);
             }
@@ -54,9 +56,16 @@ namespace AllianceEngine
                 CameraPitch -= yOffset;
 
                 //We don't want to be able to look behind us by going over our head or under our feet so make sure it stays within these bounds
-                CameraPitch = Math.Clamp(CameraPitch, -89.0f, 89.0f);
 
-                Rotate(CameraYaw, CameraPitch);
+                //Rotate(CameraYaw, CameraPitch);
+                parent.Transform.Rotate(MathHelper.DegreesToRadians * -xOffset, Vector3.UnitX);
+                parent.Transform.Rotate(MathHelper.DegreesToRadians * (yOffset), Vector3.UnitY);
+                
+                // Clamp Y rotation
+                Vector3 v = parent.Transform.Rotation;
+                const float YAngleCap = (MathF.PI / 2f) - 0.0000001f;
+                v.Y = Math.Clamp(parent.Transform.Rotation.Y, -YAngleCap, YAngleCap);
+                parent.Transform.Rotation = v;
             }
         }
 
@@ -64,11 +73,12 @@ namespace AllianceEngine
         {
             Vector3 dir = new();
 
+
             dir.X = MathF.Cos(MathHelper.DegreesToRadians * yaw) * MathF.Cos(MathHelper.DegreesToRadians * pitch);
             dir.Y = MathF.Sin(MathHelper.DegreesToRadians * pitch);
             dir.Z = MathF.Sin(MathHelper.DegreesToRadians * yaw) * MathF.Cos(MathHelper.DegreesToRadians * pitch);
 
-            parent.Transform.Forward = Vector3.Normalize(dir);
+            //parent.Transform.Forward = Vector3.Normalize(dir);
         }
 
         private void MoveCamera(float moveSpeed)
@@ -102,7 +112,13 @@ namespace AllianceEngine
             {
                 //Move down
                 parent.Transform.Position -= parent.Transform.Up * moveSpeed;
-            }
+            }    
+        }
+
+        public void ZoomCamera(ScrollWheel scrollWheel)
+        {
+            //Clamp zoom
+            _camera.CameraZoom = Math.Clamp(_camera.CameraZoom - scrollWheel.Y, _minZoom, _maxZoom);
         }
     }
 }
