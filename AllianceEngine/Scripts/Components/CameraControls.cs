@@ -8,8 +8,8 @@ namespace AllianceEngine
     {
         public float CameraYaw = -90f;
         public float CameraPitch = 0f;
-        private const float _maxZoom = 45f;
-        private const float _minZoom = 1.0f;
+        private const float _maxZoom = 60f;
+        private const float _minZoom = 10.0f;
         
         private Vector2 _lastMousePosition;
         private Camera _camera;

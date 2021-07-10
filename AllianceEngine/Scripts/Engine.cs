@@ -13,8 +13,8 @@ namespace AllianceEngine
         private static IWindow mainWindow;
         public static GL Gl { get => gl; private set => gl = value; }
 
-        public const int Width = 1080;
-        public const int Height = 1080;
+        public static int Width { get; private set; } = 700;
+        public static int Height { get; private set; } = 700;
         
         private static Shader Shader;
         private static Scene activeScene;
@@ -39,7 +39,16 @@ namespace AllianceEngine
             mainWindow.Render += OnRenderUI;
             mainWindow.Closing += OnCloseUI;
 
+            mainWindow.Resize += OnMainWindowResize;
+
             mainWindow.Run();
+        }
+
+        private static void OnMainWindowResize(Vector2D<int> size)
+        {
+            gl.Viewport(size);
+            Width = size.X;
+            Height = size.Y;
         }
 
         private static void OnLoadUI()
@@ -61,6 +70,8 @@ namespace AllianceEngine
 
         private static void OnLoad()
         {
+            mainWindow.Center();
+
             // Prepare Input
             Input.Initialize(mainWindow);
             Input.Keyboard.KeyDown += OnKeyDown;
@@ -129,6 +140,12 @@ namespace AllianceEngine
             {
                 Gl.PolygonMode(MaterialFace.FrontAndBack, isPolygonModeLine ? PolygonMode.Fill : PolygonMode.Line);
                 isPolygonModeLine = !isPolygonModeLine;
+            }
+
+            // Toggle Fullscreen
+            if(key == Key.F11)
+            {
+                mainWindow.WindowState = mainWindow.WindowState == WindowState.Normal ? WindowState.Fullscreen : WindowState.Normal;
             }
 
             // Close window on Escape
