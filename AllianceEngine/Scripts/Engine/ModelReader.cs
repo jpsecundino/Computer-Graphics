@@ -49,7 +49,7 @@ namespace AllianceEngine
                         if (line == null)
                             break;
 
-                        if (line.StartsWith("o "))
+                        if (line.StartsWithOptimized("o "))
                         {
                             if (meshEmpty == false && textureName != "") //if we have info to fill the mesh
                             {
@@ -70,7 +70,7 @@ namespace AllianceEngine
                                 textureName = "";
                             }
                         }
-                        else if (line.StartsWith("v "))
+                        else if (line.StartsWithOptimized("v "))
                         {
                             string[] verticesText = line[2..].Split(' ');
                             Vector3 newVertex = Vector3.Zero;
@@ -89,7 +89,7 @@ namespace AllianceEngine
 
                             meshEmpty = false;
                         }
-                        else if (line.StartsWith("vt "))
+                        else if (line.StartsWithOptimized("vt "))
                         {
                             string[] uvsText = line[3..].Split(' ');
                             Vector2 newUv = Vector2.Zero;
@@ -104,7 +104,7 @@ namespace AllianceEngine
 
                             meshEmpty = false;
                         }
-                        else if (line.StartsWith("f "))
+                        else if (line.StartsWithOptimized("f "))
                         {
                             string[] faces = line[2..].Split(' ');
 
@@ -119,7 +119,7 @@ namespace AllianceEngine
 
                             meshEmpty = false;
                         }
-                        else if (line.StartsWith("usemtl "))
+                        else if (line.StartsWithOptimized("usemtl "))
                         {
                             textureName = line.Split(' ').Last();
                         }
