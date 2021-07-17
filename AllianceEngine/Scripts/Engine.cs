@@ -123,6 +123,7 @@ namespace AllianceEngine
         private static void PopulateScene()
         {
             activeScene.AddGameObject( GameObjectFactory.CreateCamera(out Camera cameraComponent));
+            activeScene.AddGameObject(GameObjectFactory.CreateCube(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateTerrain(Shader));
             // activeScene.AddGameObject( GameObjectFactory.CreatePirate(Shader));
             // activeScene.AddGameObject( GameObjectFactory.CreateBear(Shader));

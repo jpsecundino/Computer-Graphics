@@ -31,9 +31,10 @@ namespace AllianceEngine
 
         public void Bind()
         {
-            Program.Shader.SetUniform("ka", ka);
-            Program.Shader.SetUniform("kd", kd);
-            texture.Bind();
+            Program.Shader.SetUniform("ka", 0.7f);
+            Program.Shader.SetUniform("kd", 0.7f);
+            
+            texture?.Bind();
         }
 
     }

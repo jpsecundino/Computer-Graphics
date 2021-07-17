@@ -34,7 +34,8 @@ namespace AllianceEngine
             { ModelType.Campfire, new ModelPaths("campfire") },
             { ModelType.PirateSword, new ModelPaths("piratesword") },
             { ModelType.Spyglass, new ModelPaths("spyglass") },
-            { ModelType.Tent, new ModelPaths("tent") }
+            { ModelType.Tent, new ModelPaths("tent") },
+            { ModelType.Cube, new ModelPaths("cube") }
         };
 
         public static Mesh GetModel(ModelType modelType)

@@ -12,6 +12,7 @@
         Campfire,
         PirateSword,
         Spyglass,
-        Tent
+        Tent,
+        Cube
     }
 }

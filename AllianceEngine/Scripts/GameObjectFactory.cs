@@ -77,6 +77,14 @@ namespace AllianceEngine
 
             return terrain;
         }
+        
+        public static GameObject CreateCube(Shader shader)
+        {
+            GameObject cube = new("cube");
+            cube.AddComponent(new Renderer(ModelType.Cube, shader));
+
+            return cube;
+        }
 
         public static GameObject CreateCampfire(Shader shader)
         {
