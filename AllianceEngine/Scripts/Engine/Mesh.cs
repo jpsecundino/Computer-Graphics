@@ -25,14 +25,14 @@ namespace AllianceEngine
             }
         }
 
-        private struct TextureInfo
+        private struct MaterialInfo
         {
-            public Texture texture;
+            public Material material;
             public int idxCount;
 
-            public TextureInfo(Texture texture, int idxCount)
+            public MaterialInfo(Material material, int idxCount)
             {
-                this.texture = texture;
+                this.material = material;
                 this.idxCount = idxCount;
             }
         }
@@ -41,7 +41,7 @@ namespace AllianceEngine
         private readonly BufferObject<float> VBO;
         private readonly BufferObject<uint> EBO;
         private readonly VAObuffers buffers;
-        private readonly List<TextureInfo> _textures = new();
+        private readonly List<MaterialInfo> _materials = new();
         
         public Mesh(List<ModelReader.MeshObjectData> meshObjects)
         {
@@ -81,11 +81,11 @@ namespace AllianceEngine
             unsafe
             {
                 int offset = 0;
-                foreach (TextureInfo textureInfo in _textures)
+                foreach (MaterialInfo matInfo in _materials)
                 {
-                    textureInfo.texture.Bind();
-                    Program.Gl.DrawElements(GLEnum.Triangles, (uint) textureInfo.idxCount, GLEnum.UnsignedInt, (void*) (offset * sizeof(uint)));
-                    offset += textureInfo.idxCount;
+                    matInfo.material.texture.Bind();
+                    Program.Gl.DrawElements(GLEnum.Triangles, (uint) matInfo.idxCount, GLEnum.UnsignedInt, (void*) (offset * sizeof(uint)));
+                    offset += matInfo.idxCount;
                 }
                 
             }
@@ -134,7 +134,7 @@ namespace AllianceEngine
 
             foreach (var obj in meshObjects)
             {
-                _textures.Add(new TextureInfo(obj.texture, obj.vertexIndices.Length));
+                _materials.Add(new MaterialInfo(obj.material, obj.vertexIndices.Length));
 
                 vertexIndices = vertexIndices.Concat(obj.vertexIndices).ToArray();
                 uvIndices = uvIndices.Concat(obj.uvIndices).ToArray();
@@ -168,9 +168,9 @@ namespace AllianceEngine
             EBO.Dispose();
             VAO.Dispose();
 
-            foreach(TextureInfo textureInfo in _textures)
+            foreach(MaterialInfo textureInfo in _materials)
             {
-                textureInfo.texture.Dispose();
+                textureInfo.material.texture.Dispose();
             }
         }
 

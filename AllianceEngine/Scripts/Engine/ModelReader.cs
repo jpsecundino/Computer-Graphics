@@ -16,7 +16,7 @@ namespace AllianceEngine
             public Vector2[] uvs;
             public int[] vertexIndices;
             public int[] uvIndices;
-            public Texture texture;
+            public Material material;
         }
 
         public static List<MeshObjectData> ReadAll(string filepath, string mtlFile = null, string texturesFolder = null)
@@ -59,7 +59,7 @@ namespace AllianceEngine
                                     uvs = uvs.ToArray(),
                                     vertexIndices = vertexIndices.ToArray(),
                                     uvIndices = uvIndices.ToArray(),
-                                    texture = materials[materialName].texture
+                                    material = materials[materialName]
                                 });
 
                                 meshEmpty = true;
@@ -131,7 +131,7 @@ namespace AllianceEngine
                         uvs = uvs.ToArray(),
                         vertexIndices = vertexIndices.ToArray(),
                         uvIndices = uvIndices.ToArray(),
-                        texture = materials[materialName].texture
+                        material = materials[materialName]
                     });
                 }
 
