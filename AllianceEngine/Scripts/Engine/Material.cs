@@ -2,7 +2,7 @@
 
 namespace AllianceEngine
 {
-    public struct Material
+    public class Material
     {
         public string name;
         
@@ -14,7 +14,7 @@ namespace AllianceEngine
 
         public Texture texture;
 
-        public Material(string name) : this()
+        public Material(string name)
         {
             this.name = name;
         }
@@ -27,6 +27,15 @@ namespace AllianceEngine
             this.ks = ks;
             this.illum = illum;
             this.texture = texture;
+        }
+
+        public void Bind()
+        {
+            // Program.Shader.SetUniform3("ka", ka);
+            // Program.Shader.SetUniform3("kd", kd);
+            // Program.Shader.SetUniform3("ks", ks);
+            // Program.Shader.SetUniform("ka", illum);
+            texture.Bind();
         }
 
     }

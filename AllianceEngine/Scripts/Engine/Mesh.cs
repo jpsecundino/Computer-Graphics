@@ -83,7 +83,7 @@ namespace AllianceEngine
                 int offset = 0;
                 foreach (MaterialInfo matInfo in _materials)
                 {
-                    matInfo.material.texture.Bind();
+                    matInfo.material.Bind();
                     Program.Gl.DrawElements(GLEnum.Triangles, (uint) matInfo.idxCount, GLEnum.UnsignedInt, (void*) (offset * sizeof(uint)));
                     offset += matInfo.idxCount;
                 }

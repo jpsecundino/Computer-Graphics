@@ -16,7 +16,7 @@ namespace AllianceEngine
         public static int Width { get; private set; } = 700;
         public static int Height { get; private set; } = 700;
         
-        private static Shader Shader;
+        public static Shader Shader;
         private static Scene activeScene;
         private static GL gl;
         private static ImGuiController imGui;

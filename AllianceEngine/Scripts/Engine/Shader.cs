@@ -62,6 +62,12 @@ namespace AllianceEngine
         {
             _gl.UniformMatrix4(GetUniformLocation(name), 1, false, (float*)&value);
         }
+        
+        public unsafe void SetUniform3(string name, Vector3 value)
+        {
+            _gl.Uniform3(GetUniformLocation(name),value.X, value.Y,value.Z);
+        }
+
 
         public void Dispose()
         {
