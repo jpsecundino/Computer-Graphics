@@ -14,8 +14,10 @@ namespace AllianceEngine
         {
             public Vector3[] vertices;
             public Vector2[] uvs;
+            public Vector3[] normals;
             public int[] vertexIndices;
             public int[] uvIndices;
+            public int[] normalsIndices;
             public Material material;
         }
 
@@ -32,8 +34,10 @@ namespace AllianceEngine
                 {
                     List<Vector3> vertices = new();
                     List<Vector2> uvs = new();
+                    List<Vector3> norms = new();
                     List<int> vertexIndices = new();
                     List<int> uvIndices = new();
+                    List<int> normsIndices = new();
                     string materialName = "";
                     bool meshEmpty = true;
 
@@ -57,8 +61,10 @@ namespace AllianceEngine
                                 {
                                     vertices = vertices.ToArray(),
                                     uvs = uvs.ToArray(),
+                                    normals = norms.ToArray(),
                                     vertexIndices = vertexIndices.ToArray(),
                                     uvIndices = uvIndices.ToArray(),
+                                    normalsIndices = normsIndices.ToArray(),
                                     material = materials[materialName]
                                 });
 
@@ -103,6 +109,22 @@ namespace AllianceEngine
                             uvs.Add(newUv);
 
                             meshEmpty = false;
+                        }else if (line.StartsWithOptimized("vn "))
+                        {
+                            string[] vnsText = line[3..].Split(' ');
+                            Vector3 newVn = Vector3.Zero;
+
+                            if (float.TryParse(vnsText[0], NumberStyles.Float, CultureInfo.InvariantCulture,
+                                out float axis))
+                                newVn.X = axis;
+                            if (float.TryParse(vnsText[1], NumberStyles.Float, CultureInfo.InvariantCulture, out axis))
+                                newVn.Y = axis;
+                            if (float.TryParse(vnsText[2], NumberStyles.Float, CultureInfo.InvariantCulture, out axis))
+                                newVn.Z = axis;
+
+                            norms.Add(newVn);
+
+                            meshEmpty = false;
                         }
                         else if (line.StartsWithOptimized("f "))
                         {
@@ -115,6 +137,8 @@ namespace AllianceEngine
                                     vertexIndices.Add(vertexIndex);
                                 if (int.TryParse(indices[1], out int uvIndex))
                                     uvIndices.Add(uvIndex);
+                                if (int.TryParse(indices[2], out int vnIndex))
+                                    normsIndices.Add(vnIndex);
                             }
 
                             meshEmpty = false;
@@ -129,8 +153,10 @@ namespace AllianceEngine
                     {
                         vertices = vertices.ToArray(),
                         uvs = uvs.ToArray(),
+                        normals = norms.ToArray(),
                         vertexIndices = vertexIndices.ToArray(),
                         uvIndices = uvIndices.ToArray(),
+                        normalsIndices = normsIndices.ToArray(),
                         material = materials[materialName]
                     });
                 }
@@ -145,6 +171,8 @@ namespace AllianceEngine
         private static Dictionary<string, Material> ReadMaterials(string mtlFile, string texturesFolder)
         {
             Dictionary<string, Material> materials = new();
+
+            bool isFirstMaterial = true;
             
             using (StreamReader file = File.OpenText(mtlFile))
             {
@@ -161,7 +189,17 @@ namespace AllianceEngine
 
                     if (line.StartsWith("newmtl "))
                     {
+
+                        if (!isFirstMaterial)
+                        {
+                            materials.Add(material.name, material);
+                        }
+                        
+                        
                         material.name = line.Split(' ')[1];
+                        
+                        isFirstMaterial = false;
+
                     }else if (line.StartsWith("Ka "))
                     {
                         string[] svector = line.Split(" ")[1..4];
@@ -207,12 +245,11 @@ namespace AllianceEngine
                         Texture newTxt = new Texture(path);
 
                         material.texture = newTxt;
-                        
-                        materials.Add(material.name, material);
-                        
-                        material = new Material("");
                     }
+                    
                 }
+                    
+                materials.Add(material.name, material);
 
                 return materials;
             }

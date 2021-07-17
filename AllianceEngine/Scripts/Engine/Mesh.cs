@@ -13,15 +13,19 @@ namespace AllianceEngine
         {
             public int[] vertexIndices;
             public int[] uvIndices;
+            public int[] normalsIndices;
             public Vector3[] vertices;
             public Vector2[] uvs;
+            public Vector3[] normals;
 
-            public MeshBuffers(int[] vertexIndices, int[] uvIndices, Vector3[] vertices, Vector2[] uvs)
+            public MeshBuffers(int[] vertexIndices, int[] uvIndices, int[] normalsIndices, Vector3[] vertices, Vector2[] uvs, Vector3[] normals)
             {
                 this.vertexIndices = vertexIndices;
                 this.uvIndices = uvIndices;
+                this.normalsIndices = normalsIndices;
                 this.vertices = vertices;
                 this.uvs = uvs;
+                this.normals = normals;
             }
         }
 
@@ -49,7 +53,7 @@ namespace AllianceEngine
             
             buffers = Mesh.CreateVAOBuffers(meshBuffers);
 
-            float[] vertices = new float[buffers.vertices.Length * 5];
+            float[] vertices = new float[buffers.vertices.Length * 8];
 
             {
                 int i = 0;
@@ -60,7 +64,10 @@ namespace AllianceEngine
                     vertices[i + 2] = obj.position.Z;
                     vertices[i + 3] = obj.uv.X;
                     vertices[i + 4] = obj.uv.Y;
-                    i += 5;
+                    vertices[i + 5] = obj.normal.X;
+                    vertices[i + 6] = obj.normal.Y;
+                    vertices[i + 7] = obj.normal.Z;
+                    i += 8;
                 }
             }
 
@@ -68,8 +75,9 @@ namespace AllianceEngine
             VBO = new BufferObject<float>(vertices, BufferTargetARB.ArrayBuffer);
             VAO = new VertexArrayObject<float, uint>(VBO, EBO);
 
-            VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 5, 0);
-            VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 5, 3);
+            VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 8, 0);
+            VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 8, 3);
+            VAO.VertexAttributePointer(2, 3, VertexAttribPointerType.Float, 8, 5);
             
         }
 
@@ -96,25 +104,29 @@ namespace AllianceEngine
             List<VertexObject> vertices = new();
             List<uint> indices = new();
 
-            Dictionary<KeyValuePair<int, int>, uint> indexBufferSet = new(meshBuffers.vertexIndices.Length);
+            Dictionary<Tuple<int, int, int>, uint> indexBufferSet = new(meshBuffers.vertexIndices.Length);
 
             for (int i = 0; i < meshBuffers.vertexIndices.Length; i++)
             {
-                var pair = KeyValuePair.Create(meshBuffers.vertexIndices[i], meshBuffers.uvIndices[i]);
+                var triple = new Tuple<int, int, int>(meshBuffers.vertexIndices[i], meshBuffers.uvIndices[i], meshBuffers.normalsIndices[i]);
 
-                if (!indexBufferSet.ContainsKey(pair))
+                if (!indexBufferSet.ContainsKey(triple))
                 {
                     var vertex = new VertexObject
                     {
                         // Wavefront indexing is 1 based
-                        position = meshBuffers.vertices[pair.Key - 1],
-                        uv = meshBuffers.uvs[pair.Value - 1]
+                        position = meshBuffers.vertices[triple.Item1 - 1],
+                        uv = meshBuffers.uvs[triple.Item2 - 1],
+                        normal = meshBuffers.normals[triple.Item3 - 1]
+                        
                     };
+                    
                     vertices.Add(vertex);
-                    indexBufferSet.Add(pair, (uint)(vertices.Count - 1));
+                    
+                    indexBufferSet.Add(triple, (uint)(vertices.Count - 1));
                 }
 
-                indices.Add(indexBufferSet[pair]);
+                indices.Add(indexBufferSet[triple]);
             }
             
             return new VAObuffers
@@ -129,8 +141,10 @@ namespace AllianceEngine
             
             int[] vertexIndices = Array.Empty<int>();
             int[] uvIndices = Array.Empty<int>();
+            int[] normalsIndices = Array.Empty<int>();
             Vector3[] vertices = Array.Empty<Vector3>();
             Vector2[] uvs = Array.Empty<Vector2>();
+            Vector3[] normals = Array.Empty<Vector3>();
 
             foreach (var obj in meshObjects)
             {
@@ -138,11 +152,13 @@ namespace AllianceEngine
 
                 vertexIndices = vertexIndices.Concat(obj.vertexIndices).ToArray();
                 uvIndices = uvIndices.Concat(obj.uvIndices).ToArray();
+                normalsIndices = normalsIndices.Concat(obj.normalsIndices).ToArray();
                 vertices = vertices.Concat(obj.vertices).ToArray();
                 uvs = uvs.Concat(obj.uvs).ToArray();
+                normals = normals.Concat(obj.normals).ToArray();
             }
 
-            MeshBuffers meshBuffers = new(vertexIndices, uvIndices, vertices, uvs);
+            MeshBuffers meshBuffers = new(vertexIndices, uvIndices, normalsIndices, vertices, uvs, normals);
 
             return meshBuffers;
         }
@@ -185,10 +201,11 @@ namespace AllianceEngine
     {
         public Vector3 position;
         public Vector2 uv;
+        public Vector3 normal;
 
         public override string ToString()
         {
-            return $"{position} | {uv}";
+            return $"{position} | {uv} | {normal}";
         }
     }
 }
