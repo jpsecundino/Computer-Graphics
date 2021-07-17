@@ -22,7 +22,7 @@ namespace AllianceEngine
         public static List<MeshObjectData> ReadAll(string filepath, string mtlFile = null, string texturesFolder = null)
         {
 
-            Dictionary<string, Texture> textures = ReadTextures(mtlFile, texturesFolder);
+            Dictionary<string, Material> materials = ReadMaterials(mtlFile, texturesFolder);
 
             using (StreamReader file = File.OpenText(filepath))
             {
@@ -34,7 +34,7 @@ namespace AllianceEngine
                     List<Vector2> uvs = new();
                     List<int> vertexIndices = new();
                     List<int> uvIndices = new();
-                    string textureName = "";
+                    string materialName = "";
                     bool meshEmpty = true;
 
                     string line = file.ReadLine();
@@ -51,7 +51,7 @@ namespace AllianceEngine
 
                         if (line.StartsWithOptimized("o "))
                         {
-                            if (meshEmpty == false && textureName != "") //if we have info to fill the mesh
+                            if (meshEmpty == false && materialName != "") //if we have info to fill the mesh
                             {
                                 meshes.Add(new MeshObjectData()
                                 {
@@ -59,7 +59,7 @@ namespace AllianceEngine
                                     uvs = uvs.ToArray(),
                                     vertexIndices = vertexIndices.ToArray(),
                                     uvIndices = uvIndices.ToArray(),
-                                    texture = textures[textureName]
+                                    texture = materials[materialName].texture
                                 });
 
                                 meshEmpty = true;
@@ -67,7 +67,7 @@ namespace AllianceEngine
                                 uvs = new();
                                 vertexIndices = new();
                                 uvIndices = new();
-                                textureName = "";
+                                materialName = "";
                             }
                         }
                         else if (line.StartsWithOptimized("v "))
@@ -121,7 +121,7 @@ namespace AllianceEngine
                         }
                         else if (line.StartsWithOptimized("usemtl "))
                         {
-                            textureName = line.Split(' ').Last();
+                            materialName = line.Split(' ').Last();
                         }
                     }
 
@@ -131,7 +131,7 @@ namespace AllianceEngine
                         uvs = uvs.ToArray(),
                         vertexIndices = vertexIndices.ToArray(),
                         uvIndices = uvIndices.ToArray(),
-                        texture = textures[textureName]
+                        texture = materials[materialName].texture
                     });
                 }
 
@@ -142,13 +142,14 @@ namespace AllianceEngine
 
         }
 
-        private static Dictionary<string, Texture> ReadTextures(string mtlFile, string texturesFolder)
+        private static Dictionary<string, Material> ReadMaterials(string mtlFile, string texturesFolder)
         {
-            Dictionary<string, Texture> textures = new();
-
+            Dictionary<string, Material> materials = new();
+            
             using (StreamReader file = File.OpenText(mtlFile))
             {
-                string mtlName = "";
+                Material material = new Material("");
+                
                 string txtImgName = "";
                 
                 while (!file.EndOfStream)
@@ -160,7 +161,36 @@ namespace AllianceEngine
 
                     if (line.StartsWith("newmtl "))
                     {
-                        mtlName = line.Split(' ')[1];
+                        material.name = line.Split(' ')[1];
+                    }else if (line.StartsWith("Ka "))
+                    {
+                        string[] svector = line.Split(" ")[1..4];
+
+                        material.ka = new Vector3( 
+                            float.Parse(svector[0]),
+                            float.Parse(svector[1]),
+                            float.Parse(svector[2])
+                            );
+
+                    }else if (line.StartsWith("Kd "))
+                    {
+                        string[] svector = line.Split(" ")[1..4];
+                        
+                        material.kd = new Vector3( 
+                            float.Parse(svector[0]),
+                            float.Parse(svector[1]),
+                            float.Parse(svector[2])
+                        );
+                    }else if (line.StartsWith("Ks "))
+                    {
+                        string[] svector = line.Split(" ")[1..4];
+                        
+                        material.ks = new Vector3( 
+                            float.Parse(svector[0]),
+                            float.Parse(svector[1]),
+                            float.Parse(svector[2])
+                        );
+                        
                     }
                     else if (line.StartsWith("map_Kd "))
                     {
@@ -173,15 +203,20 @@ namespace AllianceEngine
                         }
 
                         string path = Path.Join(texturesFolder, txtImgName);
+                        
                         Texture newTxt = new Texture(path);
 
-                        textures.Add(mtlName, newTxt);
+                        material.texture = newTxt;
+                        
+                        materials.Add(material.name, material);
+                        
+                        material = new Material("");
                     }
                 }
 
-                return textures;
+                return materials;
             }
-            
+
             throw new FileNotFoundException("Could not find file with path " + mtlFile);
         }
     }
