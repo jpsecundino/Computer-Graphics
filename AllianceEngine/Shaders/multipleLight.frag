@@ -83,7 +83,7 @@ void main(){
         specular2 = uKs * spec2 * uLightColor2;          
         
     }else{
-        ambient2 = vec3(0.0);
+        ambient2 = vec3(0.0);      
         diffuse2 = vec3(0.0);
         diffuse2 = vec3(0.0);
     }
@@ -92,5 +92,5 @@ void main(){
     // Aplicando modelo
     ////////////////////////
     vec4 texture = texture(uTexture0, out_texcoord);
-    frag_color = vec4(min(ambient1 + diffuse1 + ambient2 + diffuse2, vec3(1.0)) + specular1 + specular2, 1.0) * texture; 
+    frag_color = vec4(min(ambient1 + ambient2 + diffuse1 + diffuse2, vec3(1.0)) + specular1 + specular2, 1.0) * texture; 
 }
