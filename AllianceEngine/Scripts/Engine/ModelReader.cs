@@ -202,8 +202,9 @@ namespace AllianceEngine
 
                     }else if (line.StartsWith("Ka "))
                     {
-                        string[] svector = line.Split(" ")[1..4];
-
+                        
+                        string[] svector = line.Replace('.', ',').Split(" ")[1..4];
+                        
                         material.ka = new Vector3( 
                             float.Parse(svector[0]),
                             float.Parse(svector[1]),
@@ -212,7 +213,7 @@ namespace AllianceEngine
 
                     }else if (line.StartsWith("Kd "))
                     {
-                        string[] svector = line.Split(" ")[1..4];
+                        string[] svector = line.Replace('.', ',').Split(" ")[1..4];
                         
                         material.kd = new Vector3( 
                             float.Parse(svector[0]),
@@ -221,7 +222,7 @@ namespace AllianceEngine
                         );
                     }else if (line.StartsWith("Ks "))
                     {
-                        string[] svector = line.Split(" ")[1..4];
+                        string[] svector = line.Replace('.', ',').Split(" ")[1..4];
                         
                         material.ks = new Vector3( 
                             float.Parse(svector[0]),
