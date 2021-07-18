@@ -7,36 +7,36 @@ namespace AllianceEngine
 {
     public class Light: Component
     {
-        private Shader _shader;
-        
-        private Vector3 _color;
-        private float _ia;
-        private float _il;
-        private float _is;
-        
         private static uint indexes = 0;
-        private uint _idx;
-        private float _radius;
+        protected readonly uint _idx;
+        
+        protected readonly Shader _shader;
+
+        protected Vector3 Color { get; set; }
+        protected float Ia { get; set; }
+        protected float Il { get; set; }
+        protected float Is { get; set; }
+        protected float Radius  { get; set; }
 
         public Light(Shader shader, Vector3 color, float radius, float ia, float il, float @is)
         {
             _shader = shader;
-            this._color = color;
+            this.Color = color;
             _idx = indexes++;
-            _radius = radius;
-            _ia = ia;
-            _il = il;
-            _is = @is;
+            Radius = radius;
+            Ia = ia;
+            Il = il;
+            Is = @is;
         }
 
         public override void Update(double deltaTime)
         {
             _shader.SetUniform($"uLights[{_idx}].Pos" , parent.Transform.Position);
-            _shader.SetUniform($"uLights[{_idx}].Color" , _color);
-            _shader.SetUniform($"uLights[{_idx}].Radius", _radius);
-            _shader.SetUniform($"uLights[{_idx}].Ia", _ia);
-            _shader.SetUniform($"uLights[{_idx}].Il", _il);
-            _shader.SetUniform($"uLights[{_idx}].Is", _is);
+            _shader.SetUniform($"uLights[{_idx}].Color" , Color);
+            _shader.SetUniform($"uLights[{_idx}].Radius", Radius);
+            _shader.SetUniform($"uLights[{_idx}].Ia", Ia);
+            _shader.SetUniform($"uLights[{_idx}].Il", Il);
+            _shader.SetUniform($"uLights[{_idx}].Is", Is);
             
             ControlIntensity();
 
@@ -52,32 +52,32 @@ namespace AllianceEngine
             if (Input.Keyboard.IsKeyPressed(Key.Up))
             {
                 //increase ambient light intensity
-                _ia = Math.Clamp(_ia + delta, 0f, 1f);
+                Ia = Math.Clamp(Ia + delta, 0f, 1f);
             }
             if (Input.Keyboard.IsKeyPressed(Key.Down))
             {
                 //decrease ambient light intensity
-                _ia = Math.Clamp(_ia - delta, 0f, 1f);
+                Ia = Math.Clamp(Ia - delta, 0f, 1f);
             }
             if (Input.Keyboard.IsKeyPressed(Key.Right))
             {
                 //decrease ambient light intensity
-                _il = Math.Clamp(_il + delta, 0f, 1f);
+                Il = Math.Clamp(Il + delta, 0f, 1f);
             }
             if (Input.Keyboard.IsKeyPressed(Key.Left))
             {
                 //decrease ambient light intensity
-                _il = Math.Clamp(_il - delta, 0f, 1f);
+                Il = Math.Clamp(Il - delta, 0f, 1f);
             }
             if (Input.Keyboard.IsKeyPressed(Key.ShiftRight))
             {
                 //decrease ambient light intensity
-                _is = Math.Clamp(_is + delta, 0f, 1f);
+                Is = Math.Clamp(Is + delta, 0f, 1f);
             }
             if (Input.Keyboard.IsKeyPressed(Key.ControlRight))
             {
                 //decrease ambient light intensity
-                _is = Math.Clamp(_is - delta, 0f, 1f);
+                Is = Math.Clamp(Is - delta, 0f, 1f);
             }
 
         }
