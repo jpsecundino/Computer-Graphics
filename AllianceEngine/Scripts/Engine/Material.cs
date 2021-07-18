@@ -4,8 +4,8 @@ namespace AllianceEngine
 {
     public class Material
     {
-        public string name;
-        
+        public string Name { get; set; }
+
         public Vector3 ka;
         public Vector3 kd;
         public Vector3 ks;
@@ -16,12 +16,12 @@ namespace AllianceEngine
 
         public Material(string name)
         {
-            this.name = name;
+            this.Name = name;
         }
         
         public Material(string name, Vector3 ka, Vector3 kd, Vector3 ks, int illum, Texture texture)
         {
-            this.name = name;
+            this.Name = name;
             this.ka = ka;
             this.kd = kd;
             this.ks = ks;
@@ -29,10 +29,9 @@ namespace AllianceEngine
             this.texture = texture;
         }
 
-        public void Bind()
+        public void Bind(Shader shader)
         {
-            Program.Shader.SetUniform("ka", ka);
-            Program.Shader.SetUniform("kd", kd);
+            shader.SetUniform("uKa", ka);
             texture.Bind();
         }
 

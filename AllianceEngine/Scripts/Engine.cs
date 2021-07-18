@@ -80,7 +80,7 @@ namespace AllianceEngine
             Gl = GL.GetApi(mainWindow);
 
             // Initialize Default Shader
-            Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
+            Shader = new Shader("..\\..\\..\\Shaders\\ambientLight.vert", "..\\..\\..\\Shaders\\ambientLight.frag");
 
             // Create RenderPipeline and Main Scene
             activeScene = new Scene(new RenderPipeline());
@@ -103,13 +103,9 @@ namespace AllianceEngine
             Gl.ClearColor(System.Drawing.Color.Beige);
 
             Shader.Use();
-            // Shader.SetUniform("uTexture0", 0);
             
             Shader.SetUniform("uView", Camera.MainCamera.View);
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
-
-            Vector3 lightPos = new(-1.5f, 1.7f, 2.5f);
-            Shader.SetUniform("lightPos", lightPos);
             
             activeScene.DrawObjects();
         }

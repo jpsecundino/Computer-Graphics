@@ -192,11 +192,11 @@ namespace AllianceEngine
 
                         if (!isFirstMaterial)
                         {
-                            materials.Add(material.name, material);
+                            materials.Add(material.Name, material);
                         }
                         
                         
-                        material.name = line.Split(' ')[1];
+                        material.Name = line.Split(' ')[1];
                         
                         isFirstMaterial = false;
 
@@ -205,9 +205,9 @@ namespace AllianceEngine
                         string[] svector = line.Split(" ")[1..4];
 
                         material.ka = new Vector3( 
-                            float.Parse(svector[0]),
-                            float.Parse(svector[1]),
-                            float.Parse(svector[2])
+                            float.Parse(svector[0], CultureInfo.InvariantCulture),
+                            float.Parse(svector[1], CultureInfo.InvariantCulture),
+                            float.Parse(svector[2], CultureInfo.InvariantCulture)
                             );
 
                     }else if (line.StartsWith("Kd "))
@@ -215,18 +215,18 @@ namespace AllianceEngine
                         string[] svector = line.Split(" ")[1..4];
                         
                         material.kd = new Vector3( 
-                            float.Parse(svector[0]),
-                            float.Parse(svector[1]),
-                            float.Parse(svector[2])
+                            float.Parse(svector[0], CultureInfo.InvariantCulture),
+                            float.Parse(svector[1], CultureInfo.InvariantCulture),
+                            float.Parse(svector[2], CultureInfo.InvariantCulture)
                         );
                     }else if (line.StartsWith("Ks "))
                     {
                         string[] svector = line.Split(" ")[1..4];
                         
                         material.ks = new Vector3( 
-                            float.Parse(svector[0]),
-                            float.Parse(svector[1]),
-                            float.Parse(svector[2])
+                            float.Parse(svector[0], CultureInfo.InvariantCulture),
+                            float.Parse(svector[1], CultureInfo.InvariantCulture),
+                            float.Parse(svector[2], CultureInfo.InvariantCulture)
                         );
                         
                     }
@@ -249,7 +249,7 @@ namespace AllianceEngine
                     
                 }
                     
-                materials.Add(material.name, material);
+                materials.Add(material.Name, material);
 
                 return materials;
             }

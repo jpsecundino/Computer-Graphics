@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.Remoting;
 
 namespace AllianceEngine
 {
@@ -51,9 +50,9 @@ namespace AllianceEngine
         {
             MeshBuffers meshBuffers =  ConcatenateBuffers(meshObjects);
             
-            buffers = Mesh.CreateVAOBuffers(meshBuffers);
+            buffers = CreateVAOBuffers(meshBuffers);
 
-            float[] vertices = new float[buffers.vertices.Length * 8];
+            float[] vertices = new float[buffers.vertices.Length * 5];
 
             {
                 int i = 0;
@@ -64,10 +63,7 @@ namespace AllianceEngine
                     vertices[i + 2] = obj.position.Z;
                     vertices[i + 3] = obj.uv.X;
                     vertices[i + 4] = obj.uv.Y;
-                    vertices[i + 5] = obj.normal.X;
-                    vertices[i + 6] = obj.normal.Y;
-                    vertices[i + 7] = obj.normal.Z;
-                    i += 8;
+                    i += 5;
                 }
             }
 
@@ -75,13 +71,13 @@ namespace AllianceEngine
             VBO = new BufferObject<float>(vertices, BufferTargetARB.ArrayBuffer);
             VAO = new VertexArrayObject<float, uint>(VBO, EBO);
 
-            VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 8, 0);
-            VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 8, 3);
-            VAO.VertexAttributePointer(2, 3, VertexAttribPointerType.Float, 8, 5);
+            VAO.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, 5, 0);
+            VAO.VertexAttributePointer(1, 2, VertexAttribPointerType.Float, 5, 3);
+            //VAO.VertexAttributePointer(2, 3, VertexAttribPointerType.Float, 8, 5);
             
         }
 
-        public void Draw()
+        public void Draw(Shader shader)
         {
             VAO.Bind();
             EBO.Bind();
@@ -91,7 +87,7 @@ namespace AllianceEngine
                 int offset = 0;
                 foreach (MaterialInfo matInfo in _materials)
                 {
-                    matInfo.material.Bind();
+                    matInfo.material.Bind(shader);
                     Program.Gl.DrawElements(GLEnum.Triangles, (uint) matInfo.idxCount, GLEnum.UnsignedInt, (void*) (offset * sizeof(uint)));
                     offset += matInfo.idxCount;
                 }

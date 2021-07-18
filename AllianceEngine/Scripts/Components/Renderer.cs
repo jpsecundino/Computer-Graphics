@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AllianceEngine
 {
@@ -22,7 +21,7 @@ namespace AllianceEngine
         public void Draw()
         {
             shader.SetUniform("uModel", parent.Transform.ModelMatrix);
-            model.Draw();
+            model.Draw(shader);
         }
     }
 }

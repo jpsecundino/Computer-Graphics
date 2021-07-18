@@ -22,7 +22,7 @@ namespace AllianceEngine
 
     public static class ModelManager
     {
-        private static Dictionary<ModelType, Mesh> loadedMeshes = new();
+        private static readonly Dictionary<ModelType, Mesh> loadedMeshes = new();
         private static Dictionary<ModelType, ModelPaths> meshPaths = new() {
             { ModelType.Bear, new ModelPaths("bear") },
             { ModelType.Skybox, new ModelPaths("skycube") },
