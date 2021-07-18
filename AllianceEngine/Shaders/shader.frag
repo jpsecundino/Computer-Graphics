@@ -16,14 +16,14 @@ out vec4 frag_color;
 void main(){
     vec3 ambient = ka * lightColor;             
 
-    vec3 norm = normalize(out_normal); // normaliza vetores perpendiculares
-    vec3 lightDir = normalize(lightPos - out_fragPos); // direcao da luz
-    float diff = max(dot(norm, lightDir), 0.0); // verifica limite angular (entre 0 e 90)
-    vec3 diffuse = kd * diff * lightColor; // iluminacao difusa
+    vec3 norm = normalize(out_normal);                  // normaliza vetores perpendiculares
+    vec3 lightDir = normalize(lightPos - out_fragPos);  // direcao da luz
+    float diff = max(dot(norm, lightDir), 0.0);         // verifica limite angular (entre 0 e 90)
+    vec3 diffuse = kd * diff * lightColor;              // iluminacao difusa
     
     
-    vec4 texture = texture2D(uTexture0, fUv);
-    vec4 result = vec4((ambient + diffuse), 1.0) * texture; // aplica iluminacao
+    vec4 texture = texture(uTexture0, fUv);
+    vec4 result = vec4(min((ambient + diffuse), vec3(1.0)), 1.0) * texture; // aplica iluminacao
     
     frag_color = result;
 

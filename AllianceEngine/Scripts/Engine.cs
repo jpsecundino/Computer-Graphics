@@ -103,7 +103,6 @@ namespace AllianceEngine
             Gl.ClearColor(System.Drawing.Color.Beige);
 
             Shader.Use();
-            // Shader.SetUniform("uTexture0", 0);
             
             Shader.SetUniform("uView", Camera.MainCamera.View);
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
