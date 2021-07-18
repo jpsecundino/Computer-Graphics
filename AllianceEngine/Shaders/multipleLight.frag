@@ -6,6 +6,8 @@ struct LightInfo{
     vec3 Color;
     vec3 Pos;
     float Radius;
+    float Ia;
+    float Il;
 };
 
 struct MaterialInfo {
@@ -42,27 +44,27 @@ void main(){
         
         //if the object is in the light radius
         if(distance(light.Pos, out_fragPos) <= light.Radius){
-        
-                ambient = uMaterial.Ka * light.Color;             
-                    
+                
+                ambient = uMaterial.Ka * light.Ia * light.Color;
+                        
                 //iluminacao difusa
                 vec3 norm = normalize(out_normal);
                 vec3 lightDir = normalize(light.Pos - out_fragPos); 
                 float diff1 = max(dot(norm, lightDir), 0.0); 
-                diffuse = uMaterial.Kd * diff1 * light.Color;
+                diffuse = uMaterial.Kd * diff1 * light.Il;
                 
                 //reflexao especular
                 vec3 viewDir = normalize(out_fragPos - uViewPos);
                 vec3 reflectDir = normalize(reflect(-lightDir, norm));
                 float spec = pow(max(dot(viewDir, reflectDir), 0.0), uMaterial.Ns);
-                specular = uMaterial.Ks * spec * light.Color;  
+                specular = uMaterial.Ks * spec * light.Il;  
         }else{
                 ambient = vec3(0.0);
                 diffuse = vec3(0.0);
                 diffuse = vec3(0.0); 
         }
         
-        illumination += min(ambient + diffuse, vec3(1)) + specular;
+        illumination += min(ambient + diffuse, vec3(1.0)) + specular;
     }
     
     frag_color = vec4(illumination, 1.0) * texture;
