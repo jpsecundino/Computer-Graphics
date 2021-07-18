@@ -8,6 +8,7 @@ struct LightInfo{
     float Radius;
     float Ia;
     float Il;
+    float Is;
 };
 
 struct MaterialInfo {
@@ -51,22 +52,22 @@ void main(){
                 vec3 norm = normalize(out_normal);
                 vec3 lightDir = normalize(light.Pos - out_fragPos); 
                 float diff1 = max(dot(norm, lightDir), 0.0); 
-                diffuse = uMaterial.Kd * diff1 * light.Il;
+                diffuse = uMaterial.Kd * diff1 * light.Il * light.Color;
                 
                 //reflexao especular
                 vec3 viewDir = normalize(out_fragPos - uViewPos);
                 vec3 reflectDir = normalize(reflect(-lightDir, norm));
                 float spec = pow(max(dot(viewDir, reflectDir), 0.0), uMaterial.Ns);
-                specular = uMaterial.Ks * spec * light.Il;  
+                specular = uMaterial.Ks * spec * light.Is * light.Color;  
         }else{
                 ambient = vec3(0.0);
                 diffuse = vec3(0.0);
                 diffuse = vec3(0.0); 
         }
         
-        illumination += min(ambient + diffuse, vec3(1.0)) + specular;
+        //this adjustment prevents color saturation
+        illumination += ambient + diffuse + specular;
     }
     
     frag_color = vec4(illumination, 1.0) * texture;
-     
 }

@@ -21,7 +21,7 @@ namespace AllianceEngine
             griffin.Transform.Position = new Vector3(11f, 1.5f, 16f);
             griffin.AddComponent(new Renderer(ModelType.Griffin, shader));
             griffin.AddComponent(new LoopMovement(type: LoopMovement.LoopType.XZ, speed: 3f, radius: 5f));
-            griffin.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), 5, 1,1));
+            griffin.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), 5, 1,1,1 ));
 
             return griffin;
         }
@@ -40,7 +40,7 @@ namespace AllianceEngine
             GameObject light = new("sun");
 
             light.Transform.Position = new Vector3(15f, 14f, -1000f);
-            light.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), float.MaxValue, 1, 1));
+            light.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), float.MaxValue, 1, 1,1));
             light.AddComponent(new Renderer(ModelType.Cube, shader));
             
             return light;
@@ -101,7 +101,7 @@ namespace AllianceEngine
                         
             GameObject campfire = new("campfire");
             campfire.AddComponent(new Renderer(ModelType.Campfire, shader));
-            campfire.AddComponent(new Light(shader, new Vector3(1,0,0), 2f, 1, 1));
+            campfire.AddComponent(new Light(shader, new Vector3(1,0,0), 2f, 1, 1, 1));
             campfire.Transform.Position = new Vector3(25f, -0.27f, 11f);
             campfire.Transform.Rotation = new Vector3(0f, 0f, -6f);
             campfire.Transform.Scale = new Vector3(10f, 10f, 10f);
