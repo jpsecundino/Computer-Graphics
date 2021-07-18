@@ -5,6 +5,7 @@ using ImGuiNET;
 using Silk.NET.Maths;
 using Silk.NET.OpenGL.Extensions.ImGui;
 using System.Numerics;
+using System.Drawing;
 
 namespace AllianceEngine
 {
@@ -57,9 +58,14 @@ namespace AllianceEngine
             ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
             UI.Initialize();
         }
-        
+
+        private static Vector4 ambientLight = new(1);
         private static void OnRenderUI(double deltaTime)
         {
+            ImGui.Begin("Lighting Settings");
+            ImGui.ColorPicker4("Ambient Light", ref ambientLight);
+            ImGui.End();
+
             imGui.Render();
         }
 
@@ -104,6 +110,7 @@ namespace AllianceEngine
 
             Shader.Use();
             
+            Shader.SetUniform("uLightColor", ambientLight);
             Shader.SetUniform("uView", Camera.MainCamera.View);
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
             
