@@ -80,7 +80,7 @@ namespace AllianceEngine
             Gl = GL.GetApi(mainWindow);
 
             // Initialize Default Shader
-            Shader = new Shader("..\\..\\..\\Shaders\\shader.vert", "..\\..\\..\\Shaders\\shader.frag");
+            Shader = new Shader("..\\..\\..\\Shaders\\ambientDiffuseLight.vert", "..\\..\\..\\Shaders\\ambientDiffuseLight.frag");
 
             // Create RenderPipeline and Main Scene
             activeScene = new Scene(new RenderPipeline());
@@ -103,10 +103,8 @@ namespace AllianceEngine
             Gl.ClearColor(System.Drawing.Color.Beige);
 
             Shader.Use();
-            // Shader.SetUniform("uTexture0", 0);
             
-            Shader.SetUniform("uView", Camera.MainCamera.View);
-            Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
+            Shader.SetUniform("uViewProjection", Camera.MainCamera.View * Camera.MainCamera.Projection);
 
             activeScene.DrawObjects();
         }

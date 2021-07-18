@@ -15,7 +15,7 @@ namespace AllianceEngine
         public override void Update(double deltaTime)
         {
 
-            _shader.SetUniform("lightPos", parent.Transform.Position);
+            _shader.SetUniform("uLightPos", parent.Transform.Position);
 
         }
     }
