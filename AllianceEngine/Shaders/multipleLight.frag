@@ -8,15 +8,16 @@ struct LightInfo{
     float Radius;
 };
 
+struct MaterialInfo {
+    vec3 Ka; // coeficiente de reflexao ambiente
+    vec3 Kd; // coeficiente de reflexao difusa
+    vec3 Ks; // coeficiente de reflexao especular
+    float Ns; // expoente de reflexao especular
+};
+
 uniform LightInfo uLights[MAX_LIGHTS];
-
-uniform vec3 uKa; // coeficiente de reflexao ambiente
-uniform vec3 uKd; // coeficiente de reflexao difusa
-
-// parametros da iluminacao especular
+uniform MaterialInfo uMaterial;
 uniform vec3 uViewPos; // define coordenadas com a posicao da camera/observador
-uniform vec3 uKs; // coeficiente de reflexao especular
-uniform float uNs; // expoente de reflexao especular
 
 in vec2 out_texcoord; // recebido do vertex shader
 in vec3 out_fragPos; // recebido do vertex shader
@@ -42,19 +43,19 @@ void main(){
         //if the object is in the light radius
         if(distance(light.Pos, out_fragPos) <= light.Radius){
         
-                ambient = uKa * light.Color;             
+                ambient = uMaterial.Ka * light.Color;             
                     
                 //iluminacao difusa
                 vec3 norm = normalize(out_normal);
                 vec3 lightDir = normalize(light.Pos - out_fragPos); 
                 float diff1 = max(dot(norm, lightDir), 0.0); 
-                diffuse = uKd * diff1 * light.Color;
+                diffuse = uMaterial.Kd * diff1 * light.Color;
                 
                 //reflexao especular
                 vec3 viewDir = normalize(out_fragPos - uViewPos);
                 vec3 reflectDir = normalize(reflect(-lightDir, norm));
-                float spec = pow(max(dot(viewDir, reflectDir), 0.0), uNs);
-                specular = uKs * spec * light.Color;  
+                float spec = pow(max(dot(viewDir, reflectDir), 0.0), uMaterial.Ns);
+                specular = uMaterial.Ks * spec * light.Color;  
         }else{
                 ambient = vec3(0.0);
                 diffuse = vec3(0.0);
