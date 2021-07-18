@@ -20,9 +20,9 @@ namespace AllianceEngine
 
         public override void Update(double deltaTime)
         {
-            _shader.SetUniform("uLightColor" + _idx.ToString(), _color);
-            _shader.SetUniform("uLightPos" + _idx.ToString(), parent.Transform.Position);
-            _shader.SetUniform("uLightRadius" + _idx.ToString(), _radius);
+            _shader.SetUniform($"uLights[{_idx}].Color" , _color);
+            _shader.SetUniform($"uLights[{_idx}].Pos" , parent.Transform.Position);
+            _shader.SetUniform($"uLights[{_idx}].Radius", _radius);
         }
     }
 }
