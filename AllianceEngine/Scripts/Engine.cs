@@ -80,7 +80,7 @@ namespace AllianceEngine
             Gl = GL.GetApi(mainWindow);
 
             // Initialize Default Shader
-            Shader = new Shader("..\\..\\..\\Shaders\\ambientDiffuseLight.vert", "..\\..\\..\\Shaders\\ambientDiffuseSpecularLight.frag");
+            Shader = new Shader("..\\..\\..\\Shaders\\common.vert", "..\\..\\..\\Shaders\\ambientDiffuseSpecularLight.frag");
 
             // Create RenderPipeline and Main Scene
             activeScene = new Scene(new RenderPipeline());
