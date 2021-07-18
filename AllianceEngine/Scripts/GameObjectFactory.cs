@@ -36,6 +36,15 @@ namespace AllianceEngine
             return ship;
         }
         
+        public static GameObject CreateLight(Shader shader)
+        {
+            GameObject light = new("light");
+            
+            light.AddComponent(new Light(shader));
+            
+            return light;
+        }
+        
         public static GameObject CreateBear(Shader shader)
         {
             GameObject bear = new("bear");

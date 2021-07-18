@@ -108,9 +108,6 @@ namespace AllianceEngine
             Shader.SetUniform("uView", Camera.MainCamera.View);
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
 
-            Vector3 lightPos = new(-1.5f, 1.7f, 2.5f);
-            Shader.SetUniform("lightPos", lightPos);
-            
             activeScene.DrawObjects();
         }
 
@@ -125,6 +122,7 @@ namespace AllianceEngine
             activeScene.AddGameObject( GameObjectFactory.CreateCamera(out Camera cameraComponent));
             activeScene.AddGameObject(GameObjectFactory.CreateCube(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateTerrain(Shader));
+            activeScene.AddGameObject(GameObjectFactory.CreateLight(Shader));
             // activeScene.AddGameObject( GameObjectFactory.CreatePirate(Shader));
             // activeScene.AddGameObject( GameObjectFactory.CreateBear(Shader));
             // activeScene.AddGameObject( GameObjectFactory.CreateGriffin(Shader));
