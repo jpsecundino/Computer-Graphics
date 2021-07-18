@@ -79,49 +79,35 @@ namespace AllianceEngine
                         else if (line.StartsWithOptimized("v "))
                         {
                             string[] verticesText = line[2..].Split(' ');
-                            Vector3 newVertex = Vector3.Zero;
-
-                            if (Single.TryParse(verticesText[0], NumberStyles.Float, CultureInfo.InvariantCulture,
-                                out float axis))
-                                newVertex.X = axis;
-                            if (Single.TryParse(verticesText[1], NumberStyles.Float, CultureInfo.InvariantCulture,
-                                out axis))
-                                newVertex.Y = axis;
-                            if (Single.TryParse(verticesText[2], NumberStyles.Float, CultureInfo.InvariantCulture,
-                                out axis))
-                                newVertex.Z = axis;
+                            Vector3 newVertex = new(
+                                float.Parse(verticesText[0], CultureInfo.InvariantCulture),
+                                float.Parse(verticesText[1], CultureInfo.InvariantCulture),
+                                float.Parse(verticesText[2], CultureInfo.InvariantCulture)
+                            );
 
                             vertices.Add(newVertex);
-
                             meshEmpty = false;
                         }
                         else if (line.StartsWithOptimized("vt "))
                         {
                             string[] uvsText = line[3..].Split(' ');
-                            Vector2 newUv = Vector2.Zero;
-
-                            if (float.TryParse(uvsText[0], NumberStyles.Float, CultureInfo.InvariantCulture,
-                                out float axis))
-                                newUv.X = axis;
-                            if (float.TryParse(uvsText[1], NumberStyles.Float, CultureInfo.InvariantCulture, out axis))
-                                newUv.Y = axis;
+                            Vector2 newUv = new(
+                                float.Parse(uvsText[0], CultureInfo.InvariantCulture),
+                                float.Parse(uvsText[1], CultureInfo.InvariantCulture)
+                            );
 
                             uvs.Add(newUv);
-
                             meshEmpty = false;
-                        }else if (line.StartsWithOptimized("vn "))
+
+                        }
+                        else if (line.StartsWithOptimized("vn "))
                         {
                             string[] vnsText = line[3..].Split(' ');
-                            Vector3 newVn = Vector3.Zero;
-
-                            if (float.TryParse(vnsText[0], NumberStyles.Float, CultureInfo.InvariantCulture,
-                                out float axis))
-                                newVn.X = axis;
-                            if (float.TryParse(vnsText[1], NumberStyles.Float, CultureInfo.InvariantCulture, out axis))
-                                newVn.Y = axis;
-                            if (float.TryParse(vnsText[2], NumberStyles.Float, CultureInfo.InvariantCulture, out axis))
-                                newVn.Z = axis;
-
+                            Vector3 newVn = new (
+                                float.Parse(vnsText[0], CultureInfo.InvariantCulture),
+                                float.Parse(vnsText[1], CultureInfo.InvariantCulture),
+                                float.Parse(vnsText[2], CultureInfo.InvariantCulture)
+                            );
                             norms.Add(newVn);
 
                             meshEmpty = false;
@@ -203,31 +189,31 @@ namespace AllianceEngine
                     }else if (line.StartsWith("Ka "))
                     {
                         
-                        string[] svector = line.Replace('.', ',').Split(" ")[1..4];
+                        string[] svector = line.Split(" ")[1..4];
                         
                         material.ka = new Vector3( 
-                            float.Parse(svector[0]),
-                            float.Parse(svector[1]),
-                            float.Parse(svector[2])
+                            float.Parse(svector[0], CultureInfo.InvariantCulture),
+                            float.Parse(svector[1], CultureInfo.InvariantCulture),
+                            float.Parse(svector[2], CultureInfo.InvariantCulture)
                             );
 
                     }else if (line.StartsWith("Kd "))
                     {
-                        string[] svector = line.Replace('.', ',').Split(" ")[1..4];
+                        string[] svector = line.Split(" ")[1..4];
                         
                         material.kd = new Vector3( 
-                            float.Parse(svector[0]),
-                            float.Parse(svector[1]),
-                            float.Parse(svector[2])
+                            float.Parse(svector[0], CultureInfo.InvariantCulture),
+                            float.Parse(svector[1], CultureInfo.InvariantCulture),
+                            float.Parse(svector[2], CultureInfo.InvariantCulture)
                         );
                     }else if (line.StartsWith("Ks "))
                     {
-                        string[] svector = line.Replace('.', ',').Split(" ")[1..4];
+                        string[] svector = line.Split(" ")[1..4];
                         
                         material.ks = new Vector3( 
-                            float.Parse(svector[0]),
-                            float.Parse(svector[1]),
-                            float.Parse(svector[2])
+                            float.Parse(svector[0], CultureInfo.InvariantCulture),
+                            float.Parse(svector[1], CultureInfo.InvariantCulture),
+                            float.Parse(svector[2], CultureInfo.InvariantCulture)
                         );
                         
                     }
