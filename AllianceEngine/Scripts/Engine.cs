@@ -121,7 +121,7 @@ namespace AllianceEngine
             activeScene.AddGameObject( GameObjectFactory.CreateCamera(out Camera cameraComponent));
             activeScene.AddGameObject(GameObjectFactory.CreateCube(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateTerrain(Shader));
-            activeScene.AddGameObject(GameObjectFactory.CreateLight(Shader));
+            activeScene.AddGameObject(GameObjectFactory.CreateSun(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreatePirate(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateBear(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateGriffin(Shader));

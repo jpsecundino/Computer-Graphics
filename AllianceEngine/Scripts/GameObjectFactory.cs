@@ -36,12 +36,12 @@ namespace AllianceEngine
             return ship;
         }
         
-        public static GameObject CreateLight(Shader shader)
+        public static GameObject CreateSun(Shader shader)
         {
-            GameObject light = new("light");
-            
-            light.AddComponent(new Light(shader));
-            // light.AddComponent(new LoopMovement(1f, 20, LoopMovement.LoopType.XZ));
+            GameObject light = new("sun");
+
+            light.Transform.Position = new Vector3(15f, 14f, -1000f);
+            light.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f)));
             light.AddComponent(new Renderer(ModelType.Cube, shader));
             
             return light;
