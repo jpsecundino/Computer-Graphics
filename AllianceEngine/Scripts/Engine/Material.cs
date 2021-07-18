@@ -32,11 +32,11 @@ namespace AllianceEngine
 
         public void Bind()
         {
-            Program.Shader.SetUniform("ka", ka);
-            Program.Shader.SetUniform("kd", kd);
-            Program.Shader.SetUniform("ks", ks);
-            Program.Shader.SetUniform("ns", ns);
-            
+            Program.Shader.SetUniform("uKa", ka);
+            Program.Shader.SetUniform("uKd", kd);
+            Program.Shader.SetUniform("uKs", ks);
+            Program.Shader.SetUniform("uNs", ns);
+
             texture?.Bind();
         }
 

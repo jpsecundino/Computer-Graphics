@@ -41,6 +41,8 @@ namespace AllianceEngine
             GameObject light = new("light");
             
             light.AddComponent(new Light(shader));
+            // light.AddComponent(new LoopMovement(1f, 20, LoopMovement.LoopType.XZ));
+            light.AddComponent(new Renderer(ModelType.Cube, shader));
             
             return light;
         }

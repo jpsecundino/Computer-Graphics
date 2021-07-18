@@ -186,7 +186,7 @@ namespace AllianceEngine
 
             foreach(MaterialInfo textureInfo in _materials)
             {
-                textureInfo.material.texture.Dispose();
+                textureInfo.material.texture?.Dispose();
             }
         }
 
