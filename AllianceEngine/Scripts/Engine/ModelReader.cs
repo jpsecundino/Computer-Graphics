@@ -230,6 +230,9 @@ namespace AllianceEngine
                             float.Parse(svector[2])
                         );
                         
+                    }else if (line.StartsWith("Ns "))
+                    {
+                        material.ns = float.Parse(line.Replace('.', ',').Split(" ").Last());
                     }
                     else if (line.StartsWith("map_Kd "))
                     {

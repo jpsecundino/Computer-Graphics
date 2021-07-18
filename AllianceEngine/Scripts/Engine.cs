@@ -105,6 +105,8 @@ namespace AllianceEngine
             Shader.Use();
             // Shader.SetUniform("uTexture0", 0);
             
+            
+            Shader.SetUniform("viewPos", Camera.MainCamera.parent.Transform.Position);
             Shader.SetUniform("uView", Camera.MainCamera.View);
             Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
 

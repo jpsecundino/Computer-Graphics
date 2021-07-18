@@ -9,6 +9,7 @@ namespace AllianceEngine
         public Vector3 ka;
         public Vector3 kd;
         public Vector3 ks;
+        public float ns;
                 
         public int illum;
 
@@ -33,6 +34,8 @@ namespace AllianceEngine
         {
             Program.Shader.SetUniform("ka", ka);
             Program.Shader.SetUniform("kd", kd);
+            Program.Shader.SetUniform("ks", ks);
+            Program.Shader.SetUniform("ns", ns);
             
             texture?.Bind();
         }
