@@ -40,7 +40,8 @@ namespace AllianceEngine
             GameObject light = new("sun");
 
             light.Transform.Position = new Vector3(15f, 14f, -1000f);
-            light.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), float.MaxValue, 1, 1,1));
+            //starts at night
+            light.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), float.MaxValue, 0, 0,0));
             light.AddComponent(new Renderer(ModelType.Cube, shader));
             
             return light;
@@ -77,6 +78,7 @@ namespace AllianceEngine
             cameraObj.AddComponent(new CameraControls(cameraComponent));
             cameraObj.AddComponent(new LimitMovementVolume(new Vector3(11f, 12.5f, 16f), new Vector3(25, 12.5f, 25)));
             cameraObj.Transform.Position = new Vector3(35.876f, 4.425f, 12.543f);
+            cameraObj.Transform.Rotation = new Vector3(-80f * MathHelper.DegreesToRadians, 12f * MathHelper.DegreesToRadians, 0);
             return cameraObj;
         }
 
@@ -101,7 +103,7 @@ namespace AllianceEngine
                         
             GameObject campfire = new("campfire");
             campfire.AddComponent(new Renderer(ModelType.Campfire, shader));
-            campfire.AddComponent(new Light(shader, new Vector3(1,0,0), 2f, 1, 1, 1));
+            campfire.AddComponent(new Light(shader, new Vector3(1,0.3f,0), 2f, 1, 1, 1));
             campfire.Transform.Position = new Vector3(25f, -0.27f, 11f);
             campfire.Transform.Rotation = new Vector3(0f, 0f, -6f);
             campfire.Transform.Scale = new Vector3(10f, 10f, 10f);

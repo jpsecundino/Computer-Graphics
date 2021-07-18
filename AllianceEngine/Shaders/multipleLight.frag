@@ -30,43 +30,50 @@ uniform sampler2D uTexture0;
 
 out vec4 frag_color;
 
+vec3 calculateAmbLight(float intensity, LightInfo light){
+    return uMaterial.Ka * light.Ia * light.Color * intensity;
+}
+
+vec3 calculateDiffLight(float intensity, LightInfo light){
+    vec3 norm = normalize(out_normal);
+    vec3 lightDir = normalize(light.Pos - out_fragPos); 
+    float diff1 = max(dot(norm, lightDir), 0.0); 
+    return uMaterial.Kd * diff1 * light.Il * light.Color * intensity;
+}
+
+vec3 calculateSpecLight(float intensity, LightInfo light){
+    vec3 norm = normalize(out_normal);
+    vec3 viewDir = normalize(uViewPos - out_fragPos);
+    vec3 lightDir = normalize(light.Pos - out_fragPos); 
+    vec3 reflectDir = normalize(reflect(-lightDir, norm));
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), uMaterial.Ns);
+    return uMaterial.Ks * spec * light.Is * light.Color * intensity;  
+}
+
 void main(){
        
     vec4 texture = texture(uTexture0, out_texcoord);
     
-    vec3 illumination = vec3(0.0);
+    LightInfo globalLight = uLights[0];
     
+    vec3 globalIllum = calculateAmbLight(1, globalLight) + calculateDiffLight(1, globalLight) + calculateSpecLight(1, globalLight);
+    
+    vec3 illumination = globalIllum;
+        
     //calcula iluminacao
-    for(int i = 0; i < MAX_LIGHTS; i++){
-        
-        vec3 ambient, diffuse, specular;
-        
+    for(int i = 1; i < MAX_LIGHTS; i++){
+          
         LightInfo light = uLights[i]; 
         
-        //if the object is in the light radius
-        if(distance(light.Pos, out_fragPos) <= light.Radius){
+        float dist = distance(light.Pos, out_fragPos);
                 
-                ambient = uMaterial.Ka * light.Ia * light.Color;
-                        
-                //iluminacao difusa
-                vec3 norm = normalize(out_normal);
-                vec3 lightDir = normalize(light.Pos - out_fragPos); 
-                float diff1 = max(dot(norm, lightDir), 0.0); 
-                diffuse = uMaterial.Kd * diff1 * light.Il * light.Color;
-                
-                //reflexao especular
-                vec3 viewDir = normalize(out_fragPos - uViewPos);
-                vec3 reflectDir = normalize(reflect(-lightDir, norm));
-                float spec = pow(max(dot(viewDir, reflectDir), 0.0), uMaterial.Ns);
-                specular = uMaterial.Ks * spec * light.Is * light.Color;  
-        }else{
-                ambient = vec3(0.0);
-                diffuse = vec3(0.0);
-                diffuse = vec3(0.0); 
-        }
-        
+        float intensity = (dist < 0.00001) ? 1 : 1/dist; 
+
+        vec3 diffuse = calculateDiffLight(intensity, light);
+        vec3 specular = calculateSpecLight(intensity, light);
+                         
         //this adjustment prevents color saturation
-        illumination += ambient + diffuse + specular;
+        illumination += diffuse + specular;
     }
     
     frag_color = vec4(illumination, 1.0) * texture;
