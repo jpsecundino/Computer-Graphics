@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 0.000000
 illum 9
-map_Kd C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES22.png
+map_Kd textures\\KEKES22.png
 
 newmtl Material.001
 Ns 86.470579
@@ -21,8 +21,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 0.000000
 illum 9
-map_Kd C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES7.png
-map_d C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES7.png
+map_Kd textures\\KEKES7.png
+map_d textures\\KEKES7.png
 
 newmtl Material.002
 Ns 86.470579
@@ -33,8 +33,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 0.000000
 illum 9
-map_Kd C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES11.png
-map_d C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES11.png
+map_Kd textures\\KEKES11.png
+map_d textures\\KEKES11.png
 
 newmtl Material.003
 Ns 86.470579
@@ -45,8 +45,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 0.000000
 illum 9
-map_Kd C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES4.png
-map_d C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES4.png
+map_Kd textures\\KEKES4.png
+map_d textures\\KEKES4.png
 
 newmtl Material.004
 Ns 86.470579
@@ -57,7 +57,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 0.000000
 illum 9
-map_Kd C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES2.png
+map_Kd textures\\KEKES2.png
 
 newmtl Material.005
 Ns 86.470579
@@ -68,4 +68,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 0.000000
 illum 9
-map_Kd C:\\Users\\pedro\\Desktop\\low-poly-fishermans-hut\\source\\KEKES3.png
+map_Kd textures\\KEKES3.png

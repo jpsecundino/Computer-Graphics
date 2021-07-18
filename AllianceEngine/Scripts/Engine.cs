@@ -122,15 +122,15 @@ namespace AllianceEngine
             activeScene.AddGameObject(GameObjectFactory.CreateCube(Shader));
             activeScene.AddGameObject( GameObjectFactory.CreateTerrain(Shader));
             activeScene.AddGameObject(GameObjectFactory.CreateLight(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreatePirate(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreateBear(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreateGriffin(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreateShip(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreateSkyBox(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreateCampfire(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreatePirateSword(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreateSpyGlass(Shader));
-            // activeScene.AddGameObject( GameObjectFactory.CreateTent(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreatePirate(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateBear(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateGriffin(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateShip(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateSkyBox(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateCampfire(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreatePirateSword(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateSpyGlass(Shader));
+            activeScene.AddGameObject( GameObjectFactory.CreateTent(Shader));
 
             Camera.SwitchMainCamera(cameraComponent);
         }

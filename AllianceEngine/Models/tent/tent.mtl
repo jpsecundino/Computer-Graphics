@@ -1,4 +1,4 @@
-# Blender MTL File: 'Campfire.blend'
+# Blender MTL File: 'None'
 # Material Count: 1
 
 newmtl Mat
@@ -10,4 +10,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd -o 0.000000 -1.000000 0.000000 source\\tent_low_DefaultMaterial_BaseColor.png
+map_Kd -o 0.000000 -1.000000 0.000000 textures\\tent_low_DefaultMaterial_BaseColor.png

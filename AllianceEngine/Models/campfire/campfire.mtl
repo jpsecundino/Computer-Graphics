@@ -1,4 +1,4 @@
-# Blender MTL File: 'Campfire.blend'
+# Blender MTL File: 'None'
 # Material Count: 1
 
 newmtl Material_#2
@@ -10,4 +10,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\pedro\\Desktop\\campfire-low-poly\\source\\Campfire_texture.png
+map_Kd textures\\Campfire_texture.png
