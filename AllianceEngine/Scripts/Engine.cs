@@ -17,10 +17,15 @@ namespace AllianceEngine
         public static int Width { get; private set; } = 700;
         public static int Height { get; private set; } = 700;
         
+        //TODO: Refactor, remove one and only shader, make shader management in RenderPipeline
         public static Shader Shader;
+        
         private static Scene activeScene;
         private static GL gl;
         private static ImGuiController imGui;
+
+        //TODO: Refactor ambient light, make light settings some sort of settings for the scene
+        private static Vector4 ambientLight = new(1);
 
         private static bool isPolygonModeLine = false;
 
@@ -59,9 +64,10 @@ namespace AllianceEngine
             UI.Initialize();
         }
 
-        private static Vector4 ambientLight = new(1);
+        
         private static void OnRenderUI(double deltaTime)
         {
+            //TODO: Refactor, separate Light settings UI from Engine.cs
             ImGui.Begin("Lighting Settings");
             ImGui.ColorPicker4("Ambient Light", ref ambientLight);
             ImGui.End();
@@ -106,13 +112,12 @@ namespace AllianceEngine
         {
             Gl.Enable(EnableCap.DepthTest);
             Gl.Clear((uint)(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
-            Gl.ClearColor(System.Drawing.Color.Beige);
+            Gl.ClearColor(Color.LightCyan);
 
             Shader.Use();
             
             Shader.SetUniform("uLightColor", ambientLight);
-            Shader.SetUniform("uView", Camera.MainCamera.View);
-            Shader.SetUniform("uProjection", Camera.MainCamera.Projection);
+            Shader.SetUniform("uViewProjection",  Camera.MainCamera.View * Camera.MainCamera.Projection);
             
             activeScene.DrawObjects();
         }
