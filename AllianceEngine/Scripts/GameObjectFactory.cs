@@ -21,7 +21,7 @@ namespace AllianceEngine
             griffin.Transform.Position = new Vector3(11f, 1.5f, 16f);
             griffin.AddComponent(new Renderer(ModelType.Griffin, shader));
             griffin.AddComponent(new LoopMovement(type: LoopMovement.LoopType.XZ, speed: 3f, radius: 5f));
-            griffin.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), 5, 1,1,1 ));
+            griffin.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), 1,1,1 ));
 
             return griffin;
         }
@@ -41,7 +41,7 @@ namespace AllianceEngine
 
             light.Transform.Position = new Vector3(15f, 14f, -1000f);
             //starts at night
-            light.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), float.MaxValue, 0, 0,0));
+            light.AddComponent(new Light(shader, new Vector3(0.9f,0.9f,0.9f), 0, 0,0));
             light.AddComponent(new Renderer(ModelType.Cube, shader));
             
             return light;

@@ -9,7 +9,7 @@ namespace AllianceEngine
         private float intensityNoise;
         private Random rand;
         
-        public Flame(Shader shader, Vector3 color, float radius, float ia, float il, float @is, float intensityNoise) : base(shader, color, radius, ia, il, @is)
+        public Flame(Shader shader, Vector3 color, float radius, float ia, float il, float @is, float intensityNoise) : base(shader, color, ia, il, @is)
         {
             this.intensityNoise = intensityNoise;
             rand = new Random();
@@ -24,7 +24,6 @@ namespace AllianceEngine
             
             _shader.SetUniform($"uLights[{_idx}].Pos" , parent.Transform.Position);
             _shader.SetUniform($"uLights[{_idx}].Color" , Color);
-            _shader.SetUniform($"uLights[{_idx}].Radius", Radius);
             _shader.SetUniform($"uLights[{_idx}].Ia", Ia );
             _shader.SetUniform($"uLights[{_idx}].Il", Il);
             _shader.SetUniform($"uLights[{_idx}].Is", Is);

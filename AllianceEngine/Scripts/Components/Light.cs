@@ -16,14 +16,12 @@ namespace AllianceEngine
         protected float Ia { get; set; }
         protected float Il { get; set; }
         protected float Is { get; set; }
-        protected float Radius  { get; set; }
 
-        public Light(Shader shader, Vector3 color, float radius, float ia, float il, float @is)
+        public Light(Shader shader, Vector3 color, float ia, float il, float @is)
         {
             _shader = shader;
             this.Color = color;
             _idx = indexes++;
-            Radius = radius;
             Ia = ia;
             Il = il;
             Is = @is;
@@ -33,7 +31,6 @@ namespace AllianceEngine
         {
             _shader.SetUniform($"uLights[{_idx}].Pos" , parent.Transform.Position);
             _shader.SetUniform($"uLights[{_idx}].Color" , Color);
-            _shader.SetUniform($"uLights[{_idx}].Radius", Radius);
             _shader.SetUniform($"uLights[{_idx}].Ia", Ia);
             _shader.SetUniform($"uLights[{_idx}].Il", Il);
             _shader.SetUniform($"uLights[{_idx}].Is", Is);

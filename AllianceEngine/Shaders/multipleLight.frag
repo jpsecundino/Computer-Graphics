@@ -5,7 +5,6 @@
 struct LightInfo{
     vec3 Color;
     vec3 Pos;
-    float Radius;
     float Ia;
     float Il;
     float Is;
