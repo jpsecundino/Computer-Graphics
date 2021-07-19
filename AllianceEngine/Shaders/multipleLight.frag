@@ -34,18 +34,22 @@ vec3 calculateAmbLight(float intensity, LightInfo light){
 }
 
 vec3 calculateDiffLight(float intensity, LightInfo light){
+    
     vec3 norm = normalize(out_normal);
     vec3 lightDir = normalize(light.Pos - out_fragPos); 
-    float diff1 = max(dot(norm, lightDir), 0.0); 
-    return uMaterial.Kd * diff1 * light.Il * light.Color * intensity;
+    float diff = max(dot(norm, lightDir), 0.0); 
+    
+    return uMaterial.Kd * diff * light.Il * light.Color * intensity;
 }
 
 vec3 calculateSpecLight(float intensity, LightInfo light){
+    
     vec3 norm = normalize(out_normal);
     vec3 viewDir = normalize(uViewPos - out_fragPos);
     vec3 lightDir = normalize(light.Pos - out_fragPos); 
     vec3 reflectDir = normalize(reflect(-lightDir, norm));
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), uMaterial.Ns);
+    
     return uMaterial.Ks * spec * light.Is * light.Color * intensity;  
 }
 
