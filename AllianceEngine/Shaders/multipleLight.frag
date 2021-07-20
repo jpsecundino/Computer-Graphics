@@ -1,6 +1,6 @@
 #version 330 core
 
-#define MAX_LIGHTS 128
+#define MAX_LIGHTS 4
 
 struct LightInfo{
     vec3 Color;

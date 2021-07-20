@@ -19,6 +19,13 @@ namespace AllianceEngine
             this._guid = Guid.NewGuid();
         }
 
+        public void AddComponent<T>(params object[] parameters) where T : Component
+        {
+            T component = (T) Activator.CreateInstance(typeof(T), parameters);
+            component.parent = this;
+            components.Add(component);
+        }
+
         public void AddComponent(Component c)
         {
             c.parent = this;

@@ -1,6 +1,5 @@
 using System;
 using System.Numerics;
-using Silk.NET.Input;
 
 namespace AllianceEngine
 {
