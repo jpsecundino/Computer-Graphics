@@ -27,7 +27,7 @@ Engine is the main class of the program, it controls the flow of the application
 The scene class has a list of all the active GameObjects and handles the components callbacks.
 
 ## RenderPipeline
-The RenderPipeline class takes maintains a reference to all the Renderers on the scene to draw them every frame.
+The RenderPipeline class maintains a reference to all the Renderers on the scene to draw them every frame.
 
 ## ModelManager
 ModelManager return references to Meshes and instantiates new ones only when needed (avoiding memory duplication on the GPU).
@@ -41,7 +41,7 @@ GameObjects have a transform, used to calculate translation, rotation and scale 
 
 ### Component
 Components create behaviour through 3 callbacks:
-- Start: Called while loading window
+- Start: Called when window is first loaded
 - Update: Called Every frame before renderering
 - Destroy: Called at window close
 
